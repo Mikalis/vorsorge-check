@@ -258,25 +258,25 @@ button:focus-visible, a:focus-visible { border-radius: var(--radius-sm); }
 .piggy-stream-btn {
   display: flex;
   align-items: center;
-  gap: 7px;
-  background: var(--bg-subtle);
-  border: 1.5px solid var(--border);
-  border-radius: 100px;
-  padding: 5px 12px 5px 8px;
+  gap: 6px;
+  background: none;
+  border: none;
+  border-radius: 6px;
+  padding: 4px 6px;
   cursor: pointer;
   font-size: 12px;
   font-weight: 700;
-  color: var(--text);
+  color: var(--text-muted);
   font-family: inherit;
-  transition: background var(--transition), border-color var(--transition), transform .1s;
+  transition: color var(--transition), transform .1s;
   -webkit-tap-highlight-color: transparent;
   position: relative;
   overflow: visible;
 }
-.piggy-stream-btn:hover { background: var(--primary-lt); border-color: var(--primary); }
-.piggy-stream-btn:active { transform: scale(.95); }
+.piggy-stream-btn:hover { color: var(--text); }
+.piggy-stream-btn:active { transform: scale(.92); }
 .piggy-stream-dot {
-  width: 10px; height: 10px;
+  width: 8px; height: 8px;
   border-radius: 50%;
   flex-shrink: 0;
 }
