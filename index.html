@@ -1148,6 +1148,177 @@ canvas { width: 100% !important; }
 .goal-only.show { display: block; }
 .full.goal-only.show { display: contents; }
 
+/* ── Tooltip ── */
+.tip {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  position: relative;
+  cursor: help;
+  border-bottom: 1.5px dashed var(--primary);
+  color: inherit;
+  font: inherit;
+  background: none;
+  padding: 0;
+  white-space: nowrap;
+}
+.tip-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: #fff;
+  font-size: 9px;
+  font-weight: 800;
+  flex-shrink: 0;
+  line-height: 1;
+  font-style: normal;
+}
+.tip-bubble {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--zg-1);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.5;
+  padding: 8px 12px;
+  border-radius: 8px;
+  width: 220px;
+  white-space: normal;
+  box-shadow: var(--shadow-lg);
+  z-index: 100;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .15s;
+  font-family: 'Inter', sans-serif;
+}
+.tip-bubble::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: var(--zg-1);
+}
+.tip:hover .tip-bubble,
+.tip:focus .tip-bubble { opacity: 1; }
+.tip:focus { outline: 2px solid var(--primary); outline-offset: 2px; border-radius: 2px; }
+
+/* ── 3a Explainer ── */
+.explainer-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.ex-card {
+  background: var(--bg);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px 14px;
+  text-align: center;
+}
+.ex-icon { color: var(--primary); margin-bottom: 8px; }
+.ex-icon svg { width: 28px; height: 28px; }
+.ex-val { font-size: 20px; font-weight: 900; color: var(--text); font-family: 'Outfit', sans-serif; margin-bottom: 4px; }
+.ex-lbl { font-size: 11px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: .4px; line-height: 1.4; }
+.ex-cta-row { display: flex; gap: 10px; flex-wrap: wrap; }
+.ex-cta {
+  flex: 1;
+  min-width: 140px;
+  padding: 13px 18px;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: 'Outfit', sans-serif;
+  min-height: 44px;
+  transition: background var(--transition), border-color var(--transition), color var(--transition);
+  text-align: center;
+}
+.ex-cta-primary {
+  background: var(--primary);
+  color: #fff;
+  border: none;
+}
+.ex-cta-primary:hover { background: var(--primary-dk); }
+.ex-cta-secondary {
+  background: transparent;
+  color: var(--primary);
+  border: 1.5px solid var(--primary);
+}
+.ex-cta-secondary:hover { background: var(--primary-lt); }
+.ex-faq { margin-top: 14px; display: flex; flex-direction: column; gap: 6px; }
+.ex-faq-item {
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+.ex-faq-q {
+  width: 100%;
+  padding: 12px 16px;
+  background: var(--bg);
+  border: none;
+  text-align: left;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  color: var(--text);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  font-family: inherit;
+  min-height: 44px;
+  transition: background var(--transition);
+}
+.ex-faq-q:hover { background: var(--primary-lt); color: var(--primary-on-lt); }
+.ex-faq-q .faq-arrow { flex-shrink: 0; transition: transform .2s; color: var(--primary); }
+.ex-faq-item.open .faq-arrow { transform: rotate(180deg); }
+.ex-faq-a {
+  display: none;
+  padding: 12px 16px;
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.6;
+  background: var(--card);
+  border-top: 1px solid var(--border);
+}
+.ex-faq-item.open .ex-faq-a { display: block; }
+
+/* ── Zinseszins explainer ── */
+.zins-intro {
+  background: var(--primary-lt);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+  margin-bottom: 16px;
+  border-left: 3px solid var(--primary);
+}
+.zins-intro p { font-size: 14px; line-height: 1.6; color: var(--text); margin: 0; }
+.zins-intro strong { color: var(--primary-on-lt); }
+.zins-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.zins-stat {
+  background: var(--bg);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 12px 10px;
+  text-align: center;
+}
+.zins-stat .zs-val { font-size: 18px; font-weight: 900; color: var(--primary); font-family: 'Outfit', sans-serif; }
+.zins-stat .zs-lbl { font-size: 10px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: .3px; margin-top: 3px; line-height: 1.3; }
+
 /* ── Footer ── */
 .footer { text-align: center; font-size: 11px; color: var(--text-muted); margin-top: 40px; line-height: 1.7; opacity: .8; }
 
@@ -1157,6 +1328,7 @@ canvas { width: 100% !important; }
   .full { grid-column: auto; }
   .achiev-row, .compare-grid, .dream-grid { grid-template-columns: 1fr; }
   .tax-result { grid-template-columns: 1fr; }
+  .explainer-grid, .zins-stats { grid-template-columns: 1fr; }
 }
 @media (max-width: 600px) {
   .donut-row { flex-direction: column; align-items: center; }
@@ -1365,12 +1537,16 @@ canvas { width: 100% !important; }
         </div>
         <div class="legend">
           <button type="button" class="lrow" data-det="ahv">
-            <span class="lbl"><span class="dot" style="background:var(--zc-blue-zurich)"></span>Staat zahlt (AHV)</span>
+            <span class="lbl"><span class="dot" style="background:var(--zc-blue-zurich)"></span>Staat zahlt
+              <button type="button" class="tip" tabindex="0" style="font-size:11px" onclick="event.stopPropagation()">AHV<span class="tip-icon" aria-hidden="true">i</span><span class="tip-bubble" role="tooltip">Alters- und Hinterlassenenversicherung — die staatliche Rente, die du automatisch bekommst.</span></button>
+            </span>
             <span class="v">CHF 2'200</span>
           </button>
           <div class="lrow-detail" id="det-ahv">Die staatliche Rente — fliesst automatisch ab 65. Du zahlst jeden Monat über den Lohn ein, ohne etwas zu tun.</div>
           <button type="button" class="lrow" data-det="pk">
-            <span class="lbl"><span class="dot" style="background:var(--zc-lilac-100)"></span>Arbeitgeber zahlt mit (PK)</span>
+            <span class="lbl"><span class="dot" style="background:var(--zc-lilac-100)"></span>Arbeitgeber zahlt mit
+              <button type="button" class="tip" tabindex="0" style="font-size:11px" onclick="event.stopPropagation()">PK<span class="tip-icon" aria-hidden="true">i</span><span class="tip-bubble" role="tooltip">Pensionskasse — dein Arbeitgeber zahlt mindestens gleich viel wie du. Pflicht ab CHF 22'050 Jahreslohn.</span></button>
+            </span>
             <span class="v">CHF 1'515</span>
           </button>
           <div class="lrow-detail" id="det-pk">Dein Arbeitgeber zahlt mindestens gleich viel wie du — das ist dein grösster Hebel, sobald du arbeitest.</div>
@@ -1378,7 +1554,7 @@ canvas { width: 100% !important; }
             <span class="lbl"><span class="dot" style="background:var(--zc-peach-100)"></span>Was noch fehlt</span>
             <span class="v" style="color:var(--danger)" id="legendGap">CHF 951</span>
           </button>
-          <div class="lrow-detail" id="det-luecke">Das ist der Betrag, der monatlich fehlt, damit du im Alter gleich viel hast wie heute. Den kannst du selbst schliessen — zum Beispiel mit einem 3a-Konto.</div>
+          <div class="lrow-detail" id="det-luecke">Das ist der Betrag, der monatlich fehlt, damit du im Alter gleich viel hast wie heute. Den kannst du selbst schliessen — zum Beispiel mit einem <button type="button" class="tip" tabindex="0" onclick="event.stopPropagation()">3a-Konto<span class="tip-icon" aria-hidden="true">i</span><span class="tip-bubble" role="tooltip">Freiwilliges Vorsorge-Sparkonto mit Steuervorteilen — du zahlst selbst ein, wann und wie viel du willst.</span></button>.</div>
           <div class="lrow lrow-total">
             <span class="lbl">Ziel-Rente (Demo)</span>
             <span class="v">CHF 4'667</span>
@@ -1430,7 +1606,7 @@ canvas { width: 100% !important; }
         <input type="range" id="rPrice" min="400000" max="2000000" step="10000" value="620000">
       </div>
       <div class="field">
-        <label>Eigenkapital-Ziel <output id="outEq">20%</output></label>
+        <label><button type="button" class="tip" tabindex="0">Eigenkapital<span class="tip-icon" aria-hidden="true">i</span><span class="tip-bubble" role="tooltip">Der Anteil, den du selbst mitbringst — mindestens 20% des Kaufpreises. Davon müssen 10% aus eigenen Mitteln kommen (nicht aus der PK).</span></button>-Ziel <output id="outEq">20%</output></label>
         <input type="range" id="rEq" min="10" max="35" step="1" value="20">
       </div>
       <div class="field">
@@ -1438,7 +1614,7 @@ canvas { width: 100% !important; }
         <input type="range" id="rSave" min="50" max="2000" step="50" value="400">
       </div>
       <div class="field">
-        <label>Rendite (Annahme) <output id="outYield">5.0%</output></label>
+        <label><button type="button" class="tip" tabindex="0">Rendite<span class="tip-icon" aria-hidden="true">i</span><span class="tip-bubble" role="tooltip">Wie viel dein Gespartes pro Jahr wächst — z.B. durch ein Sparkonto oder Investitionen. Kein Sparkonto zahlt 5%, aber Fonds können das langfristig erreichen.</span></button> (Annahme) <output id="outYield">5.0%</output></label>
         <input type="range" id="rYield" min="0" max="10" step="0.5" value="5">
       </div>
       <div class="house-result" id="houseResult" role="status"></div>
@@ -1509,7 +1685,7 @@ canvas { width: 100% !important; }
       </div>
       <div class="tax-result" id="taxResult">
         <div class="tax-stat"><div class="ts-val" id="taxSave">–</div><div class="ts-lbl">Steuer-Ersparnis</div></div>
-        <div class="tax-stat"><div class="ts-val" id="taxRoi">–</div><div class="ts-lbl">Sofort-Rendite</div></div>
+        <div class="tax-stat"><div class="ts-val" id="taxRoi">–</div><div class="ts-lbl"><button type="button" class="tip" tabindex="0" style="font-size:11px;text-transform:uppercase;letter-spacing:.4px">Sofort-Rendite<span class="tip-icon" aria-hidden="true">i</span><span class="tip-bubble" role="tooltip">Wieviel % du sofort zurückbekommst — allein durch die Steuerersparnis, noch bevor dein Geld irgendeine Rendite macht.</span></button></div></div>
         <div class="tax-stat"><div class="ts-val" id="taxNet">–</div><div class="ts-lbl">Netto-Kosten</div></div>
       </div>
     </div>
@@ -1559,42 +1735,78 @@ canvas { width: 100% !important; }
       </div>
     </div>
 
-    <!-- ── 3a Anbieter-Vergleich ── -->
+    <!-- ── 3a Erklärer ── -->
     <div class="card full" style="animation-delay:.34s">
       <div class="slabel">
         <div class="slabel-icon" aria-hidden="true">
-          <!-- compare icon -->
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
         </div>
-        <span class="slabel-text">3a Anbieter — Demo-Vergleich</span>
+        <span class="slabel-text">Was ist ein 3a-Konto — und lohnt es sich?</span>
       </div>
-      <div class="compare-grid" id="compareGrid">
-        <button type="button" class="compare-card on" data-cc="zurich">
-          <div class="cc-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+      <p style="font-size:14px;color:var(--text-muted);line-height:1.6;margin-bottom:16px">Das 3a-Konto ist dein persönlicher Vorsorge-Sparplan — du zahlst freiwillig ein, sparst Steuern und baust Vermögen auf.</p>
+      <div class="explainer-grid">
+        <div class="ex-card">
+          <div class="ex-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2"/><path d="M6 12h.01M18 12h.01"/></svg>
           </div>
-          <div class="cc-name">Zurich 3a</div>
-          <div class="cc-fee">Versicherung + Investment</div>
-          <span class="cc-badge">Beratung inklusive</span>
-        </button>
-        <button type="button" class="compare-card" data-cc="finpension">
-          <div class="cc-icon">
+          <div class="ex-val">CHF 7'258</div>
+          <div class="ex-lbl">Max. Einzahlung pro Jahr (2026)</div>
+        </div>
+        <div class="ex-card">
+          <div class="ex-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
           </div>
-          <div class="cc-name">finpension</div>
-          <div class="cc-fee">~0.39% TER</div>
-          <span class="cc-badge">Günstigste Gebühren</span>
-        </button>
-        <button type="button" class="compare-card" data-cc="viac">
-          <div class="cc-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          <div class="ex-val">~CHF 1'450</div>
+          <div class="ex-lbl">Steuern gespart pro Jahr (Zürich, 70k)</div>
+        </div>
+        <div class="ex-card">
+          <div class="ex-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
           </div>
-          <div class="cc-name">VIAC</div>
-          <div class="cc-fee">~0.52% TER</div>
-          <span class="cc-badge">Sehr beliebt</span>
+          <div class="ex-val">bis 100%</div>
+          <div class="ex-lbl">Aktienanteil möglich — du wählst die Strategie</div>
+        </div>
+      </div>
+
+      <div class="ex-faq" id="exFaq">
+        <div class="ex-faq-item">
+          <button type="button" class="ex-faq-q" data-faq="0">
+            Wann komme ich ans Geld?
+            <svg class="faq-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="ex-faq-a">Ab 60 Jahren — oder früher, wenn du ein Haus kaufst, selbstständig wirst oder die Schweiz verlässt. Das Geld ist also nicht für immer weg, aber auch nicht für den nächsten Urlaub.</div>
+        </div>
+        <div class="ex-faq-item">
+          <button type="button" class="ex-faq-q" data-faq="1">
+            Was passiert, wenn ich mal nichts einzahle?
+            <svg class="faq-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="ex-faq-a">Nichts passiert. Du kannst jedes Jahr selbst entscheiden, ob und wie viel du einzahlst — von 0 bis zum Maximum. Kein Zwang, keine Strafe.</div>
+        </div>
+        <div class="ex-faq-item">
+          <button type="button" class="ex-faq-q" data-faq="2">
+            Bankkonto oder Versicherung — was ist besser?
+            <svg class="faq-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="ex-faq-a">Das kommt auf deine Situation an. Ein Beratungsgespräch hilft dir, die richtige Lösung zu finden — zum Beispiel ob du Risikoschutz (Invalidität, Tod) kombinieren willst oder lieber flexibel bleibst.</div>
+        </div>
+        <div class="ex-faq-item">
+          <button type="button" class="ex-faq-q" data-faq="3">
+            Wie viel Steuern spare ich wirklich?
+            <svg class="faq-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="ex-faq-a">Jeder Franken, den du einzahlst, reduziert dein steuerbares Einkommen. Bei einem Lohn von CHF 70'000 in Zürich sind das rund CHF 1'450 pro Jahr — also fast 20% der Einzahlung zurück vom Staat.</div>
+        </div>
+      </div>
+
+      <div class="ex-cta-row" style="margin-top:16px">
+        <button type="button" class="ex-cta ex-cta-primary" onclick="window.open('https://outlook.office.com/book/VideoberatungmitExperten@zurichinsurance.onmicrosoft.com/?ismsaljsauthenabled','_blank')">
+          Persönliche Beratung buchen →
+        </button>
+        <button type="button" class="ex-cta ex-cta-secondary" onclick="document.getElementById('taxIncome').scrollIntoView({behavior:'smooth'})">
+          Meine Steuerersparnis berechnen
         </button>
       </div>
-      <div class="compare-detail open" id="compareDetail"></div>
     </div>
 
     <!-- ── Buchungs-Kalender ── -->
@@ -1622,17 +1834,48 @@ canvas { width: 100% !important; }
     <div class="card" style="animation-delay:.38s">
       <div class="slabel">
         <div class="slabel-icon" aria-hidden="true">
-          <!-- line-chart icon -->
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
         </div>
-        <span class="slabel-text">Zinseszins-Booster · 40 Jahre</span>
+        <span class="slabel-text">Früh anfangen lohnt sich — sieh selbst</span>
       </div>
+
+      <div class="zins-intro">
+        <p>Du zahlst <strong>CHF 200/Monat</strong> ein — und nach 40 Jahren hast du nicht einfach das Eingezahlte, sondern fast das <strong>4-fache</strong>. Warum? Weil dein Geld Rendite macht, und diese Rendite wieder Rendite macht. Das nennt sich
+          <button type="button" class="tip" tabindex="0">Zinseszins<span class="tip-icon" aria-hidden="true">i</span><span class="tip-bubble" role="tooltip">Deine Rendite wird reinvestiert — und macht selbst wieder Rendite. Je früher du anfängst, desto mehr profitierst du davon.</span></button>.
+        </p>
+      </div>
+
+      <div class="zins-stats" id="zinsStats">
+        <div class="zins-stat">
+          <div class="zs-val" id="zsEingezahlt">–</div>
+          <div class="zs-lbl">Selbst eingezahlt</div>
+        </div>
+        <div class="zins-stat">
+          <div class="zs-val" id="zsEndwert">–</div>
+          <div class="zs-lbl">Endwert nach 40 J.</div>
+        </div>
+        <div class="zins-stat">
+          <div class="zs-val" id="zsBonus">–</div>
+          <div class="zs-lbl">Rendite-Bonus</div>
+        </div>
+      </div>
+
       <div class="toggle-row">
-        <button type="button" class="tog on" onclick="setScenario('opt')">Optimistisch (6%)</button>
-        <button type="button" class="tog" onclick="setScenario('mid')">Mitte (5%)</button>
-        <button type="button" class="tog" onclick="setScenario('con')">Konservativ (4%)</button>
+        <button type="button" class="tog on" onclick="setScenario('opt')">
+          Gut (6%)
+          <button type="button" class="tip" tabindex="0" style="font-size:11px;border-bottom:none;margin-left:2px" onclick="event.stopPropagation()"><span class="tip-icon" aria-hidden="true">i</span><span class="tip-bubble" role="tooltip">Historische Rendite eines globalen Aktienportfolios — möglich, aber nicht garantiert.</span></button>
+        </button>
+        <button type="button" class="tog" onclick="setScenario('mid')">
+          Mittel (5%)
+          <button type="button" class="tip" tabindex="0" style="font-size:11px;border-bottom:none;margin-left:2px" onclick="event.stopPropagation()"><span class="tip-icon" aria-hidden="true">i</span><span class="tip-bubble" role="tooltip">Gemischtes Portfolio aus Aktien und Obligationen — realistischer Mittelwert.</span></button>
+        </button>
+        <button type="button" class="tog" onclick="setScenario('con')">
+          Konservativ (4%)
+          <button type="button" class="tip" tabindex="0" style="font-size:11px;border-bottom:none;margin-left:2px" onclick="event.stopPropagation()"><span class="tip-icon" aria-hidden="true">i</span><span class="tip-bubble" role="tooltip">Mehr Obligationen, weniger Schwankung — aber auch weniger Wachstum.</span></button>
+        </button>
       </div>
       <div class="chart-area"><canvas id="chart"></canvas></div>
+      <p style="font-size:11px;color:var(--text-muted);margin-top:8px;line-height:1.5">Vereinfachte Simulation, keine Garantie. Steuern und Gebühren nicht eingerechnet.</p>
     </div>
 
     <!-- ── Achievements ── -->
@@ -2108,21 +2351,14 @@ canvas { width: 100% !important; }
     toast(item.querySelector('.tl-title').textContent + ' — im Blick behalten');
   });
 
-  /* ── 3a Compare ── */
-  const ccCopy = {
-    zurich:     '<strong>Zurich 3a:</strong> Versicherungslösung mit persönlicher Beratung. Kombination aus Risikoschutz und Investment. Ideal wenn du Beratung schätzt.',
-    finpension: '<strong>finpension:</strong> Günstigste Gebühren im Markt (~0.39% TER). Rein digital, hohe Aktienquote möglich. Für selbstständige Entscheider.',
-    viac:       '<strong>VIAC:</strong> Sehr beliebt, ~0.52% TER, App-first. Gute Balance aus Gebühren und Features. Einfacher Einstieg.'
-  };
-  const compareDetail = document.getElementById('compareDetail');
-  compareDetail.innerHTML = ccCopy.zurich;
-  document.getElementById('compareGrid').addEventListener('click', e => {
-    const b = e.target.closest('.compare-card');
-    if (!b) return;
-    document.querySelectorAll('.compare-card').forEach(c => c.classList.remove('on'));
-    b.classList.add('on');
-    compareDetail.innerHTML = ccCopy[b.dataset.cc] || '';
-    compareDetail.classList.add('open');
+  /* ── 3a FAQ accordion ── */
+  document.getElementById('exFaq').addEventListener('click', e => {
+    const btn = e.target.closest('.ex-faq-q');
+    if (!btn) return;
+    const item = btn.closest('.ex-faq-item');
+    const wasOpen = item.classList.contains('open');
+    document.querySelectorAll('.ex-faq-item').forEach(i => i.classList.remove('open'));
+    if (!wasOpen) item.classList.add('open');
   });
 
   /* ── Achievements ── */
@@ -2236,7 +2472,7 @@ canvas { width: 100% !important; }
   let chrt = null;
 
   function initChart() {
-    if (chrt) return;
+    if (chrt) { updateZinsStats('opt'); return; }
     const ctx = document.getElementById('chart').getContext('2d');
     chrt = new Chart(ctx, {
       type: 'line',
@@ -2273,6 +2509,16 @@ canvas { width: 100% !important; }
         }
       }
     });
+    updateZinsStats('opt');
+  }
+
+  function updateZinsStats(s) {
+    const endVal = datasets[s][1][Y]; // CHF 200/Mt scenario
+    const eingezahlt = 200 * 12 * Y;
+    const bonus = endVal - eingezahlt;
+    document.getElementById('zsEingezahlt').textContent = fmt(eingezahlt);
+    document.getElementById('zsEndwert').textContent = fmt(endVal);
+    document.getElementById('zsBonus').textContent = '+' + fmt(bonus);
   }
 
   window.setScenario = function (s) {
@@ -2281,8 +2527,9 @@ canvas { width: 100% !important; }
     chrt.update();
     document.querySelectorAll('.tog').forEach(b => {
       const t = b.textContent.toLowerCase();
-      b.classList.toggle('on', (s==='opt'&&t.includes('optimistisch'))||(s==='mid'&&t.includes('mitte'))||(s==='con'&&t.includes('konservativ')));
+      b.classList.toggle('on', (s==='opt'&&t.includes('gut'))||(s==='mid'&&t.includes('mittel'))||(s==='con'&&t.includes('konservativ')));
     });
+    updateZinsStats(s);
   };
 
 })();
