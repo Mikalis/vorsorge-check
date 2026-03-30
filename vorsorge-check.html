@@ -216,7 +216,10 @@ button:focus-visible, a:focus-visible { border-radius: var(--radius-sm); }
 .piggy-wrap {
   display: flex;
   justify-content: center;
+  align-items: flex-end;
+  gap: 20px;
   margin-bottom: 20px;
+  position: relative;
 }
 .piggy-btn {
   background: none;
@@ -244,20 +247,50 @@ button:focus-visible, a:focus-visible { border-radius: var(--radius-sm); }
   60%      { transform: rotate(-5deg); }
   80%      { transform: rotate(4deg); }
 }
-@keyframes coin-fly {
-  0%   { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
-  100% { opacity: 0; transform: translateX(-50%) translateY(-52px) scale(.7); }
-}
 .piggy-btn.jiggle .piggy-svg { animation: piggy-wiggle .5s ease; }
-.coin-pop {
-  position: absolute;
-  top: -4px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 18px;
+/* Coin streams */
+.piggy-streams {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-end;
+}
+.piggy-stream-btn {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: var(--bg-subtle);
+  border: 1.5px solid var(--border);
+  border-radius: 100px;
+  padding: 5px 12px 5px 8px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text);
+  font-family: inherit;
+  transition: background var(--transition), border-color var(--transition), transform .1s;
+  -webkit-tap-highlight-color: transparent;
+  position: relative;
+  overflow: visible;
+}
+.piggy-stream-btn:hover { background: var(--primary-lt); border-color: var(--primary); }
+.piggy-stream-btn:active { transform: scale(.95); }
+.piggy-stream-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+@keyframes coin-arc {
+  0%   { opacity: 1; transform: translate(0,0) scale(1); }
+  60%  { opacity: 1; }
+  100% { opacity: 0; transform: translate(var(--cx), var(--cy)) scale(.5); }
+}
+.coin-arc {
+  position: fixed;
+  font-size: 16px;
   pointer-events: none;
-  animation: coin-fly .55s ease-out forwards;
-  line-height: 1;
+  z-index: 9999;
+  animation: coin-arc .6s cubic-bezier(.4,0,.2,1) forwards;
 }
 .piggy-hint {
   font-size: 11px;
@@ -265,6 +298,7 @@ button:focus-visible, a:focus-visible { border-radius: var(--radius-sm); }
   margin-top: 6px;
   opacity: .7;
   font-weight: 500;
+  text-align: center;
 }
 .hero-badge {
   display: inline-flex;
@@ -1277,40 +1311,42 @@ canvas { width: 100% !important; }
   <!-- Hero -->
   <div class="hero">
     <div class="piggy-wrap">
+      <!-- Coin source buttons (left) -->
+      <div class="piggy-streams" id="piggyStreams">
+        <button type="button" class="piggy-stream-btn" data-source="ahv" data-color="#0047BB" aria-label="AHV-Münze einwerfen">
+          <span class="piggy-stream-dot" style="background:#0047BB"></span>AHV
+        </button>
+        <button type="button" class="piggy-stream-btn" data-source="pk" data-color="#7C5CBF" aria-label="PK-Münze einwerfen">
+          <span class="piggy-stream-dot" style="background:#7C5CBF"></span>PK
+        </button>
+        <button type="button" class="piggy-stream-btn" data-source="3a" data-color="#E8A838" aria-label="3a-Münze einwerfen">
+          <span class="piggy-stream-dot" style="background:#E8A838"></span>3a
+        </button>
+      </div>
+      <!-- Piggy -->
       <div>
         <button type="button" class="piggy-btn" id="piggyBtn" aria-label="Sparschwein antippen">
           <svg class="piggy-svg" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <!-- Body -->
             <ellipse cx="60" cy="68" rx="38" ry="32" fill="#F9A8C9"/>
-            <!-- Head -->
             <circle cx="60" cy="42" r="24" fill="#F9A8C9"/>
-            <!-- Ear left -->
             <ellipse cx="40" cy="24" rx="9" ry="11" fill="#F472B6" transform="rotate(-15 40 24)"/>
             <ellipse cx="40" cy="24" rx="5.5" ry="7" fill="#FBCFE8" transform="rotate(-15 40 24)"/>
-            <!-- Ear right -->
             <ellipse cx="80" cy="24" rx="9" ry="11" fill="#F472B6" transform="rotate(15 80 24)"/>
             <ellipse cx="80" cy="24" rx="5.5" ry="7" fill="#FBCFE8" transform="rotate(15 80 24)"/>
-            <!-- Snout -->
             <ellipse cx="60" cy="52" rx="12" ry="8" fill="#F472B6"/>
-            <!-- Nostrils -->
             <circle cx="55.5" cy="52.5" r="2.5" fill="#DB2777"/>
             <circle cx="64.5" cy="52.5" r="2.5" fill="#DB2777"/>
-            <!-- Eyes -->
             <circle cx="50" cy="37" r="4" fill="white"/>
             <circle cx="70" cy="37" r="4" fill="white"/>
             <circle cx="51" cy="37" r="2.2" fill="#1a1a1a"/>
             <circle cx="71" cy="37" r="2.2" fill="#1a1a1a"/>
-            <!-- Eye shine -->
             <circle cx="52" cy="36" r=".9" fill="white"/>
             <circle cx="72" cy="36" r=".9" fill="white"/>
-            <!-- Legs -->
             <rect x="32" y="92" width="14" height="18" rx="7" fill="#F472B6"/>
             <rect x="50" y="94" width="14" height="16" rx="7" fill="#F472B6"/>
             <rect x="56" y="94" width="14" height="16" rx="7" fill="#F472B6"/>
             <rect x="74" y="92" width="14" height="18" rx="7" fill="#F472B6"/>
-            <!-- Coin slot on back -->
             <rect x="52" y="38" width="16" height="4" rx="2" fill="#DB2777" opacity=".6"/>
-            <!-- Tail -->
             <path d="M98 70 Q108 60 104 52 Q100 44 108 40" stroke="#F472B6" stroke-width="3.5" stroke-linecap="round" fill="none"/>
           </svg>
         </button>
@@ -1819,24 +1855,75 @@ canvas { width: 100% !important; }
 
   /* ── Piggy ── */
   const piggyBtn = document.getElementById('piggyBtn');
-  const piggyMsgs = [
-    'Oink! 🐷', '+1 XP für Mut!', 'Spar weiter so!', 'Münze eingeworfen!',
-    'Oink oink!', 'Du bist auf dem richtigen Weg!', 'Jeder Franken zählt!'
+  const piggyFacts = {
+    ahv: [
+      'AHV: Staat zahlt dir ab 65 automatisch — du zahlst schon heute jeden Monat ein.',
+      'AHV-Max 2026: CHF 2\'450/Mt — nur erreichbar mit 44 vollen Beitragsjahren.',
+      'Lücke im Lebenslauf? Jedes fehlende Jahr kostet ~2.3% AHV-Rente lebenslang.',
+      'AHV ist Umlageverfahren: Dein Beitrag zahlt die heutigen Renten — deine kommt von den Nächsten.',
+    ],
+    pk: [
+      'PK: Dein Arbeitgeber zahlt mindestens gleich viel wie du — das ist dein grösster Hebel.',
+      'PK-Einkauf ab 50: Einzahlungen in die PK sind voll steuerabzugsfähig — grosser Hebel!',
+      'Job wechseln? Freizügigkeitsguthaben mitnehmen — nie auf einem Freizügigkeitskonto liegenlassen.',
+      'PK-Umwandlungssatz sinkt: Heute ~6.8%, Trend nach unten — 3a wird wichtiger.',
+    ],
+    '3a': [
+      '3a 2026: Max CHF 7\'258/Jahr einzahlen — und sofort Steuern sparen.',
+      'Früh anfangen: CHF 200/Mt über 40 Jahre → ~CHF 230k (bei 5% Rendite). Warten kostet.',
+      '3a für Haus: Du kannst dein 3a-Guthaben für Wohneigentum vorbeziehen (WEF).',
+      'Mehrere 3a-Konten möglich — sinnvoll, um Steuern beim Bezug zu staffeln.',
+    ],
+  };
+  const piggyGeneric = [
+    'Jeder Franken früher = mehr Zinseszins. Warten kostet.',
+    'Schweizer Vorsorge: 3 Säulen — Staat, Arbeitgeber, du selbst.',
+    'Oink! Das Schwein freut sich über jeden Franken. 🐷',
   ];
-  let piggyCount = 0;
+  const piggySourceCount = { ahv: 0, pk: 0, '3a': 0, generic: 0 };
+
+  function launchCoinToTarget(fromEl) {
+    const fromRect = fromEl.getBoundingClientRect();
+    const toRect = piggyBtn.getBoundingClientRect();
+    const coin = document.createElement('span');
+    coin.className = 'coin-arc';
+    coin.textContent = '🪙';
+    const startX = fromRect.right - 8;
+    const startY = fromRect.top + fromRect.height / 2 - 8;
+    const dx = (toRect.left + toRect.width / 2) - startX;
+    const dy = (toRect.top + toRect.height * 0.35) - startY;
+    coin.style.left = startX + 'px';
+    coin.style.top  = startY + 'px';
+    coin.style.setProperty('--cx', dx + 'px');
+    coin.style.setProperty('--cy', dy + 'px');
+    document.body.appendChild(coin);
+    coin.addEventListener('animationend', () => {
+      coin.remove();
+      piggyBtn.classList.remove('jiggle');
+      void piggyBtn.offsetWidth;
+      piggyBtn.classList.add('jiggle');
+    });
+  }
+
+  document.getElementById('piggyStreams').addEventListener('click', e => {
+    const btn = e.target.closest('.piggy-stream-btn');
+    if (!btn) return;
+    const src = btn.dataset.source;
+    launchCoinToTarget(btn);
+    const facts = piggyFacts[src] || piggyGeneric;
+    const idx = piggySourceCount[src] || 0;
+    toast(facts[idx % facts.length]);
+    piggySourceCount[src] = idx + 1;
+    addXp(1, null);
+  });
+
   piggyBtn.addEventListener('click', () => {
     piggyBtn.classList.remove('jiggle');
-    void piggyBtn.offsetWidth; // reflow to restart animation
+    void piggyBtn.offsetWidth;
     piggyBtn.classList.add('jiggle');
-    // Coin pop
-    const coin = document.createElement('span');
-    coin.className = 'coin-pop';
-    coin.textContent = '🪙';
-    piggyBtn.appendChild(coin);
-    coin.addEventListener('animationend', () => coin.remove());
-    // Toast
-    toast(piggyMsgs[piggyCount % piggyMsgs.length]);
-    piggyCount++;
+    const idx = piggySourceCount.generic || 0;
+    toast(piggyGeneric[idx % piggyGeneric.length]);
+    piggySourceCount.generic = idx + 1;
     addXp(1, null);
   });
 
