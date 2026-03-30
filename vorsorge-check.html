@@ -255,11 +255,76 @@ button:focus-visible, a:focus-visible { border-radius: var(--radius-sm); }
   50%      { transform: scale(1.04); }
 }
 
-/* ── Hero ── */
-.hero {
-  text-align: center;
-  padding: 40px 0 28px;
+/* ── Hero (gamified arena, full-bleed band) ── */
+.hero-shell {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  position: relative;
+  margin-bottom: 28px;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border);
+  background:
+    linear-gradient(155deg, var(--primary-lt) 0%, var(--card) 42%, var(--bg-subtle) 100%);
   animation: fadeUp .6s ease-out;
+}
+.hero-shell::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(var(--primary) 1.2px, transparent 1.2px);
+  background-size: 22px 22px;
+  opacity: 0.11;
+  pointer-events: none;
+}
+.hero-shell::after {
+  content: "";
+  position: absolute;
+  width: 140%;
+  height: 60%;
+  top: -20%;
+  left: -20%;
+  background: radial-gradient(ellipse at 30% 20%, rgba(0, 180, 160, 0.14) 0%, transparent 55%),
+              radial-gradient(ellipse at 85% 60%, rgba(123, 97, 196, 0.12) 0%, transparent 50%);
+  pointer-events: none;
+}
+@keyframes hero-orbit {
+  0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.55; }
+  50% { transform: translate(6px, -4px) scale(1.05); opacity: 0.85; }
+}
+.hero-deco {
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+  font-size: 18px;
+  line-height: 1;
+  opacity: 0.35;
+  animation: hero-orbit 5s ease-in-out infinite;
+}
+.hero-deco:nth-child(1) { top: 12%; left: 6%; animation-delay: 0s; }
+.hero-deco:nth-child(2) { top: 22%; right: 8%; animation-delay: -1.2s; }
+.hero-deco:nth-child(3) { bottom: 38%; left: 4%; animation-delay: -2.4s; font-size: 14px; }
+.hero-deco:nth-child(4) { bottom: 32%; right: 5%; animation-delay: -3.1s; }
+.hero-deco:nth-child(5) { top: 48%; left: 12%; animation-delay: -1.8s; font-size: 12px; opacity: 0.25; }
+.hero-deco:nth-child(6) { top: 40%; right: 14%; animation-delay: -2.7s; font-size: 12px; opacity: 0.25; }
+[data-theme="dark"] .hero-shell {
+  background: linear-gradient(155deg, #152238 0%, var(--card) 50%, var(--bg) 100%);
+  border-bottom-color: var(--border);
+}
+[data-theme="dark"] .hero-shell::before {
+  background-image: radial-gradient(var(--primary) 1.2px, transparent 1.2px);
+  opacity: 0.08;
+}
+.hero {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 36px 20px 28px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-deco { animation: none; }
 }
 
 /* ── Piggy ── */
@@ -365,12 +430,13 @@ button:focus-visible, a:focus-visible { border-radius: var(--radius-sm); }
   margin-bottom: 16px;
 }
 .hero h1 {
-  font-size: clamp(1.75rem, 5vw, 2.5rem);
+  font-size: clamp(1.75rem, 5vw, 2.65rem);
   font-weight: 900;
   line-height: 1.15;
   color: var(--text);
-  max-width: 600px;
+  max-width: 920px;
   margin: 0 auto 12px;
+  text-wrap: balance;
 }
 /* em in hero sits on --bg (sand/dark), primary is fine here both modes */
 .hero h1 em { color: var(--primary); font-style: normal; }
@@ -384,7 +450,105 @@ button:focus-visible, a:focus-visible { border-radius: var(--radius-sm); }
 .hero-hint {
   font-size: 12px;
   color: var(--text-muted);
-  opacity: .7;
+  opacity: .85;
+  max-width: 560px;
+  margin: 0 auto;
+}
+.hero-tray {
+  margin-top: 22px;
+  width: 100%;
+  text-align: left;
+}
+.hero-tray-label {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin: 0 0 10px 2px;
+}
+.hero-profile-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  width: 100%;
+}
+.hero-profile-grid .pill {
+  border-radius: var(--radius);
+  min-height: 44px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  text-align: left;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  border-width: 2px;
+}
+.hero-profile-grid .pill.on {
+  box-shadow: 0 0 0 2px var(--zc-mint-100), 0 8px 24px rgba(0, 71, 187, 0.12);
+}
+[data-theme="dark"] .hero-profile-grid .pill.on {
+  box-shadow: 0 0 0 2px var(--zc-mint-100), 0 8px 28px rgba(0, 0, 0, 0.35);
+}
+.hero-slot-tag {
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  opacity: 0.9;
+}
+.hero-profile-grid .pill.on .hero-slot-tag { color: rgba(255, 255, 255, 0.85); }
+.hero-slot-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+.hero-slot-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--primary);
+}
+[data-theme="dark"] .hero-slot-icon {
+  background: rgba(255, 255, 255, 0.08);
+}
+.hero-profile-grid .pill.on .hero-slot-icon {
+  background: rgba(255, 255, 255, 0.22);
+  color: #fff;
+}
+.hero-slot-icon svg { width: 22px; height: 22px; stroke-width: 2; }
+.hero-slot-text { min-width: 0; flex: 1; }
+.hero-slot-title {
+  display: block;
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+.hero-slot-sub {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  opacity: 0.88;
+  margin-top: 2px;
+}
+.hero-slot-xp {
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--zc-mint-100);
+  margin-top: 2px;
+}
+.hero-profile-grid .pill.on .hero-slot-xp { color: rgba(255, 255, 255, 0.9); }
+@media (max-width: 640px) {
+  .hero-profile-grid { grid-template-columns: 1fr; }
 }
 
 /* ── Level Bar ── */
@@ -1368,8 +1532,14 @@ canvas { width: 100% !important; }
 
 <div class="container">
 
-  <!-- Hero -->
-  <!-- Hero -->
+  <!-- Hero (full-width gamified arena) -->
+  <div class="hero-shell">
+    <span class="hero-deco" aria-hidden="true">✦</span>
+    <span class="hero-deco" aria-hidden="true">◇</span>
+    <span class="hero-deco" aria-hidden="true">✧</span>
+    <span class="hero-deco" aria-hidden="true">✦</span>
+    <span class="hero-deco" aria-hidden="true">+XP</span>
+    <span class="hero-deco" aria-hidden="true">🪙</span>
   <div class="hero">
     <div class="piggy-wrap">
       <!-- Coin source buttons (left) -->
@@ -1417,11 +1587,51 @@ canvas { width: 100% !important; }
     <h1>Hallo, <em id="heroName">Michalis</em> — dein Vorsorge-Check</h1>
     <p class="hero-sub">Was du heute tun kannst — einfach erklärt.</p>
     <p class="hero-hint">Karten klicken · Quests erledigen = XP · Demo-Zahlen</p>
-    <div class="pills" id="profilePills" role="group" aria-label="Alter / Situation" style="justify-content:center;margin-top:16px">
-      <button type="button" class="pill on" data-profile="student">22 J. · Studium</button>
-      <button type="button" class="pill" data-profile="youngpro">26 J. · Berufseinstieg</button>
-      <button type="button" class="pill" data-profile="nest">32 J. · Familie</button>
+    <div class="hero-tray">
+      <p class="hero-tray-label">Dein Spielstand — Profil wählen</p>
+      <div class="pills hero-profile-grid" id="profilePills" role="group" aria-label="Alter / Situation">
+        <button type="button" class="pill hero-slot on" data-profile="student">
+          <span class="hero-slot-tag">Path A</span>
+          <span class="hero-slot-row">
+            <span class="hero-slot-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            </span>
+            <span class="hero-slot-text">
+              <span class="hero-slot-title">22 J.</span>
+              <span class="hero-slot-sub">Studium</span>
+              <span class="hero-slot-xp">Start-Bonus · hohe Lücke</span>
+            </span>
+          </span>
+        </button>
+        <button type="button" class="pill hero-slot" data-profile="youngpro">
+          <span class="hero-slot-tag">Path B</span>
+          <span class="hero-slot-row">
+            <span class="hero-slot-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+            </span>
+            <span class="hero-slot-text">
+              <span class="hero-slot-title">26 J.</span>
+              <span class="hero-slot-sub">Berufseinstieg</span>
+              <span class="hero-slot-xp">PK läuft · 3a maxen</span>
+            </span>
+          </span>
+        </button>
+        <button type="button" class="pill hero-slot" data-profile="nest">
+          <span class="hero-slot-tag">Path C</span>
+          <span class="hero-slot-row">
+            <span class="hero-slot-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            </span>
+            <span class="hero-slot-text">
+              <span class="hero-slot-title">32 J.</span>
+              <span class="hero-slot-sub">Familie</span>
+              <span class="hero-slot-xp">Haus &amp; Puffer im Fokus</span>
+            </span>
+          </span>
+        </button>
+      </div>
     </div>
+  </div>
   </div>
 
   <!-- ── Zeitleiste — ganz oben ── -->
