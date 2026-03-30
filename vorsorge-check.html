@@ -333,22 +333,41 @@ button:focus-visible, a:focus-visible { border-radius: var(--radius-sm); }
 .piggy-wrap {
   display: flex;
   justify-content: center;
-  align-items: flex-end;
-  gap: 20px;
+  align-items: center;
   margin-bottom: 20px;
   position: relative;
+  z-index: 2;
 }
 .piggy-btn {
   background: none;
   border: none;
   cursor: pointer;
-  padding: 0;
+  padding: 12px 20px 16px;
   position: relative;
-  display: inline-block;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 132px;
+  min-height: 132px;
   line-height: 0;
+  border-radius: var(--radius);
   -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
-.piggy-btn:focus-visible { outline: 2px solid var(--primary); outline-offset: 6px; border-radius: 50%; }
+.piggy-btn:focus-visible { outline: 2px solid var(--primary); outline-offset: 4px; border-radius: var(--radius); }
+/* Klicks landen zuverlässig auf dem Button, nicht auf SVG/Span */
+.piggy-stack,
+.piggy-float-wrap,
+.piggy-svg {
+  pointer-events: none;
+}
+.piggy-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
 /* Idle float — wie am Anfang: leichtes Schweben + Wippen */
 .piggy-float-wrap {
   display: inline-block;
@@ -386,7 +405,7 @@ button:focus-visible, a:focus-visible { border-radius: var(--radius-sm); }
 }
 .coin-pop {
   position: absolute;
-  top: 6px;
+  top: 14px;
   left: 50%;
   transform: translateX(-50%);
   font-size: 20px;
@@ -395,58 +414,16 @@ button:focus-visible, a:focus-visible { border-radius: var(--radius-sm); }
   animation: coin-fly-up .65s ease-out forwards;
   z-index: 2;
 }
-/* Coin streams */
-.piggy-streams {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  align-items: flex-end;
-}
-.piggy-stream-btn {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  background: none;
-  border: none;
-  border-radius: 6px;
-  padding: 4px 6px;
-  cursor: pointer;
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--text-muted);
-  font-family: inherit;
-  transition: color var(--transition), transform .1s;
-  -webkit-tap-highlight-color: transparent;
-  position: relative;
-  overflow: visible;
-}
-.piggy-stream-btn:hover { color: var(--text); }
-.piggy-stream-btn:active { transform: scale(.92); }
-.piggy-stream-dot {
-  width: 8px; height: 8px;
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-@keyframes coin-arc {
-  0%   { opacity: 1; transform: translate(0,0) scale(1); }
-  60%  { opacity: 1; }
-  100% { opacity: 0; transform: translate(var(--cx), var(--cy)) scale(.5); }
-}
-.coin-arc {
-  position: fixed;
-  font-size: 16px;
-  pointer-events: none;
-  z-index: 9999;
-  animation: coin-arc .6s cubic-bezier(.4,0,.2,1) forwards;
-}
 .piggy-hint {
-  font-size: 11px;
+  font-size: 12px;
   color: var(--text-muted);
-  margin-top: 6px;
-  opacity: .7;
-  font-weight: 500;
+  font-weight: 700;
   text-align: center;
+  line-height: 1.35;
+  max-width: 140px;
+  pointer-events: none;
 }
+.piggy-btn:hover .piggy-hint { color: var(--text); }
 .hero-badge {
   display: inline-flex;
   align-items: center;
@@ -1574,21 +1551,8 @@ canvas { width: 100% !important; }
     <span class="hero-deco" aria-hidden="true">🪙</span>
   <div class="hero">
     <div class="piggy-wrap">
-      <!-- Coin source buttons (left) -->
-      <div class="piggy-streams" id="piggyStreams">
-        <button type="button" class="piggy-stream-btn" data-source="ahv" data-color="#0047BB" aria-label="AHV-Münze einwerfen">
-          <span class="piggy-stream-dot" style="background:#0047BB"></span>AHV
-        </button>
-        <button type="button" class="piggy-stream-btn" data-source="pk" data-color="#7C5CBF" aria-label="PK-Münze einwerfen">
-          <span class="piggy-stream-dot" style="background:#7C5CBF"></span>PK
-        </button>
-        <button type="button" class="piggy-stream-btn" data-source="3a" data-color="#E8A838" aria-label="3a-Münze einwerfen">
-          <span class="piggy-stream-dot" style="background:#E8A838"></span>3a
-        </button>
-      </div>
-      <!-- Piggy -->
-      <div>
-        <button type="button" class="piggy-btn" id="piggyBtn" aria-label="Sparschwein antippen">
+        <button type="button" class="piggy-btn" id="piggyBtn" aria-label="Sparschwein antippen — Spar-Tipp und einen XP-Punkt">
+          <span class="piggy-stack">
           <span class="piggy-float-wrap" aria-hidden="true">
           <svg class="piggy-svg" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <ellipse cx="60" cy="68" rx="38" ry="32" fill="#F9A8C9"/>
@@ -1614,9 +1578,9 @@ canvas { width: 100% !important; }
             <path d="M98 70 Q108 60 104 52 Q100 44 108 40" stroke="#F472B6" stroke-width="3.5" stroke-linecap="round" fill="none"/>
           </svg>
           </span>
+          <span class="piggy-hint">Hier tippen · Tipp + XP</span>
+          </span>
         </button>
-        <p class="piggy-hint">Antippen ✦</p>
-      </div>
     </div>
     <h1>Hallo, <em id="heroName">Michalis</em> — dein Vorsorge-Check</h1>
     <p class="hero-sub">Was du heute tun kannst — einfach erklärt.</p>
@@ -2145,78 +2109,30 @@ canvas { width: 100% !important; }
   updateTax();
   syncXp();
 
-  /* ── Piggy ── */
+  /* ── Piggy: ein klarer Tap — rotierende Tipps (keine Fake-Aktionen) ── */
   const piggyBtn = document.getElementById('piggyBtn');
-  const piggyFacts = {
-    ahv: [
-      'AHV: Staat zahlt dir ab 65 automatisch — du zahlst schon heute jeden Monat ein.',
-      'AHV-Max 2026: CHF 2\'450/Mt — nur erreichbar mit 44 vollen Beitragsjahren.',
-      'Lücke im Lebenslauf? Jedes fehlende Jahr kostet ~2.3% AHV-Rente lebenslang.',
-      'AHV ist Umlageverfahren: Dein Beitrag zahlt die heutigen Renten — deine kommt von den Nächsten.',
-    ],
-    pk: [
-      'PK: Dein Arbeitgeber zahlt mindestens gleich viel wie du — das ist dein grösster Hebel.',
-      'PK-Einkauf ab 50: Einzahlungen in die PK sind voll steuerabzugsfähig — grosser Hebel!',
-      'Job wechseln? Freizügigkeitsguthaben mitnehmen — nie auf einem Freizügigkeitskonto liegenlassen.',
-      'PK-Umwandlungssatz sinkt: Heute ~6.8%, Trend nach unten — 3a wird wichtiger.',
-    ],
-    '3a': [
-      '3a 2026: Max CHF 7\'258/Jahr einzahlen — und sofort Steuern sparen.',
-      'Früh anfangen: CHF 200/Mt über 40 Jahre → ~CHF 230k (bei 5% Rendite). Warten kostet.',
-      '3a für Haus: Du kannst dein 3a-Guthaben für Wohneigentum vorbeziehen (WEF).',
-      'Mehrere 3a-Konten möglich — sinnvoll, um Steuern beim Bezug zu staffeln.',
-    ],
-  };
-  const piggyGeneric = [
-    'Jeder Franken früher = mehr Zinseszins. Warten kostet.',
-    'Schweizer Vorsorge: 3 Säulen — Staat, Arbeitgeber, du selbst.',
-    'Oink! Das Schwein freut sich über jeden Franken. 🐷',
-  ];
-  const piggySourceCount = { ahv: 0, pk: 0, '3a': 0, generic: 0 };
   const piggySvg = piggyBtn.querySelector('.piggy-svg');
+  const piggyTips = [
+    'AHV läuft automatisch über den Lohn — ab 65 zahlt der Staat mit.',
+    'PK: Arbeitgeber zahlt mindestens gleich viel wie du.',
+    '3a: bis CHF 7\'258/Jahr sparen und Steuern senken.',
+    'Früh sparen = Zinseszins. Warten kostet Rendite.',
+    'Eigenheim: Eigenkapital planen; 3a kann für den Kauf vorgezogen werden.',
+    'Erst Notgroschen, dann langfristig anlegen.',
+  ];
+  let piggyTipI = 0;
 
   function triggerPiggyJiggle() {
     piggyBtn.classList.remove('jiggle');
     void piggyBtn.offsetWidth;
     piggyBtn.classList.add('jiggle');
-    piggySvg.addEventListener('animationend', function piggyWiggleDone(e) {
-      if (e.animationName === 'piggy-wiggle') piggyBtn.classList.remove('jiggle');
-    }, { once: true });
+    if (piggySvg) {
+      piggySvg.addEventListener('animationend', function piggyWiggleDone(e) {
+        if (e.animationName === 'piggy-wiggle') piggyBtn.classList.remove('jiggle');
+      }, { once: true });
+    }
     setTimeout(function () { piggyBtn.classList.remove('jiggle'); }, 550);
   }
-
-  function launchCoinToTarget(fromEl) {
-    const fromRect = fromEl.getBoundingClientRect();
-    const toRect = piggyBtn.getBoundingClientRect();
-    const coin = document.createElement('span');
-    coin.className = 'coin-arc';
-    coin.textContent = '🪙';
-    const startX = fromRect.right - 8;
-    const startY = fromRect.top + fromRect.height / 2 - 8;
-    const dx = (toRect.left + toRect.width / 2) - startX;
-    const dy = (toRect.top + toRect.height * 0.35) - startY;
-    coin.style.left = startX + 'px';
-    coin.style.top  = startY + 'px';
-    coin.style.setProperty('--cx', dx + 'px');
-    coin.style.setProperty('--cy', dy + 'px');
-    document.body.appendChild(coin);
-    coin.addEventListener('animationend', function () {
-      coin.remove();
-      triggerPiggyJiggle();
-    });
-  }
-
-  document.getElementById('piggyStreams').addEventListener('click', e => {
-    const btn = e.target.closest('.piggy-stream-btn');
-    if (!btn) return;
-    const src = btn.dataset.source;
-    launchCoinToTarget(btn);
-    const facts = piggyFacts[src] || piggyGeneric;
-    const idx = piggySourceCount[src] || 0;
-    toast(facts[idx % facts.length]);
-    piggySourceCount[src] = idx + 1;
-    addXp(1, null);
-  });
 
   piggyBtn.addEventListener('click', function () {
     const coin = document.createElement('span');
@@ -2225,9 +2141,8 @@ canvas { width: 100% !important; }
     piggyBtn.appendChild(coin);
     coin.addEventListener('animationend', function () { coin.remove(); });
     triggerPiggyJiggle();
-    const idx = piggySourceCount.generic || 0;
-    toast(piggyGeneric[idx % piggyGeneric.length]);
-    piggySourceCount.generic = idx + 1;
+    toast(piggyTips[piggyTipI % piggyTips.length]);
+    piggyTipI++;
     addXp(1, null);
   });
 
