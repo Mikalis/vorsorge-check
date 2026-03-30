@@ -1001,6 +1001,153 @@ canvas { width: 100% !important; }
   font-size: 14px;
 }
 
+/* ── Onboarding ── */
+.onboarding {
+  min-height: calc(100vh - 60px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 20px;
+}
+.ob-card {
+  background: var(--card);
+  border-radius: 20px;
+  padding: 40px 36px;
+  max-width: 520px;
+  width: 100%;
+  box-shadow: var(--shadow-lg);
+  border: 1.5px solid var(--border);
+  animation: fadeUp .5s ease-out;
+}
+.ob-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 28px;
+}
+.ob-logo-text { font-family: 'Outfit', sans-serif; font-size: 16px; font-weight: 800; color: var(--primary); }
+.ob-step { font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: .8px; margin-bottom: 8px; }
+.ob-h { font-size: 1.6rem; font-weight: 900; line-height: 1.2; margin-bottom: 8px; }
+.ob-sub { font-size: 15px; color: var(--text-muted); line-height: 1.55; margin-bottom: 28px; }
+.ob-label { font-size: 12px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 8px; display: block; }
+.ob-name-input {
+  width: 100%;
+  padding: 14px 16px;
+  border: 2px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 18px;
+  font-weight: 600;
+  font-family: 'Outfit', sans-serif;
+  transition: border-color var(--transition);
+  margin-bottom: 28px;
+}
+.ob-name-input:focus { outline: none; border-color: var(--primary); }
+.ob-name-input::placeholder { color: var(--text-muted); font-weight: 400; font-size: 16px; }
+.ob-goals { display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+.ob-goal {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 18px;
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg);
+  cursor: pointer;
+  text-align: left;
+  transition: border-color var(--transition), background var(--transition);
+  width: 100%;
+  color: inherit;
+}
+.ob-goal:hover { border-color: var(--primary); background: var(--primary-lt); }
+.ob-goal.on { border-color: var(--primary); background: var(--primary-lt); }
+.ob-goal.on .ob-goal-title { color: var(--primary-on-lt); }
+.ob-goal-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: var(--card);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--primary);
+  box-shadow: var(--shadow);
+}
+.ob-goal-icon svg { width: 22px; height: 22px; }
+.ob-goal-body { flex: 1; }
+.ob-goal-title { font-weight: 800; font-size: 15px; font-family: 'Outfit', sans-serif; margin-bottom: 2px; }
+.ob-goal-sub { font-size: 12px; color: var(--text-muted); line-height: 1.4; }
+.ob-goal-check {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition);
+}
+.ob-goal.on .ob-goal-check { background: var(--primary); border-color: var(--primary); }
+.ob-goal.on .ob-goal-check::after { content: ''; display: block; width: 6px; height: 10px; border: 2px solid #fff; border-top: none; border-left: none; transform: rotate(45deg) translateY(-1px); }
+.ob-cta {
+  width: 100%;
+  padding: 16px;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 16px;
+  font-weight: 800;
+  cursor: pointer;
+  font-family: 'Outfit', sans-serif;
+  min-height: 52px;
+  transition: background var(--transition), transform .15s, opacity var(--transition);
+  opacity: .5;
+  pointer-events: none;
+}
+.ob-cta.ready { opacity: 1; pointer-events: auto; }
+.ob-cta.ready:hover { background: var(--primary-dk); transform: translateY(-1px); }
+.ob-hint { font-size: 11px; color: var(--text-muted); text-align: center; margin-top: 12px; }
+
+/* ── Goal context banner ── */
+.goal-banner {
+  background: var(--primary);
+  color: #fff;
+  border-radius: var(--radius);
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  animation: fadeUp .4s ease-out;
+}
+.goal-banner-icon { flex-shrink: 0; }
+.goal-banner-icon svg { width: 22px; height: 22px; }
+.goal-banner-text { flex: 1; font-size: 14px; font-weight: 600; line-height: 1.4; }
+.goal-banner-text strong { font-size: 16px; display: block; font-family: 'Outfit', sans-serif; }
+.goal-banner-change {
+  background: rgba(255,255,255,.2);
+  border: 1px solid rgba(255,255,255,.35);
+  color: #fff;
+  border-radius: 100px;
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  min-height: 36px;
+}
+.goal-banner-change:hover { background: rgba(255,255,255,.32); }
+
+/* ── Hidden by goal ── */
+.goal-only { display: none; }
+.goal-only.show { display: block; }
+.full.goal-only.show { display: contents; }
+
 /* ── Footer ── */
 .footer { text-align: center; font-size: 11px; color: var(--text-muted); margin-top: 40px; line-height: 1.7; opacity: .8; }
 
@@ -1043,24 +1190,87 @@ canvas { width: 100% !important; }
   </button>
 </header>
 
+<!-- ═══════════════════════════════════════
+     ONBOARDING SCREEN
+════════════════════════════════════════ -->
+<div class="onboarding" id="onboarding">
+  <div class="ob-card">
+    <div class="ob-logo">
+      <svg width="28" height="28" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+        <circle cx="24" cy="24" r="24" fill="white" stroke="#0047BB" stroke-width="2"/>
+        <path d="M11 33V31.2L29.6 17H12V12H37V13.8L18.4 28H37V33H11Z" fill="#0047BB"/>
+      </svg>
+      <span class="ob-logo-text">Vorsorge-Buddy</span>
+    </div>
+    <div class="ob-step">Schritt 1 von 1</div>
+    <h1 class="ob-h">Hallo! Wie heisst du?</h1>
+    <p class="ob-sub">Damit dein Check persönlich wird — kein Account, kein Passwort, alles bleibt lokal.</p>
+    <label class="ob-label" for="obName">Dein Vorname</label>
+    <input type="text" id="obName" class="ob-name-input" placeholder="z.&nbsp;B. Lena" autocomplete="given-name" maxlength="30">
+    <label class="ob-label">Was ist dein grösstes Ziel gerade?</label>
+    <div class="ob-goals" role="group" aria-label="Ziel wählen">
+      <button type="button" class="ob-goal" data-goal="haus">
+        <div class="ob-goal-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        <div class="ob-goal-body">
+          <div class="ob-goal-title">Ich will ein Haus oder eine Wohnung kaufen</div>
+          <div class="ob-goal-sub">Eigenkapital aufbauen, 3a clever nutzen</div>
+        </div>
+        <div class="ob-goal-check" aria-hidden="true"></div>
+      </button>
+      <button type="button" class="ob-goal" data-goal="frei">
+        <div class="ob-goal-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <div class="ob-goal-body">
+          <div class="ob-goal-title">Ich will früher aufhören oder weniger arbeiten</div>
+          <div class="ob-goal-sub">Mehr Freiheit ab 50+, Optionen offen halten</div>
+        </div>
+        <div class="ob-goal-check" aria-hidden="true"></div>
+      </button>
+      <button type="button" class="ob-goal" data-goal="safe">
+        <div class="ob-goal-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+        </div>
+        <div class="ob-goal-body">
+          <div class="ob-goal-title">Ich will einfach auf der sicheren Seite sein</div>
+          <div class="ob-goal-sub">Notfallpuffer, Altersvorsorge, kein Stress</div>
+        </div>
+        <div class="ob-goal-check" aria-hidden="true"></div>
+      </button>
+    </div>
+    <button type="button" class="ob-cta" id="obCta">Meinen Check starten →</button>
+    <p class="ob-hint">Keine Anmeldung · Daten bleiben in deinem Browser · Alles Demo</p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     DASHBOARD (hidden until onboarding done)
+════════════════════════════════════════ -->
+<div id="dashboard" style="display:none">
 <div class="container">
 
-  <!-- ═══════════════════════════════════════
-       HERO
-  ════════════════════════════════════════ -->
+  <!-- Hero -->
   <div class="hero">
-    <div class="hero-badge">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-      Vorsorge-Check 2026
-    </div>
-    <h1>Vorsorge <em>ohne Excel-Trauma</em></h1>
-    <p class="hero-sub">Lücken sehen, Spar-Hebel klicken, Haus-Traum grob einplanen — in Minuten, ohne Kleingedrucktes-Gefühl.</p>
-    <p class="hero-hint">Viele Karten sind klickbar · Quests erledigen = XP · Alles Demo</p>
+    <h1 id="heroH1">Hallo <em id="heroName">…</em> — dein Vorsorge-Check</h1>
+    <p class="hero-sub" id="heroSub">Hier siehst du, was du heute tun kannst — einfach, ohne Fachbegriffe.</p>
+    <p class="hero-hint">Karten sind klickbar · Quests erledigen = XP · Alles Demo-Zahlen</p>
   </div>
 
-  <!-- ═══════════════════════════════════════
-       LEVEL BAR
-  ════════════════════════════════════════ -->
+  <!-- Goal Banner -->
+  <div class="goal-banner" id="goalBanner">
+    <div class="goal-banner-icon" id="goalBannerIcon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    </div>
+    <div class="goal-banner-text">
+      <strong id="goalBannerTitle">Dein Ziel: Eigenheim</strong>
+      <span id="goalBannerSub">Wir zeigen dir nur, was dafür relevant ist.</span>
+    </div>
+    <button type="button" class="goal-banner-change" id="goalChangeBtn">Ziel ändern</button>
+  </div>
+
+  <!-- Level Bar -->
   <div class="level-bar">
     <button type="button" class="lvl-badge" id="lvlBtn">
       LVL <span id="lvlNum">1</span> — <span id="lvlTitle">Starter</span>
@@ -1068,30 +1278,61 @@ canvas { width: 100% !important; }
     <div class="xp-wrap">
       <div class="xp-label">
         <span>Vorsorge-XP</span>
-        <span><span id="xpCur">150</span> / <span id="xpMax">1000</span></span>
+        <span><span id="xpCur">150</span> / 1000</span>
       </div>
       <div class="xp-track"><div class="xp-fill" id="xpFill"></div></div>
     </div>
-    <div class="pills" id="profilePills" role="group" aria-label="Profil">
+    <div class="pills" id="profilePills" role="group" aria-label="Alter / Situation">
       <button type="button" class="pill on" data-profile="student">22 J. · Studium</button>
       <button type="button" class="pill" data-profile="youngpro">26 J. · Berufseinstieg</button>
       <button type="button" class="pill" data-profile="nest">32 J. · Familie</button>
     </div>
   </div>
 
-  <!-- ═══════════════════════════════════════
-       GRID
-  ════════════════════════════════════════ -->
+  <!-- ── Träume (prominent, above the fold) ── -->
+  <div class="card" id="dreamCard" style="margin-bottom:0;animation-delay:.05s">
+    <div class="slabel">
+      <div class="slabel-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+      </div>
+      <span class="slabel-text">Was willst du erreichen?</span>
+    </div>
+    <div class="dream-grid" id="dreamGrid">
+      <button type="button" class="dream" data-dream="haus">
+        <div class="dream-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        <span class="t">Eigenheim</span>
+        <span class="s">Eigenkapital + 3a-Hack</span>
+      </button>
+      <button type="button" class="dream" data-dream="frei">
+        <div class="dream-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <span class="t">Früher locker</span>
+        <span class="s">Weniger arbeiten, mehr Optionen</span>
+      </button>
+      <button type="button" class="dream" data-dream="safe">
+        <div class="dream-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+        </div>
+        <span class="t">Safety First</span>
+        <span class="s">Puffer + Altersvorsorge</span>
+      </button>
+    </div>
+    <div class="dream-panel" id="dreamPanel"></div>
+  </div>
+
+  <!-- GRID -->
   <div class="grid">
 
     <!-- ── Spar-Meter ── -->
     <div class="card" style="animation-delay:.1s">
       <div class="slabel">
         <div class="slabel-icon" aria-hidden="true">
-          <!-- pie-chart icon -->
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
         </div>
-        <span class="slabel-text">Spar-Meter</span>
+        <span class="slabel-text">Woher kommt deine Rente?</span>
       </div>
       <div class="donut-row">
         <div class="donut-box" id="donutBox">
@@ -1119,27 +1360,27 @@ canvas { width: 100% !important; }
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>
             </div>
             <div class="donut-mid-val" id="donutVal">CHF 951</div>
-            <div class="donut-mid-sub" id="donutSub">Lücke / Mt</div>
+            <div class="donut-mid-sub" id="donutSub">fehlt / Mt</div>
           </div>
         </div>
         <div class="legend">
           <button type="button" class="lrow" data-det="ahv">
-            <span class="lbl"><span class="dot" style="background:var(--zc-blue-zurich)"></span>AHV (1. Säule)</span>
+            <span class="lbl"><span class="dot" style="background:var(--zc-blue-zurich)"></span>Staat zahlt (AHV)</span>
             <span class="v">CHF 2'200</span>
           </button>
-          <div class="lrow-detail" id="det-ahv">Staatliche Rente ab 65. Fliesst automatisch — hier nur zur Einordnung im Gesamtbild.</div>
+          <div class="lrow-detail" id="det-ahv">Die staatliche Rente — fliesst automatisch ab 65. Du zahlst jeden Monat über den Lohn ein, ohne etwas zu tun.</div>
           <button type="button" class="lrow" data-det="pk">
-            <span class="lbl"><span class="dot" style="background:var(--zc-lilac-100)"></span>Pensionskasse</span>
+            <span class="lbl"><span class="dot" style="background:var(--zc-lilac-100)"></span>Arbeitgeber zahlt mit (PK)</span>
             <span class="v">CHF 1'515</span>
           </button>
-          <div class="lrow-detail" id="det-pk">2. Säule via Arbeitgeber. Wichtigster Hebel neben 3a, sobald du arbeitest.</div>
+          <div class="lrow-detail" id="det-pk">Dein Arbeitgeber zahlt mindestens gleich viel wie du — das ist dein grösster Hebel, sobald du arbeitest.</div>
           <button type="button" class="lrow" data-det="luecke">
-            <span class="lbl"><span class="dot" style="background:var(--zc-peach-100)"></span>Vorsorgelücke</span>
+            <span class="lbl"><span class="dot" style="background:var(--zc-peach-100)"></span>Was noch fehlt</span>
             <span class="v" style="color:var(--danger)" id="legendGap">CHF 951</span>
           </button>
-          <div class="lrow-detail" id="det-luecke">Differenz bis zur Zielrente (80% Lohn). Keine Prognose — nur Orientierung.</div>
+          <div class="lrow-detail" id="det-luecke">Das ist der Betrag, der monatlich fehlt, damit du im Alter gleich viel hast wie heute. Den kannst du selbst schliessen — zum Beispiel mit einem 3a-Konto.</div>
           <div class="lrow lrow-total">
-            <span class="lbl">Ziel (80% Lohn)</span>
+            <span class="lbl">Ziel-Rente (Demo)</span>
             <span class="v">CHF 4'667</span>
           </div>
           <!-- Relatable chips -->
@@ -1165,21 +1406,20 @@ canvas { width: 100% !important; }
               Food ~28
             </button>
           </div>
-          <div class="rel-result" id="relResult">Tippe eine Einheit — wir rechnen die Lücke in Alltagssprache um.</div>
+          <div class="rel-result" id="relResult">Tippe eine Einheit — wir zeigen dir, wie viel das im Alltag ist.</div>
         </div>
       </div>
     </div>
 
-    <!-- ── Haus-Rechner ── -->
-    <div class="card" style="animation-delay:.15s">
+    <!-- ── Haus-Rechner (nur für Ziel = haus) ── -->
+    <div class="card goal-only" data-goals="haus" style="animation-delay:.15s">
       <div class="slabel">
         <div class="slabel-icon" aria-hidden="true">
-          <!-- home icon -->
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
         </div>
-        <span class="slabel-text">Wann Haus herhalten?</span>
+        <span class="slabel-text">Wann kann ich kaufen?</span>
       </div>
-      <p style="font-size:13px;color:var(--text-muted);line-height:1.5;margin-bottom:12px">Wie lange bis zum Eigenkapital-Ziel — vereinfacht, zum Herumklicken.</p>
+      <p style="font-size:13px;color:var(--text-muted);line-height:1.5;margin-bottom:12px">Stell ein, was du dir vorstellst — wir rechnen grob, wie lange du sparst. Kein Versprechen, nur Orientierung.</p>
       <div class="preset-row" role="group" aria-label="Immobilien-Preset">
         <button type="button" class="preset on" data-price="620000">Studio</button>
         <button type="button" class="preset" data-price="950000">3.5-Zi</button>
@@ -1212,9 +1452,9 @@ canvas { width: 100% !important; }
           <!-- shield icon -->
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
         </div>
-        <span class="slabel-text">Notgroschen-Meter</span>
+        <span class="slabel-text">Dein Sicherheitspuffer</span>
       </div>
-      <p style="font-size:13px;color:var(--text-muted);line-height:1.5;margin-bottom:14px">Faustregel: 3–6 Monatsausgaben liquid halten, bevor du in 3a investierst.</p>
+      <p style="font-size:13px;color:var(--text-muted);line-height:1.5;margin-bottom:14px">Bevor du langfristig anlegst: Hast du genug Geld auf der Seite, falls etwas schiefläuft? Ziel: 3–6 Monatsausgaben.</p>
       <div class="notg-input-row">
         <div class="notg-field">
           <label>Monatliche Ausgaben (CHF)</label>
@@ -1244,7 +1484,7 @@ canvas { width: 100% !important; }
           <!-- currency-swissfrancs / bank-note icon -->
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2"/><path d="M6 12h.01M18 12h.01"/></svg>
         </div>
-        <span class="slabel-text">Steuer-Sparrechner 3a</span>
+        <span class="slabel-text">Wie viel Steuern spare ich mit 3a?</span>
       </div>
       <div class="tax-row">
         <div class="tax-col">
@@ -1274,41 +1514,6 @@ canvas { width: 100% !important; }
       </div>
     </div>
 
-    <!-- ── Träume ── -->
-    <div class="card full" style="animation-delay:.3s">
-      <div class="slabel">
-        <div class="slabel-icon" aria-hidden="true">
-          <!-- goal icon -->
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
-        </div>
-        <span class="slabel-text">Deine Träume</span>
-      </div>
-      <div class="dream-grid" id="dreamGrid">
-        <button type="button" class="dream on" data-dream="haus">
-          <div class="dream-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-          </div>
-          <span class="t">Eigenheim</span>
-          <span class="s">Eigenkapital + 3a-Hack</span>
-        </button>
-        <button type="button" class="dream" data-dream="frei">
-          <div class="dream-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v3"/><rect x="9" y="11" width="14" height="10" rx="2"/><line x1="13" y1="16" x2="17" y2="16"/></svg>
-          </div>
-          <span class="t">Früher locker</span>
-          <span class="s">Weniger arbeiten, mehr Optionen</span>
-        </button>
-        <button type="button" class="dream" data-dream="safe">
-          <div class="dream-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
-          </div>
-          <span class="t">Safety First</span>
-          <span class="s">Notgroschen + PK maxen</span>
-        </button>
-      </div>
-      <div class="dream-panel open" id="dreamPanel"></div>
-    </div>
-
     <!-- ── Zeitleiste ── -->
     <div class="card full" style="animation-delay:.32s">
       <div class="slabel">
@@ -1316,7 +1521,7 @@ canvas { width: 100% !important; }
           <!-- map icon -->
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
         </div>
-        <span class="slabel-text">Deine Vorsorge-Zeitleiste</span>
+        <span class="slabel-text">Was wann wichtig wird</span>
       </div>
       <div class="timeline" id="timeline">
         <div class="tl-item on" data-tl="now">
@@ -1437,7 +1642,7 @@ canvas { width: 100% !important; }
           <!-- award icon -->
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
         </div>
-        <span class="slabel-text">Steuer-Achievements · Tippen für Fact</span>
+        <span class="slabel-text">Zahlen, die sich lohnen — tippen für mehr</span>
       </div>
       <div class="achiev-row">
         <button type="button" class="achiev" data-ach="3a">
@@ -1477,7 +1682,7 @@ canvas { width: 100% !important; }
           <!-- list-tick icon -->
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
         </div>
-        <span class="slabel-text">Quests — Tippen = erledigt (+XP)</span>
+        <span class="slabel-text">Deine nächsten Schritte — tippen wenn erledigt</span>
       </div>
       <div class="quests">
         <button type="button" class="quest" data-xp="200" data-quest="q1">
@@ -1526,10 +1731,10 @@ canvas { width: 100% !important; }
   </div><!-- /grid -->
 
   <div class="footer">
-    Grobe Schätzung, keine Finanzberatung. Demo-Daten: Berufseinstieg 25, Lohn CHF 70'000.<br>
-    Haus-Rechner: vereinfacht, ohne Steuern/Nebenkosten. Steuer-Rechner: Grenzsteuersatz-Näherung. Stand 2026.
+    Alle Zahlen sind Demo-Werte — keine Finanzberatung. Haus-Rechner und Steuer-Rechner sind vereinfachte Näherungen. Stand 2026.
   </div>
 </div><!-- /container -->
+</div><!-- /dashboard -->
 
 <!-- Modal -->
 <div class="backdrop" id="backdrop"></div>
@@ -1551,6 +1756,137 @@ canvas { width: 100% !important; }
   const BOOKING_URL = 'https://outlook.office.com/book/VideoberatungmitExperten@zurichinsurance.onmicrosoft.com/?ismsaljsauthenabled';
   const fmtN = n => Math.round(n).toLocaleString('de-CH');
   const fmt  = n => 'CHF ' + fmtN(n);
+
+  /* ── Dream copy (used in onboarding + dream grid) ── */
+  const dreamCopy = {
+    haus: '<strong>Eigenheim:</strong> Du brauchst mindestens 20% Eigenkapital — das ist dein Spar-Ziel. Dazu kannst du dein 3a-Konto später für den Kauf vorbeziehen. Nutze den Rechner weiter unten.',
+    frei: '<strong>Früher locker:</strong> Je mehr du jetzt anlegst, desto mehr Optionen hast du ab 50+. Viele wählen bewusst ein Teilpensum statt hart auf 65 zu arbeiten.',
+    safe: '<strong>Sicherheit zuerst:</strong> Erst 3–6 Monatsausgaben auf einem Sparkonto — dann erst langfristig anlegen. So bist du für Überraschungen gewappnet.'
+  };
+
+  /* ── Onboarding ── */
+  let userName = '';
+  let userGoal = '';
+
+  const goalMeta = {
+    haus: {
+      title: 'Dein Ziel: Eigenheim',
+      sub: 'Wir zeigen dir, wie du Eigenkapital aufbaust und 3a clever nutzt.',
+      iconSvg: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>',
+      heroSub: 'Wir zeigen dir, was du jetzt tun kannst, um dein Eigenheim-Ziel zu erreichen.'
+    },
+    frei: {
+      title: 'Dein Ziel: Früher locker',
+      sub: 'Mehr Freiheit ab 50+ — wir zeigen dir, welche Hebel jetzt zählen.',
+      iconSvg: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
+      heroSub: 'Wir zeigen dir, wie du dir mehr Optionen für später aufbaust.'
+    },
+    safe: {
+      title: 'Dein Ziel: Sicherheit',
+      sub: 'Erst Puffer, dann Wachstum — der ruhige Weg.',
+      iconSvg: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>',
+      heroSub: 'Wir zeigen dir, wie du auf der sicheren Seite bleibst — Schritt für Schritt.'
+    }
+  };
+
+  function applyGoalVisibility(goal) {
+    document.querySelectorAll('.goal-only').forEach(el => {
+      const goals = (el.dataset.goals || '').split(',').map(s => s.trim());
+      const show = goals.includes(goal);
+      if (el.classList.contains('full')) {
+        el.style.display = show ? '' : 'none';
+      } else {
+        el.classList.toggle('show', show);
+      }
+    });
+  }
+
+  function launchDashboard(name, goal) {
+    userName = name;
+    userGoal = goal;
+
+    // Personalize hero
+    document.getElementById('heroName').textContent = name;
+    const meta = goalMeta[goal];
+    document.getElementById('heroSub').textContent = meta.heroSub;
+
+    // Goal banner
+    document.getElementById('goalBannerTitle').textContent = meta.title;
+    document.getElementById('goalBannerSub').textContent = meta.sub;
+    document.getElementById('goalBannerIcon').innerHTML = meta.iconSvg;
+
+    // Show/hide goal-specific modules
+    applyGoalVisibility(goal);
+
+    // Pre-select matching dream card
+    document.querySelectorAll('.dream').forEach(d => {
+      d.classList.toggle('on', d.dataset.dream === goal);
+    });
+    const dreamPanel = document.getElementById('dreamPanel');
+    dreamPanel.innerHTML = dreamCopy[goal] || '';
+    dreamPanel.classList.add('open');
+
+    // Show dashboard, hide onboarding
+    document.getElementById('onboarding').style.display = 'none';
+    document.getElementById('dashboard').style.display = '';
+
+    // Init chart (needs DOM visible)
+    initChart();
+    renderCal();
+    updateHouse();
+    updateNotg();
+    updateTax();
+    syncXp();
+  }
+
+  // Onboarding interactions
+  const obNameInput = document.getElementById('obName');
+  const obCta = document.getElementById('obCta');
+
+  function checkObReady() {
+    const ready = obNameInput.value.trim().length > 0 && userGoal !== '';
+    obCta.classList.toggle('ready', ready);
+  }
+
+  obNameInput.addEventListener('input', checkObReady);
+
+  document.querySelectorAll('.ob-goal').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.ob-goal').forEach(b => b.classList.remove('on'));
+      btn.classList.add('on');
+      userGoal = btn.dataset.goal;
+      checkObReady();
+    });
+  });
+
+  obCta.addEventListener('click', () => {
+    const name = obNameInput.value.trim();
+    if (!name || !userGoal) return;
+    localStorage.setItem('vb-name', name);
+    localStorage.setItem('vb-goal', userGoal);
+    launchDashboard(name, userGoal);
+  });
+
+  // Goal change button
+  document.getElementById('goalChangeBtn').addEventListener('click', () => {
+    document.getElementById('dashboard').style.display = 'none';
+    document.getElementById('onboarding').style.display = '';
+    // Pre-fill name
+    obNameInput.value = userName;
+    // Re-select goal
+    document.querySelectorAll('.ob-goal').forEach(b => {
+      b.classList.toggle('on', b.dataset.goal === userGoal);
+    });
+    userGoal = userGoal; // keep
+    checkObReady();
+  });
+
+  // Resume from localStorage
+  const savedName = localStorage.getItem('vb-name');
+  const savedGoal = localStorage.getItem('vb-goal');
+  if (savedName && savedGoal && goalMeta[savedGoal]) {
+    launchDashboard(savedName, savedGoal);
+  }
 
   /* ── Toast ── */
   let toastT;
@@ -1591,7 +1927,6 @@ canvas { width: 100% !important; }
     document.getElementById('lvlNum').textContent = lvl;
     document.getElementById('lvlTitle').textContent = LEVELS[lvl];
   }
-  syncXp();
   function addXp(d, msg) { xp = Math.min(XP_MAX, Math.max(0, xp + d)); syncXp(); if (msg) toast(msg); }
 
   /* ── Modal ── */
@@ -1620,16 +1955,17 @@ canvas { width: 100% !important; }
     centerLabels[2].val = fmt(p.gap);
     document.getElementById('donutVal').textContent = fmt(p.gap);
     document.getElementById('legendGap').textContent = fmt(p.gap);
-    toast('Profil: ' + p.tag + ' (Demo)');
+    document.getElementById('donutSub').textContent = 'fehlt noch';
+    toast('Situation geändert: ' + p.tag);
   });
 
   /* ── Donut ── */
   const donutBox = document.getElementById('donutBox');
   const segs = donutBox.querySelectorAll('.donut-seg');
   const centerLabels = [
-    { val: 'CHF 2\'200', sub: 'AHV-Anteil' },
-    { val: 'CHF 1\'515', sub: 'PK (Demo)' },
-    { val: fmt(currentGap), sub: 'Lücke / Mt' }
+    { val: 'CHF 2\'200', sub: 'Staat zahlt' },
+    { val: 'CHF 1\'515', sub: 'Arbeitgeber zahlt' },
+    { val: fmt(currentGap), sub: 'fehlt noch' }
   ];
   segs.forEach((c, i) => {
     c.addEventListener('click', () => {
@@ -1662,8 +1998,8 @@ canvas { width: 100% !important; }
       const label = chip.dataset.label;
       const pm = currentGap / price;
       document.getElementById('relResult').textContent =
-        'Deine Demo-Lücke (' + fmt(currentGap) + '/Mt) ≈ ' +
-        pm.toFixed(1) + '× ' + label + ' pro Monat — oder ' +
+        'Was noch fehlt (' + fmt(currentGap) + '/Mt) entspricht ungefähr ' +
+        pm.toFixed(0) + '× ' + label + ' pro Monat — oder ' +
         (pm / 4.33).toFixed(1) + '× pro Woche.';
     });
   });
@@ -1692,7 +2028,7 @@ canvas { width: 100% !important; }
       el.innerHTML = 'Mit dieser Rate dauert es sehr lange — Rate oder Ziel anpassen.';
     } else {
       const yrs = (months / 12).toFixed(1).replace('.', ',');
-      el.innerHTML = 'Ziel-EK <strong>' + fmt(target) + '</strong> (' + Math.round(eq*100) + '% von ' + fmtN(price) + ') bei <strong>' + fmtN(save) + '/Mt</strong> und <strong>' + yld.toFixed(1).replace('.', ',') + '%</strong> p.a.:<br><br>≈ <strong>' + yrs + ' Jahre</strong> bis zum Eigenkapital-Ziel (vereinfacht).';
+      el.innerHTML = 'Du brauchst <strong>' + fmt(target) + '</strong> Eigenkapital (' + Math.round(eq*100) + '% des Kaufpreises).<br><br>Bei <strong>' + fmtN(save) + ' CHF/Monat</strong> sparst du das in ca. <strong>' + yrs + ' Jahren</strong> zusammen — vereinfacht, ohne Steuern.';
     }
   }
   ['rPrice','rEq','rSave','rYield'].forEach(id => {
@@ -1707,7 +2043,6 @@ canvas { width: 100% !important; }
       toast('Preset: ' + p.textContent.trim());
     });
   });
-  updateHouse();
 
   /* ── Notgroschen ── */
   function updateNotg() {
@@ -1735,7 +2070,6 @@ canvas { width: 100% !important; }
   ['notgExp','notgSaved'].forEach(id => {
     document.getElementById(id).addEventListener('input', updateNotg);
   });
-  updateNotg();
 
   /* ── Tax calc ── */
   function updateTax() {
@@ -1753,16 +2087,9 @@ canvas { width: 100% !important; }
     document.getElementById(id).addEventListener('input', updateTax);
     document.getElementById(id).addEventListener('change', updateTax);
   });
-  updateTax();
 
   /* ── Dreams ── */
-  const dreamCopy = {
-    haus: '<strong>Eigenheim:</strong> Neben Eigenkapital lohnt sich der Blick auf 3a-Vorbezug und Tranchen. Nutze den Rechner oben — und kläre Nebenkosten früh.',
-    frei: '<strong>Früher locker:</strong> Je höher dein investiertes 3a/PK-Kapital, desto mehr Optionen ab 50+. Viele planen bewusst weniger 100%-Pensum statt „hart auf 65".',
-    safe: '<strong>Safety First:</strong> Notgroschen (liquid) + max. sinnvolle PK/3a. Erst Sicherheit, dann Wachstum — besonders wenn Verpflichtungen dazukommen.'
-  };
   const dreamPanel = document.getElementById('dreamPanel');
-  dreamPanel.innerHTML = dreamCopy.haus;
   document.getElementById('dreamGrid').addEventListener('click', e => {
     const b = e.target.closest('.dream');
     if (!b) return;
@@ -1887,8 +2214,6 @@ canvas { width: 100% !important; }
     renderCal();
   };
 
-  renderCal();
-
   /* ── Chart ── */
   const Y = 40;
   const ages = Array.from({ length: Y + 1 }, (_, i) => 25 + i);
@@ -1901,52 +2226,57 @@ canvas { width: 100% !important; }
     return res;
   }
   function dep(m) { return Array.from({ length: Y + 1 }, (_, i) => m * 12 * i); }
-  const S = { opt: .06, mid: .05, con: .04 };
   const datasets = {
     opt: [grow(400,.06),grow(200,.06),grow(100,.06),grow(50,.06)],
     mid: [grow(400,.05),grow(200,.05),grow(100,.05),grow(50,.05)],
     con: [grow(400,.04),grow(200,.04),grow(100,.04),grow(50,.04)]
   };
-  const colors = ['#E74C3C','#7B61C4','#0047BB','#00B4A0'];
-  const labels = ['CHF 400/Mt','CHF 200/Mt','CHF 100/Mt','CHF 50/Mt'];
-  const ctx = document.getElementById('chart').getContext('2d');
-  const chrt = new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels: ages,
-      datasets: [
-        ...labels.map((l, i) => ({
-          label: l, data: datasets.opt[i],
-          borderColor: colors[i], backgroundColor: colors[i] + '12',
-          fill: true, tension: .35, borderWidth: 2.5, pointRadius: 0, pointHoverRadius: 5
-        })),
-        { label: 'Einbezahlt (200/Mt)', data: dep(200), borderColor: '#aaa', borderDash: [6,4], borderWidth: 1.5, pointRadius: 0, fill: false, tension: 0 }
-      ]
-    },
-    options: {
-      responsive: true, maintainAspectRatio: false,
-      interaction: { mode: 'index', intersect: false },
-      plugins: {
-        legend: { position: 'top', labels: { color: '#666', font: { family: 'Inter', size: 12, weight: '600' }, usePointStyle: true, pointStyle: 'circle', padding: 14 } },
-        tooltip: {
-          backgroundColor: '#fff', titleColor: '#1a1a1a', bodyColor: '#666',
-          borderColor: '#e6e6e6', borderWidth: 1,
-          titleFont: { family: 'Inter', weight: '700' }, bodyFont: { family: 'Inter' },
-          padding: 12, cornerRadius: 8,
-          callbacks: {
-            title: i => 'Alter ' + i[0].label,
-            label: i => ' ' + i.dataset.label + ': CHF ' + i.raw.toLocaleString('de-CH')
-          }
-        }
+  const chartColors = ['#E74C3C','#7B61C4','#0047BB','#00B4A0'];
+  const chartLabels = ['CHF 400/Mt','CHF 200/Mt','CHF 100/Mt','CHF 50/Mt'];
+  let chrt = null;
+
+  function initChart() {
+    if (chrt) return;
+    const ctx = document.getElementById('chart').getContext('2d');
+    chrt = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ages,
+        datasets: [
+          ...chartLabels.map((l, i) => ({
+            label: l, data: datasets.opt[i],
+            borderColor: chartColors[i], backgroundColor: chartColors[i] + '12',
+            fill: true, tension: .35, borderWidth: 2.5, pointRadius: 0, pointHoverRadius: 5
+          })),
+          { label: 'Einbezahlt (200/Mt)', data: dep(200), borderColor: '#aaa', borderDash: [6,4], borderWidth: 1.5, pointRadius: 0, fill: false, tension: 0 }
+        ]
       },
-      scales: {
-        x: { grid: { color: '#f0f0f0' }, ticks: { color: '#aaa', font: { family: 'Inter', size: 11 }, maxTicksLimit: 9 } },
-        y: { grid: { color: '#f0f0f0' }, ticks: { color: '#aaa', font: { family: 'Inter', size: 11 }, callback: v => v >= 1000 ? (v/1000).toFixed(0) + 'k' : v } }
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        interaction: { mode: 'index', intersect: false },
+        plugins: {
+          legend: { position: 'top', labels: { color: '#666', font: { family: 'Inter', size: 12, weight: '600' }, usePointStyle: true, pointStyle: 'circle', padding: 14 } },
+          tooltip: {
+            backgroundColor: '#fff', titleColor: '#1a1a1a', bodyColor: '#666',
+            borderColor: '#e6e6e6', borderWidth: 1,
+            titleFont: { family: 'Inter', weight: '700' }, bodyFont: { family: 'Inter' },
+            padding: 12, cornerRadius: 8,
+            callbacks: {
+              title: i => 'Alter ' + i[0].label,
+              label: i => ' ' + i.dataset.label + ': CHF ' + i.raw.toLocaleString('de-CH')
+            }
+          }
+        },
+        scales: {
+          x: { grid: { color: '#f0f0f0' }, ticks: { color: '#aaa', font: { family: 'Inter', size: 11 }, maxTicksLimit: 9 } },
+          y: { grid: { color: '#f0f0f0' }, ticks: { color: '#aaa', font: { family: 'Inter', size: 11 }, callback: v => v >= 1000 ? (v/1000).toFixed(0) + 'k' : v } }
+        }
       }
-    }
-  });
+    });
+  }
 
   window.setScenario = function (s) {
+    if (!chrt) return;
     datasets[s].forEach((d, i) => { chrt.data.datasets[i].data = d; });
     chrt.update();
     document.querySelectorAll('.tog').forEach(b => {
