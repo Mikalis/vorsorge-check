@@ -325,6 +325,8 @@ button:focus-visible, a:focus-visible { border-radius: var(--radius-sm); }
 }
 @media (prefers-reduced-motion: reduce) {
   .hero-deco { animation: none; }
+  .piggy-float-wrap { animation: none; }
+  .coin-pop { animation-duration: 0.01ms !important; }
 }
 
 /* ── Piggy ── */
@@ -347,12 +349,26 @@ button:focus-visible, a:focus-visible { border-radius: var(--radius-sm); }
   -webkit-tap-highlight-color: transparent;
 }
 .piggy-btn:focus-visible { outline: 2px solid var(--primary); outline-offset: 6px; border-radius: 50%; }
+/* Idle float — wie am Anfang: leichtes Schweben + Wippen */
+.piggy-float-wrap {
+  display: inline-block;
+  line-height: 0;
+  transform-origin: center 85%;
+  animation: piggy-idle 2.8s ease-in-out infinite;
+}
+@keyframes piggy-idle {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50%      { transform: translateY(-9px) rotate(2deg); }
+}
 .piggy-svg {
   width: 96px;
   height: 96px;
   filter: drop-shadow(0 4px 12px rgba(0,0,0,.12));
   transition: transform .15s ease;
 }
+.piggy-btn:hover .piggy-float-wrap,
+.piggy-btn:active .piggy-float-wrap,
+.piggy-btn.jiggle .piggy-float-wrap { animation-play-state: paused; }
 .piggy-btn:hover .piggy-svg { transform: scale(1.07); }
 .piggy-btn:active .piggy-svg { transform: scale(.93); }
 @keyframes piggy-wiggle {
@@ -363,6 +379,22 @@ button:focus-visible, a:focus-visible { border-radius: var(--radius-sm); }
   80%      { transform: rotate(4deg); }
 }
 .piggy-btn.jiggle .piggy-svg { animation: piggy-wiggle .5s ease; }
+/* Münze fliegt beim Tippen nach oben in den Schlitz (Original) */
+@keyframes coin-fly-up {
+  0%   { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
+  100% { opacity: 0; transform: translateX(-50%) translateY(-56px) scale(.65); }
+}
+.coin-pop {
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 20px;
+  pointer-events: none;
+  line-height: 1;
+  animation: coin-fly-up .65s ease-out forwards;
+  z-index: 2;
+}
 /* Coin streams */
 .piggy-streams {
   display: flex;
@@ -1557,6 +1589,7 @@ canvas { width: 100% !important; }
       <!-- Piggy -->
       <div>
         <button type="button" class="piggy-btn" id="piggyBtn" aria-label="Sparschwein antippen">
+          <span class="piggy-float-wrap" aria-hidden="true">
           <svg class="piggy-svg" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <ellipse cx="60" cy="68" rx="38" ry="32" fill="#F9A8C9"/>
             <circle cx="60" cy="42" r="24" fill="#F9A8C9"/>
@@ -1580,6 +1613,7 @@ canvas { width: 100% !important; }
             <rect x="52" y="38" width="16" height="4" rx="2" fill="#DB2777" opacity=".6"/>
             <path d="M98 70 Q108 60 104 52 Q100 44 108 40" stroke="#F472B6" stroke-width="3.5" stroke-linecap="round" fill="none"/>
           </svg>
+          </span>
         </button>
         <p class="piggy-hint">Antippen ✦</p>
       </div>
@@ -2139,6 +2173,17 @@ canvas { width: 100% !important; }
     'Oink! Das Schwein freut sich über jeden Franken. 🐷',
   ];
   const piggySourceCount = { ahv: 0, pk: 0, '3a': 0, generic: 0 };
+  const piggySvg = piggyBtn.querySelector('.piggy-svg');
+
+  function triggerPiggyJiggle() {
+    piggyBtn.classList.remove('jiggle');
+    void piggyBtn.offsetWidth;
+    piggyBtn.classList.add('jiggle');
+    piggySvg.addEventListener('animationend', function piggyWiggleDone(e) {
+      if (e.animationName === 'piggy-wiggle') piggyBtn.classList.remove('jiggle');
+    }, { once: true });
+    setTimeout(function () { piggyBtn.classList.remove('jiggle'); }, 550);
+  }
 
   function launchCoinToTarget(fromEl) {
     const fromRect = fromEl.getBoundingClientRect();
@@ -2155,11 +2200,9 @@ canvas { width: 100% !important; }
     coin.style.setProperty('--cx', dx + 'px');
     coin.style.setProperty('--cy', dy + 'px');
     document.body.appendChild(coin);
-    coin.addEventListener('animationend', () => {
+    coin.addEventListener('animationend', function () {
       coin.remove();
-      piggyBtn.classList.remove('jiggle');
-      void piggyBtn.offsetWidth;
-      piggyBtn.classList.add('jiggle');
+      triggerPiggyJiggle();
     });
   }
 
@@ -2175,10 +2218,13 @@ canvas { width: 100% !important; }
     addXp(1, null);
   });
 
-  piggyBtn.addEventListener('click', () => {
-    piggyBtn.classList.remove('jiggle');
-    void piggyBtn.offsetWidth;
-    piggyBtn.classList.add('jiggle');
+  piggyBtn.addEventListener('click', function () {
+    const coin = document.createElement('span');
+    coin.className = 'coin-pop';
+    coin.textContent = '🪙';
+    piggyBtn.appendChild(coin);
+    coin.addEventListener('animationend', function () { coin.remove(); });
+    triggerPiggyJiggle();
     const idx = piggySourceCount.generic || 0;
     toast(piggyGeneric[idx % piggyGeneric.length]);
     piggySourceCount.generic = idx + 1;
