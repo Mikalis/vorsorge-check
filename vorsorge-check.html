@@ -187,6 +187,56 @@ button:focus-visible, a:focus-visible { border-radius: var(--radius-sm); }
   white-space: nowrap;
 }
 .topbar-btn:hover { background: rgba(255,255,255,.28); }
+/* ── Game HUD (topbar right) ── */
+.hud {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.hud-avatar {
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.2);
+  border: 2px solid rgba(255,255,255,.5);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; font-weight: 800; color: #fff;
+  flex-shrink: 0;
+  font-family: 'Outfit', sans-serif;
+}
+.hud-info { display: flex; flex-direction: column; align-items: flex-end; gap: 3px; }
+.hud-name {
+  font-size: 12px; font-weight: 700; color: #fff;
+  line-height: 1;
+  max-width: 120px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.hud-xp-row {
+  display: flex; align-items: center; gap: 6px;
+}
+.hud-lvl {
+  font-size: 10px; font-weight: 800; color: #fff;
+  background: rgba(255,255,255,.2);
+  border-radius: 100px; padding: 2px 7px;
+  white-space: nowrap; line-height: 1.4;
+  letter-spacing: .3px;
+}
+.hud-xp-track {
+  width: 80px; height: 5px;
+  background: rgba(255,255,255,.2);
+  border-radius: 100px; overflow: hidden;
+}
+.hud-xp-fill {
+  height: 100%; border-radius: 100px;
+  background: linear-gradient(90deg, #fff, rgba(255,255,255,.6));
+  width: 15%;
+  transition: width .6s ease-out;
+}
+.hud-xp-val {
+  font-size: 10px; color: rgba(255,255,255,.75); font-weight: 600; white-space: nowrap;
+}
+@media (max-width: 480px) {
+  .hud-xp-track { width: 50px; }
+  .hud-name { max-width: 72px; }
+}
 
 /* ── Container ── */
 .container { max-width: 1200px; margin: 0 auto; padding: 32px 20px 72px; }
@@ -1275,7 +1325,6 @@ canvas { width: 100% !important; }
 }
 @media (max-width: 600px) {
   .donut-row { flex-direction: column; align-items: center; }
-  .level-bar { flex-direction: column; align-items: stretch; gap: 10px; }
   .quest { flex-wrap: wrap; }
   .quest-xp { margin-top: 6px; }
   .timeline::before { display: none; }
@@ -1299,6 +1348,18 @@ canvas { width: 100% !important; }
   <div class="topbar-divider"></div>
   <span class="topbar-sub">Vorsorge-Buddy</span>
   <div class="topbar-spacer"></div>
+  <!-- Game HUD -->
+  <div class="hud">
+    <div class="hud-info">
+      <span class="hud-name" id="hudName">Michalis</span>
+      <div class="hud-xp-row">
+        <span class="hud-lvl" id="hudLvl">LVL 1 · Starter</span>
+        <div class="hud-xp-track"><div class="hud-xp-fill" id="hudXpFill"></div></div>
+        <span class="hud-xp-val"><span id="hudXpCur">150</span> XP</span>
+      </div>
+    </div>
+    <div class="hud-avatar" id="hudAvatar">M</div>
+  </div>
   <button type="button" class="topbar-btn" id="themeToggle" aria-label="Darstellung wechseln">
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
     Dark
@@ -1353,9 +1414,14 @@ canvas { width: 100% !important; }
         <p class="piggy-hint">Antippen ✦</p>
       </div>
     </div>
-    <h1>Dein Vorsorge-Check</h1>
+    <h1>Hallo, <em id="heroName">Michalis</em> — dein Vorsorge-Check</h1>
     <p class="hero-sub">Was du heute tun kannst — einfach erklärt.</p>
     <p class="hero-hint">Karten klicken · Quests erledigen = XP · Demo-Zahlen</p>
+    <div class="pills" id="profilePills" role="group" aria-label="Alter / Situation" style="justify-content:center;margin-top:16px">
+      <button type="button" class="pill on" data-profile="student">22 J. · Studium</button>
+      <button type="button" class="pill" data-profile="youngpro">26 J. · Berufseinstieg</button>
+      <button type="button" class="pill" data-profile="nest">32 J. · Familie</button>
+    </div>
   </div>
 
   <!-- ── Zeitleiste — ganz oben ── -->
@@ -1437,24 +1503,6 @@ canvas { width: 100% !important; }
   </div>
 
   <!-- Level Bar -->
-  <div class="level-bar">
-    <button type="button" class="lvl-badge" id="lvlBtn">
-      LVL <span id="lvlNum">1</span> — <span id="lvlTitle">Starter</span>
-    </button>
-    <div class="xp-wrap">
-      <div class="xp-label">
-        <span>Vorsorge-XP</span>
-        <span><span id="xpCur">150</span> / 1000</span>
-      </div>
-      <div class="xp-track"><div class="xp-fill" id="xpFill"></div></div>
-    </div>
-    <div class="pills" id="profilePills" role="group" aria-label="Alter / Situation">
-      <button type="button" class="pill on" data-profile="student">22 J. · Studium</button>
-      <button type="button" class="pill" data-profile="youngpro">26 J. · Berufseinstieg</button>
-      <button type="button" class="pill" data-profile="nest">32 J. · Familie</button>
-    </div>
-  </div>
-
   <!-- GRID -->
   <div class="grid">
 
@@ -1954,24 +2002,31 @@ canvas { width: 100% !important; }
     applyTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
   });
 
+  /* ── User ── */
+  const USER_NAME = 'Michalis'; // ← für Claude-Plugin hier den Namen einsetzen
+  (function initUser() {
+    const first = USER_NAME.split(' ')[0];
+    document.getElementById('heroName').textContent = first;
+    document.getElementById('hudName').textContent = first;
+    document.getElementById('hudAvatar').textContent = first.charAt(0).toUpperCase();
+  })();
+
   /* ── XP ── */
   let xp = 150;
   const XP_MAX = 1000;
   const LEVELS = { 1: 'Starter', 2: 'Sparer', 3: 'Stratege', 4: 'Boss-Mode' };
   function syncXp() {
-    document.getElementById('xpCur').textContent = xp;
     const pct = Math.min(100, (xp / XP_MAX) * 100);
-    document.getElementById('xpFill').style.width = pct + '%';
     const lvl = xp >= 800 ? 4 : xp >= 550 ? 3 : xp >= 300 ? 2 : 1;
-    document.getElementById('lvlNum').textContent = lvl;
-    document.getElementById('lvlTitle').textContent = LEVELS[lvl];
+    document.getElementById('hudXpCur').textContent = xp;
+    document.getElementById('hudXpFill').style.width = pct + '%';
+    document.getElementById('hudLvl').textContent = 'LVL ' + lvl + ' · ' + LEVELS[lvl];
   }
   function addXp(d, msg) { xp = Math.min(XP_MAX, Math.max(0, xp + d)); syncXp(); if (msg) toast(msg); }
 
   /* ── Modal ── */
   const backdrop = document.getElementById('backdrop');
   const lvlModal = document.getElementById('lvlModal');
-  document.getElementById('lvlBtn').addEventListener('click', () => { backdrop.classList.add('open'); lvlModal.classList.add('open'); });
   function closeModal() { backdrop.classList.remove('open'); lvlModal.classList.remove('open'); }
   document.getElementById('lvlModalClose').addEventListener('click', closeModal);
   backdrop.addEventListener('click', closeModal);
