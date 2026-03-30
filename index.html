@@ -211,6 +211,61 @@ button:focus-visible, a:focus-visible { border-radius: var(--radius-sm); }
   padding: 40px 0 28px;
   animation: fadeUp .6s ease-out;
 }
+
+/* ── Piggy ── */
+.piggy-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+.piggy-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  position: relative;
+  display: inline-block;
+  line-height: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+.piggy-btn:focus-visible { outline: 2px solid var(--primary); outline-offset: 6px; border-radius: 50%; }
+.piggy-svg {
+  width: 96px;
+  height: 96px;
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,.12));
+  transition: transform .15s ease;
+}
+.piggy-btn:hover .piggy-svg { transform: scale(1.07); }
+.piggy-btn:active .piggy-svg { transform: scale(.93); }
+@keyframes piggy-wiggle {
+  0%,100% { transform: rotate(0deg); }
+  20%      { transform: rotate(-8deg) scale(1.05); }
+  40%      { transform: rotate(8deg) scale(1.05); }
+  60%      { transform: rotate(-5deg); }
+  80%      { transform: rotate(4deg); }
+}
+@keyframes coin-fly {
+  0%   { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
+  100% { opacity: 0; transform: translateX(-50%) translateY(-52px) scale(.7); }
+}
+.piggy-btn.jiggle .piggy-svg { animation: piggy-wiggle .5s ease; }
+.coin-pop {
+  position: absolute;
+  top: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 18px;
+  pointer-events: none;
+  animation: coin-fly .55s ease-out forwards;
+  line-height: 1;
+}
+.piggy-hint {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 6px;
+  opacity: .7;
+  font-weight: 500;
+}
 .hero-badge {
   display: inline-flex;
   align-items: center;
@@ -1425,6 +1480,47 @@ canvas { width: 100% !important; }
 
   <!-- Hero -->
   <div class="hero">
+    <div class="piggy-wrap">
+      <div>
+        <button type="button" class="piggy-btn" id="piggyBtn" aria-label="Sparschwein antippen">
+          <svg class="piggy-svg" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <!-- Body -->
+            <ellipse cx="60" cy="68" rx="38" ry="32" fill="#F9A8C9"/>
+            <!-- Head -->
+            <circle cx="60" cy="42" r="24" fill="#F9A8C9"/>
+            <!-- Ear left -->
+            <ellipse cx="40" cy="24" rx="9" ry="11" fill="#F472B6" transform="rotate(-15 40 24)"/>
+            <ellipse cx="40" cy="24" rx="5.5" ry="7" fill="#FBCFE8" transform="rotate(-15 40 24)"/>
+            <!-- Ear right -->
+            <ellipse cx="80" cy="24" rx="9" ry="11" fill="#F472B6" transform="rotate(15 80 24)"/>
+            <ellipse cx="80" cy="24" rx="5.5" ry="7" fill="#FBCFE8" transform="rotate(15 80 24)"/>
+            <!-- Snout -->
+            <ellipse cx="60" cy="52" rx="12" ry="8" fill="#F472B6"/>
+            <!-- Nostrils -->
+            <circle cx="55.5" cy="52.5" r="2.5" fill="#DB2777"/>
+            <circle cx="64.5" cy="52.5" r="2.5" fill="#DB2777"/>
+            <!-- Eyes -->
+            <circle cx="50" cy="37" r="4" fill="white"/>
+            <circle cx="70" cy="37" r="4" fill="white"/>
+            <circle cx="51" cy="37" r="2.2" fill="#1a1a1a"/>
+            <circle cx="71" cy="37" r="2.2" fill="#1a1a1a"/>
+            <!-- Eye shine -->
+            <circle cx="52" cy="36" r=".9" fill="white"/>
+            <circle cx="72" cy="36" r=".9" fill="white"/>
+            <!-- Legs -->
+            <rect x="32" y="92" width="14" height="18" rx="7" fill="#F472B6"/>
+            <rect x="50" y="94" width="14" height="16" rx="7" fill="#F472B6"/>
+            <rect x="56" y="94" width="14" height="16" rx="7" fill="#F472B6"/>
+            <rect x="74" y="92" width="14" height="18" rx="7" fill="#F472B6"/>
+            <!-- Coin slot on back -->
+            <rect x="52" y="38" width="16" height="4" rx="2" fill="#DB2777" opacity=".6"/>
+            <!-- Tail -->
+            <path d="M98 70 Q108 60 104 52 Q100 44 108 40" stroke="#F472B6" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+          </svg>
+        </button>
+        <p class="piggy-hint">Antippen ✦</p>
+      </div>
+    </div>
     <h1 id="heroH1">Hallo <em id="heroName">…</em> — dein Vorsorge-Check</h1>
     <p class="hero-sub" id="heroSub">Hier siehst du, was du heute tun kannst — einfach, ohne Fachbegriffe.</p>
     <p class="hero-hint">Karten sind klickbar · Quests erledigen = XP · Alles Demo-Zahlen</p>
@@ -2130,6 +2226,29 @@ canvas { width: 100% !important; }
   if (savedName && savedGoal && goalMeta[savedGoal]) {
     launchDashboard(savedName, savedGoal);
   }
+
+  /* ── Piggy ── */
+  const piggyBtn = document.getElementById('piggyBtn');
+  const piggyMsgs = [
+    'Oink! 🐷', '+1 XP für Mut!', 'Spar weiter so!', 'Münze eingeworfen!',
+    'Oink oink!', 'Du bist auf dem richtigen Weg!', 'Jeder Franken zählt!'
+  ];
+  let piggyCount = 0;
+  piggyBtn.addEventListener('click', () => {
+    piggyBtn.classList.remove('jiggle');
+    void piggyBtn.offsetWidth; // reflow to restart animation
+    piggyBtn.classList.add('jiggle');
+    // Coin pop
+    const coin = document.createElement('span');
+    coin.className = 'coin-pop';
+    coin.textContent = '🪙';
+    piggyBtn.appendChild(coin);
+    coin.addEventListener('animationend', () => coin.remove());
+    // Toast
+    toast(piggyMsgs[piggyCount % piggyMsgs.length]);
+    piggyCount++;
+    addXp(1, null);
+  });
 
   /* ── Toast ── */
   let toastT;
