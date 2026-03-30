@@ -742,6 +742,12 @@ button:focus-visible, a:focus-visible { border-radius: var(--radius-sm); }
   border-top: none;
   color: inherit;
   text-align: left;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+.lrow[role="button"]:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
 }
 .lrow:last-of-type { border-bottom: none; }
 .lrow:hover { background: var(--primary-lt); }
@@ -1198,7 +1204,13 @@ input[type="range"] {
 /* ── Chart ── */
 .chart-area { position: relative; height: 300px; margin-top: 8px; }
 canvas { width: 100% !important; }
-.toggle-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+.toggle-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 12px; }
+.tog-pair {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  flex-wrap: nowrap;
+}
 .tog {
   background: var(--primary-lt);
   border: 1.5px solid transparent;
@@ -1210,6 +1222,7 @@ canvas { width: 100% !important; }
   cursor: pointer;
   transition: background var(--transition), border-color var(--transition), color var(--transition);
   min-height: 40px;
+  font-family: inherit;
 }
 .tog.on { background: var(--primary); color: #fff; }
 .tog:hover:not(.on) { border-color: var(--primary); }
@@ -1845,20 +1858,20 @@ canvas { width: 100% !important; }
           </div>
         </div>
         <div class="legend">
-          <button type="button" class="lrow" data-det="ahv">
-            <span class="lbl"><span class="dot" style="background:var(--zc-blue-zurich)"></span>Staat (AHV) <button type="button" class="tip tip--sm" tabindex="0" onclick="event.stopPropagation()"><span class="tip-icon" aria-hidden="true">i</span><span class="tip-bubble" role="tooltip">Staatliche Rente — fliesst automatisch ab 65, du zahlst monatlich über den Lohn ein.</span></button></span>
+          <div role="button" tabindex="0" class="lrow" data-det="ahv">
+            <span class="lbl"><span class="dot" style="background:var(--zc-blue-zurich)"></span>Staat (AHV) <span class="tip tip--sm" tabindex="0" role="button" aria-label="Info AHV" onclick="event.stopPropagation()"><span class="tip-icon" aria-hidden="true">i</span><span class="tip-bubble" role="tooltip">Staatliche Rente — fliesst automatisch ab 65, du zahlst monatlich über den Lohn ein.</span></span></span>
             <span class="v">CHF 2'200</span>
-          </button>
-          <button type="button" class="lrow" data-det="pk">
-            <span class="lbl"><span class="dot" style="background:var(--zc-lilac-100)"></span>Arbeitgeber (PK) <button type="button" class="tip tip--sm" tabindex="0" onclick="event.stopPropagation()"><span class="tip-icon" aria-hidden="true">i</span><span class="tip-bubble" role="tooltip">Pensionskasse — dein Arbeitgeber zahlt mindestens gleich viel wie du. Pflicht ab CHF 22'050 Jahreslohn.</span></button></span>
+          </div>
+          <div role="button" tabindex="0" class="lrow" data-det="pk">
+            <span class="lbl"><span class="dot" style="background:var(--zc-lilac-100)"></span>Arbeitgeber (PK) <span class="tip tip--sm" tabindex="0" role="button" aria-label="Info PK" onclick="event.stopPropagation()"><span class="tip-icon" aria-hidden="true">i</span><span class="tip-bubble" role="tooltip">Pensionskasse — dein Arbeitgeber zahlt mindestens gleich viel wie du. Pflicht ab CHF 22'050 Jahreslohn.</span></span></span>
             <span class="v">CHF 1'515</span>
-          </button>
-          <button type="button" class="lrow" data-det="luecke">
-            <span class="lbl"><span class="dot" style="background:var(--zc-peach-100)"></span>Fehlt noch <button type="button" class="tip tip--sm" tabindex="0" onclick="event.stopPropagation()"><span class="tip-icon" aria-hidden="true">i</span><span class="tip-bubble" role="tooltip">Monatliche Lücke bis zur Zielrente (80% Lohn). Schliessen z.B. mit 3a-Konto.</span></button></span>
+          </div>
+          <div role="button" tabindex="0" class="lrow" data-det="luecke">
+            <span class="lbl"><span class="dot" style="background:var(--zc-peach-100)"></span>Fehlt noch <span class="tip tip--sm" tabindex="0" role="button" aria-label="Info Lücke" onclick="event.stopPropagation()"><span class="tip-icon" aria-hidden="true">i</span><span class="tip-bubble" role="tooltip">Monatliche Lücke bis zur Zielrente (80% Lohn). Schliessen z.B. mit 3a-Konto.</span></span></span>
             <span class="v" style="color:var(--danger)" id="legendGap">CHF 951</span>
-          </button>
+          </div>
           <div class="lrow lrow-total">
-            <span class="lbl">Zielrente <button type="button" class="tip tip--sm" tabindex="0" onclick="event.stopPropagation()"><span class="tip-icon" aria-hidden="true">i</span><span class="tip-bubble" role="tooltip">Demo-Wert: 80% des letzten Lohns — übliche Faustregel für den Lebensstandard im Alter.</span></button></span>
+            <span class="lbl">Zielrente <button type="button" class="tip tip--sm" tabindex="0" aria-label="Info Zielrente"><span class="tip-icon" aria-hidden="true">i</span><span class="tip-bubble" role="tooltip">Demo-Wert: 80% des letzten Lohns — übliche Faustregel für den Lebensstandard im Alter.</span></button></span>
             <span class="v">CHF 4'667</span>
           </div>
           <!-- Spar-Hebel -->
@@ -2050,18 +2063,18 @@ canvas { width: 100% !important; }
       </div>
 
       <div class="toggle-row">
-        <button type="button" class="tog on" onclick="setScenario('opt')">
-          Gut (6%)
-          <button type="button" class="tip tip--sm tip--scenario" tabindex="0" onclick="event.stopPropagation()"><span class="tip-icon" aria-hidden="true">i</span><span class="tip-bubble" role="tooltip">Historische Rendite eines globalen Aktienportfolios — möglich, aber nicht garantiert.</span></button>
-        </button>
-        <button type="button" class="tog" onclick="setScenario('mid')">
-          Mittel (5%)
-          <button type="button" class="tip tip--sm tip--scenario" tabindex="0" onclick="event.stopPropagation()"><span class="tip-icon" aria-hidden="true">i</span><span class="tip-bubble" role="tooltip">Gemischtes Portfolio aus Aktien und Obligationen — realistischer Mittelwert.</span></button>
-        </button>
-        <button type="button" class="tog" onclick="setScenario('con')">
-          Konservativ (4%)
-          <button type="button" class="tip tip--sm tip--scenario" tabindex="0" onclick="event.stopPropagation()"><span class="tip-icon" aria-hidden="true">i</span><span class="tip-bubble" role="tooltip">Mehr Obligationen, weniger Schwankung — aber auch weniger Wachstum.</span></button>
-        </button>
+        <div class="tog-pair">
+          <button type="button" class="tog on" onclick="setScenario('opt')">Gut (6%)</button>
+          <button type="button" class="tip tip--sm tip--scenario" tabindex="0" aria-label="Info Szenario gut" onclick="event.stopPropagation()"><span class="tip-icon" aria-hidden="true">i</span><span class="tip-bubble" role="tooltip">Historische Rendite eines globalen Aktienportfolios — möglich, aber nicht garantiert.</span></button>
+        </div>
+        <div class="tog-pair">
+          <button type="button" class="tog" onclick="setScenario('mid')">Mittel (5%)</button>
+          <button type="button" class="tip tip--sm tip--scenario" tabindex="0" aria-label="Info Szenario mittel" onclick="event.stopPropagation()"><span class="tip-icon" aria-hidden="true">i</span><span class="tip-bubble" role="tooltip">Gemischtes Portfolio aus Aktien und Obligationen — realistischer Mittelwert.</span></button>
+        </div>
+        <div class="tog-pair">
+          <button type="button" class="tog" onclick="setScenario('con')">Konservativ (4%)</button>
+          <button type="button" class="tip tip--sm tip--scenario" tabindex="0" aria-label="Info Szenario konservativ" onclick="event.stopPropagation()"><span class="tip-icon" aria-hidden="true">i</span><span class="tip-bubble" role="tooltip">Mehr Obligationen, weniger Schwankung — aber auch weniger Wachstum.</span></button>
+        </div>
       </div>
       <div class="chart-area"><canvas id="chart"></canvas></div>
       <p style="font-size:11px;color:var(--text-muted);margin-top:8px;line-height:1.5">Vereinfachte Simulation, keine Garantie. Steuern und Gebühren nicht eingerechnet.</p>
@@ -2204,7 +2217,10 @@ canvas { width: 100% !important; }
 
   /* ── Piggy: ein klarer Tap — rotierende Tipps (keine Fake-Aktionen) ── */
   const piggyBtn = document.getElementById('piggyBtn');
-  const piggyScene = piggyBtn.querySelector('.piggy-scene');
+  if (!piggyBtn) {
+    console.error('piggyBtn fehlt im DOM');
+  }
+  const piggyScene = piggyBtn ? piggyBtn.querySelector('.piggy-scene') : null;
   const piggyTips = [
     'AHV läuft automatisch über den Lohn — ab 65 zahlt der Staat mit.',
     'PK: Arbeitgeber zahlt mindestens gleich viel wie du.',
@@ -2216,6 +2232,7 @@ canvas { width: 100% !important; }
   let piggyTipI = 0;
 
   function triggerPiggyJiggle() {
+    if (!piggyBtn) return;
     piggyBtn.classList.remove('jiggle');
     void piggyBtn.offsetWidth;
     piggyBtn.classList.add('jiggle');
@@ -2227,17 +2244,19 @@ canvas { width: 100% !important; }
     setTimeout(function () { piggyBtn.classList.remove('jiggle'); }, 550);
   }
 
-  piggyBtn.addEventListener('click', function () {
-    const coin = document.createElement('span');
-    coin.className = 'coin-pop';
-    coin.textContent = '🪙';
-    piggyBtn.appendChild(coin);
-    coin.addEventListener('animationend', function () { coin.remove(); });
-    triggerPiggyJiggle();
-    toast(piggyTips[piggyTipI % piggyTips.length]);
-    piggyTipI++;
-    addXp(1, null);
-  });
+  if (piggyBtn) {
+    piggyBtn.addEventListener('click', function () {
+      const coin = document.createElement('span');
+      coin.className = 'coin-pop';
+      coin.textContent = '🪙';
+      piggyBtn.appendChild(coin);
+      coin.addEventListener('animationend', function () { coin.remove(); });
+      triggerPiggyJiggle();
+      toast(piggyTips[piggyTipI % piggyTips.length]);
+      piggyTipI++;
+      addXp(1, null);
+    });
+  }
 
   /* ── Toast ── */
   let toastT;
@@ -2353,13 +2372,21 @@ canvas { width: 100% !important; }
 
   /* ── Legend ── */
   document.querySelectorAll('.lrow[data-det]').forEach(row => {
-    row.addEventListener('click', () => {
+    function onLegendActivate() {
       const id = row.dataset.det;
       const det = document.getElementById('det-' + id);
+      if (!det) return;
       const was = det.classList.contains('open');
       document.querySelectorAll('.lrow-detail').forEach(d => d.classList.remove('open'));
       document.querySelectorAll('.lrow[data-det]').forEach(r => r.classList.remove('open'));
       if (!was) { det.classList.add('open'); row.classList.add('open'); }
+    }
+    row.addEventListener('click', onLegendActivate);
+    row.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        onLegendActivate();
+      }
     });
   });
 
@@ -2607,8 +2634,14 @@ canvas { width: 100% !important; }
   let chrt = null;
 
   function initChart() {
+    if (typeof Chart === 'undefined') {
+      console.error('Chart.js nicht geladen — Zinseszins-Grafik ausgesetzt.');
+      return;
+    }
+    const chartEl = document.getElementById('chart');
+    if (!chartEl || !chartEl.getContext) return;
     if (chrt) { updateZinsStats('opt'); return; }
-    const ctx = document.getElementById('chart').getContext('2d');
+    const ctx = chartEl.getContext('2d');
     chrt = new Chart(ctx, {
       type: 'line',
       data: {

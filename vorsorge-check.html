@@ -7,9 +7,7 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800;900&display=swap');
 
-/* ── Zurich Design System Tokens ── */
 :root {
-  /* Brand */
   --zc-blue-dark:    #003781;
   --zc-blue-zurich:  #0047BB;
   --zc-blue-mid:     #6699CC;
@@ -18,12 +16,9 @@
   --zc-sand-stone:   #F5F0E8;
   --zc-dove:         #E8E4DC;
   --zg-white:        #FFFFFF;
-  /* Secondary */
   --zc-moss-100:     #2D6A4F;
   --zc-moss-80:      #52B788;
   --zc-moss-20:      #D8F3DC;
-  --zc-teal-100:     #0A7E8C;
-  --zc-teal-20:      #D0F0F4;
   --zc-mint-100:     #00B4A0;
   --zc-mint-20:      #CCEFEC;
   --zc-lemon-aa:     #C9A800;
@@ -32,20 +27,11 @@
   --zc-peach-aa:     #C0392B;
   --zc-peach-100:    #E74C3C;
   --zc-peach-20:     #FDECEA;
-  --zc-candy-100:    #E91E8C;
   --zc-lilac-100:    #7B61C4;
   --zc-lilac-20:     #EDE8F9;
-  /* Gray */
   --zg-1:  #1A1A1A;
-  --zg-2:  #333333;
-  --zg-3:  #4D4D4D;
   --zg-4:  #666666;
-  --zg-5:  #808080;
-  --zg-6:  #999999;
-  --zg-7:  #B3B3B3;
-  --zg-8:  #CCCCCC;
   --zg-9:  #E6E6E6;
-  /* Semantic */
   --bg:          var(--zc-sand-stone);
   --bg-subtle:   var(--zc-dove);
   --card:        var(--zg-white);
@@ -60,16 +46,12 @@
   --warn:        var(--zc-lemon-aa);
   --warn-lt:     var(--zc-lemon-20);
   --danger:      var(--zc-peach-aa);
-  --danger-lt:   var(--zc-peach-20);
   --accent:      var(--zc-lilac-100);
-  --accent-lt:   var(--zc-lilac-20);
-  --radius:        12px;
-  --radius-sm:     8px;
-  --shadow:        0 1px 4px rgba(0,0,0,.07), 0 4px 16px rgba(0,0,0,.05);
-  --shadow-lg:     0 8px 32px rgba(0,71,187,.12);
-  --transition:    0.22s ease;
-  /* Text color when primary is used as label on --primary-lt bg.
-     Light mode: #0047BB on #E5EEF8 = 5.8:1 ✓ */
+  --radius:      12px;
+  --radius-sm:   8px;
+  --shadow:      0 1px 4px rgba(0,0,0,.07), 0 4px 16px rgba(0,0,0,.05);
+  --shadow-hover: 0 8px 28px rgba(0, 71, 187, 0.14);
+  --transition:  0.22s ease;
   --primary-on-lt: var(--primary);
   color-scheme: light;
 }
@@ -82,25 +64,20 @@
   --text:        #E6EDF3;
   --text-muted:  #8B949E;
   --border:      #30363D;
-  /* In dark mode: primary text/icon color must be light enough on dark bg.
-     #0047BB on #1C2128 = ~2.4:1 — FAIL. Use sky-blue tint instead. */
-  --primary:     #5B9BD5;   /* lightened for dark bg — ~5.2:1 on #1C2128 */
+  --primary:     #5B9BD5;
   --primary-dk:  #7AB3E0;
-  --primary-lt:  #192336;   /* dark tinted bg for chips/badges */
-  --primary-on-lt: #7AB3E0; /* text color when sitting on --primary-lt */
-  --success:     #52B788;   /* moss-80 — readable on dark */
+  --primary-lt:  #192336;
+  --primary-on-lt: #7AB3E0;
+  --success:     #52B788;
   --success-lt:  #0D2818;
-  --warn:        #E6C200;   /* brighter lemon for dark bg */
+  --warn:        #E6C200;
   --warn-lt:     #2A2200;
   --danger:      #E74C3C;
-  --danger-lt:   #2A1010;
-  --accent:      #9B85D4;   /* lilac lightened */
-  --accent-lt:   #1E1730;
-  --shadow:      0 1px 4px rgba(0,0,0,.4), 0 4px 16px rgba(0,0,0,.3);
-  --shadow-lg:   0 8px 32px rgba(0,0,0,.5);
+  --accent:      #9B85D4;
+  --shadow:      0 1px 4px rgba(0,0,0,.4), 0 4px 16px rgba(0,0,0,.25);
+  --shadow-hover: 0 12px 36px rgba(0,0,0,.45);
 }
 
-/* ── Reset ── */
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 body {
   font-family: 'Inter', -apple-system, sans-serif;
@@ -112,173 +89,141 @@ body {
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
 }
-h1,h2,h3,.display { font-family: 'Outfit', sans-serif; text-wrap: balance; }
-button { font-family: inherit; }
-a { color: inherit; }
+h1, h2, h3 { font-family: 'Outfit', sans-serif; }
+button { font-family: inherit; cursor: pointer; }
+html { scroll-behavior: smooth; }
 
-/* ── Reduced motion ── */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+  html { scroll-behavior: auto; }
 }
 
-/* ── Global focus-visible ring ── */
 :focus-visible {
   outline: 2px solid var(--primary);
   outline-offset: 3px;
   border-radius: 4px;
 }
-button:focus-visible, a:focus-visible { border-radius: var(--radius-sm); }
 
-/* ── Topbar ── */
+/* Topbar */
 .topbar {
   background: var(--primary);
-  padding: 0 24px;
-  height: 60px;
+  padding: 0 20px;
+  min-height: 56px;
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
+  flex-wrap: wrap;
   position: sticky;
   top: 0;
-  z-index: 100;
-  box-shadow: 0 2px 8px rgba(0,0,0,.18);
+  z-index: 50;
+  box-shadow: 0 2px 8px rgba(0,0,0,.15);
 }
-.topbar-logo {
+.topbar a {
   display: flex;
   align-items: center;
   gap: 10px;
   text-decoration: none;
+  color: #fff;
 }
-.topbar-wordmark {
+.zurich-logo { width: 36px; height: 36px; flex-shrink: 0; }
+.topbar-text {
   color: #fff;
   font-family: 'Outfit', sans-serif;
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 800;
-  letter-spacing: -0.3px;
-}
-.topbar-divider {
-  width: 1px;
-  height: 24px;
-  background: rgba(255,255,255,.3);
+  letter-spacing: -0.02em;
 }
 .topbar-sub {
   color: rgba(255,255,255,.75);
-  font-size: 13px;
-  font-weight: 500;
+  font-size: 12px;
+  font-weight: 600;
 }
-.topbar-spacer { flex: 1; }
-.topbar-btn {
+.topbar-spacer { flex: 1; min-width: 8px; }
+.theme-btn {
   background: rgba(255,255,255,.15);
-  border: 1.5px solid rgba(255,255,255,.3);
+  border: 1.5px solid rgba(255,255,255,.35);
   color: #fff;
   border-radius: 100px;
-  padding: 0 16px;
-  height: 36px;
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 700;
+  min-height: 36px;
   transition: background var(--transition);
-  white-space: nowrap;
 }
-.topbar-btn:hover { background: rgba(255,255,255,.28); }
-/* ── Game HUD (topbar right) ── */
-.hud {
+.theme-btn:hover { background: rgba(255,255,255,.28); }
+
+.topbar-hud {
   display: flex;
   align-items: center;
   gap: 10px;
+  margin-right: 4px;
 }
 .hud-avatar {
-  width: 34px; height: 34px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   background: rgba(255,255,255,.2);
-  border: 2px solid rgba(255,255,255,.5);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 14px; font-weight: 800; color: #fff;
-  flex-shrink: 0;
+  border: 2px solid rgba(255,255,255,.45);
+  color: #fff;
   font-family: 'Outfit', sans-serif;
+  font-size: 14px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
 }
-.hud-info { display: flex; flex-direction: column; align-items: flex-end; gap: 3px; }
+.hud-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  min-width: 0;
+}
 .hud-name {
-  font-size: 12px; font-weight: 700; color: #fff;
-  line-height: 1;
-  max-width: 120px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
-}
-.hud-xp-row {
-  display: flex; align-items: center; gap: 6px;
-}
-.hud-lvl {
-  font-size: 10px; font-weight: 800; color: #fff;
-  background: rgba(255,255,255,.2);
-  border-radius: 100px; padding: 2px 7px;
-  white-space: nowrap; line-height: 1.4;
-  letter-spacing: .3px;
-}
-.hud-xp-track {
-  width: 80px; height: 5px;
-  background: rgba(255,255,255,.2);
-  border-radius: 100px; overflow: hidden;
-}
-.hud-xp-fill {
-  height: 100%; border-radius: 100px;
-  background: linear-gradient(90deg, #fff, rgba(255,255,255,.6));
-  width: 15%;
-  transition: width .6s ease-out;
-}
-.hud-xp-val {
-  font-size: 10px; color: rgba(255,255,255,.75); font-weight: 600; white-space: nowrap;
-}
-@media (max-width: 480px) {
-  .hud-xp-track { width: 50px; }
-  .hud-name { max-width: 72px; }
-}
-
-/* ── Container ── */
-.container { max-width: 1200px; margin: 0 auto; padding: 0 20px 72px; }
-
-/* ── Animations ── */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(18px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-@keyframes xpGrow { to { width: var(--xp-target, 15%); } }
-@keyframes strokeIn {
-  from { stroke-dasharray: 0 503; }
-}
-@keyframes pulse {
-  0%,100% { transform: scale(1); }
-  50%      { transform: scale(1.04); }
-}
-
-/* ── Hero: ruhig, direkt unter der Nav, eine Fläche ── */
-.hero-shell {
-  width: 100vw;
-  margin-left: calc(50% - 50vw);
-  margin-right: calc(50% - 50vw);
-  position: relative;
-  margin-bottom: 24px;
+  font-size: 13px;
+  font-weight: 800;
+  color: #fff;
+  max-width: 120px;
   overflow: hidden;
-  border-bottom: 1px solid var(--border);
-  background: var(--card);
-  animation: fadeUp .5s ease-out;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
-[data-theme="dark"] .hero-shell {
-  background: var(--card);
-  border-bottom-color: var(--border);
+.hud-streak {
+  font-size: 10px;
+  font-weight: 700;
+  color: rgba(255,255,255,.78);
+  display: flex;
+  align-items: center;
+  gap: 3px;
 }
-.hero {
-  position: relative;
-  z-index: 1;
-  text-align: center;
+.streak-flame { font-size: 11px; line-height: 1; }
+@media (max-width: 520px) {
+  .hud-col { display: none; }
+  .topbar-hud { margin-right: 0; }
+}
+
+.container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 14px 20px 22px;
+  padding: 28px 20px 56px;
 }
+
+/* Hero */
+.hero {
+  text-align: center;
+  margin-bottom: 24px;
+  animation: fadeUp 0.55s ease-out;
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .piggy-scene,
   .piggy-svg { animation: none !important; }
@@ -286,12 +231,11 @@ button:focus-visible, a:focus-visible { border-radius: var(--radius-sm); }
   .coin-pop { animation-duration: 0.01ms !important; }
 }
 
-/* ── Piggy ── */
 .piggy-wrap {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
   position: relative;
   z-index: 2;
 }
@@ -313,7 +257,6 @@ button:focus-visible, a:focus-visible { border-radius: var(--radius-sm); }
   touch-action: manipulation;
 }
 .piggy-btn:focus-visible { outline: 2px solid var(--primary); outline-offset: 4px; border-radius: var(--radius); }
-/* Klicks landen zuverlässig auf dem Button */
 .piggy-stack,
 .piggy-scene,
 .piggy-coin,
@@ -326,7 +269,6 @@ button:focus-visible, a:focus-visible { border-radius: var(--radius-sm); }
   align-items: center;
   gap: 8px;
 }
-/* Original GitHub-Version: blaues Schwein + fallende Franken-Münzen */
 @keyframes piggyBounce {
   0%, 100% { transform: translateY(0) rotate(-1.5deg) scale(1); }
   20% { transform: translateY(-11px) rotate(2.5deg) scale(1.03); }
@@ -375,7 +317,7 @@ button:focus-visible, a:focus-visible { border-radius: var(--radius-sm); }
   width: 108px;
   height: 108px;
   filter: drop-shadow(0 6px 16px rgba(0, 71, 187, 0.2));
-  transition: transform .15s ease;
+  transition: transform 0.15s ease;
   position: relative;
   z-index: 0;
   animation: piggySvgWiggle 2.8s ease-in-out infinite;
@@ -385,7 +327,7 @@ button:focus-visible, a:focus-visible { border-radius: var(--radius-sm); }
 .piggy-btn:hover .piggy-svg,
 .piggy-btn:active .piggy-svg { animation-play-state: paused; }
 .piggy-btn:hover .piggy-svg { transform: scale(1.07); }
-.piggy-btn:active .piggy-svg { transform: scale(.93); }
+.piggy-btn:active .piggy-svg { transform: scale(0.93); }
 @keyframes piggy-wiggle {
   0%,100% { transform: translateY(0) rotate(0deg); }
   20%      { transform: translateY(0) rotate(-8deg) scale(1.05); }
@@ -393,12 +335,11 @@ button:focus-visible, a:focus-visible { border-radius: var(--radius-sm); }
   60%      { transform: translateY(0) rotate(-5deg); }
   80%      { transform: translateY(0) rotate(4deg); }
 }
-.piggy-btn.jiggle .piggy-scene { animation: piggy-wiggle .5s ease; }
+.piggy-btn.jiggle .piggy-scene { animation: piggy-wiggle 0.5s ease; }
 .piggy-btn.jiggle .piggy-svg { animation-play-state: paused; }
-/* Münze fliegt beim Tippen nach oben in den Schlitz (Original) */
 @keyframes coin-fly-up {
   0%   { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
-  100% { opacity: 0; transform: translateX(-50%) translateY(-56px) scale(.65); }
+  100% { opacity: 0; transform: translateX(-50%) translateY(-56px) scale(0.65); }
 }
 .coin-pop {
   position: absolute;
@@ -408,8 +349,8 @@ button:focus-visible, a:focus-visible { border-radius: var(--radius-sm); }
   font-size: 20px;
   pointer-events: none;
   line-height: 1;
-  animation: coin-fly-up .65s ease-out forwards;
-  z-index: 2;
+  animation: coin-fly-up 0.65s ease-out forwards;
+  z-index: 4;
 }
 .piggy-hint {
   font-size: 12px;
@@ -421,187 +362,87 @@ button:focus-visible, a:focus-visible { border-radius: var(--radius-sm); }
   pointer-events: none;
 }
 .piggy-btn:hover .piggy-hint { color: var(--text); }
-.hero-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: var(--primary-lt);
-  color: var(--primary-on-lt);
-  border-radius: 100px;
-  padding: 6px 14px;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: .4px;
-  text-transform: uppercase;
-  margin-bottom: 16px;
-}
+
 .hero h1 {
-  font-size: clamp(1.75rem, 5vw, 2.65rem);
+  font-size: clamp(1.65rem, 4.5vw, 2.25rem);
   font-weight: 900;
   line-height: 1.15;
   color: var(--text);
-  max-width: 920px;
-  margin: 0 auto 12px;
-  text-wrap: balance;
+  margin-top: 4px;
 }
-/* em in hero sits on --bg (sand/dark), primary is fine here both modes */
-.hero h1 em { color: var(--primary); font-style: normal; }
-.hero-sub {
-  font-size: 16px;
+.hero h1 .hero-accent { color: var(--primary); font-style: normal; }
+.hero h1 .hero-first {
+  color: var(--primary);
+  font-style: normal;
+  font-weight: 900;
+}
+.rank-line {
+  font-size: 13px;
+  font-weight: 700;
   color: var(--text-muted);
-  max-width: 480px;
-  margin: 0 auto 8px;
-  line-height: 1.55;
-}
-.hero-hint {
-  font-size: 12px;
-  color: var(--text-muted);
-  opacity: .85;
-  max-width: 560px;
-  margin: 0 auto;
-}
-.hero-tray {
-  margin-top: 20px;
-  width: 100%;
-  max-width: 920px;
+  margin-top: 10px;
+  max-width: 520px;
   margin-left: auto;
   margin-right: auto;
-  text-align: center;
+  line-height: 1.4;
+  padding: 8px 14px;
+  background: var(--primary-lt);
+  border-radius: 100px;
+  display: inline-block;
+  border: 1px solid var(--border);
 }
-.hero-tray-label {
-  font-size: 10px;
-  font-weight: 800;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  margin: 0 auto 12px;
-}
-.hero-profile-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-  width: 100%;
-  justify-content: center;
-}
-.hero-profile-grid .pill {
-  border-radius: var(--radius);
-  min-height: 44px;
-  padding: 12px 14px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  text-align: center;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-  border-width: 2px;
-}
-.hero-profile-grid .pill.on {
-  box-shadow: 0 0 0 2px var(--zc-mint-100), 0 8px 24px rgba(0, 71, 187, 0.12);
-}
-[data-theme="dark"] .hero-profile-grid .pill.on {
-  box-shadow: 0 0 0 2px var(--zc-mint-100), 0 8px 28px rgba(0, 0, 0, 0.35);
-}
-.hero-slot-tag {
-  font-size: 9px;
-  font-weight: 800;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  opacity: 0.9;
-}
-.hero-profile-grid .pill.on .hero-slot-tag { color: rgba(255, 255, 255, 0.85); }
-.hero-slot-row {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  width: 100%;
-}
-.hero-slot-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: var(--radius-sm);
-  background: rgba(255, 255, 255, 0.65);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  color: var(--primary);
-}
-[data-theme="dark"] .hero-slot-icon {
-  background: rgba(255, 255, 255, 0.08);
-}
-.hero-profile-grid .pill.on .hero-slot-icon {
-  background: rgba(255, 255, 255, 0.22);
-  color: #fff;
-}
-.hero-slot-icon svg { width: 22px; height: 22px; stroke-width: 2; }
-.hero-slot-text { min-width: 0; flex: 1; }
-.hero-slot-title {
-  display: block;
+.hero-rank-wrap { text-align: center; margin-bottom: 4px; }
+.tagline {
   font-size: 15px;
-  font-weight: 800;
-  line-height: 1.2;
-  letter-spacing: -0.02em;
-}
-.hero-slot-sub {
-  display: block;
-  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 8px;
   font-weight: 600;
-  opacity: 0.88;
-  margin-top: 2px;
-}
-.hero-slot-xp {
-  font-size: 10px;
-  font-weight: 800;
-  color: var(--zc-mint-100);
-  margin-top: 2px;
-}
-.hero-profile-grid .pill.on .hero-slot-xp { color: rgba(255, 255, 255, 0.9); }
-@media (max-width: 640px) {
-  .hero-profile-grid { grid-template-columns: 1fr; }
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.45;
 }
 
-/* ── Level Bar ── */
+/* Level bar */
 .level-bar {
   background: var(--card);
   border-radius: var(--radius);
-  padding: 16px 20px;
+  padding: 14px 18px;
   display: flex;
   align-items: center;
-  gap: 16px;
-  margin-bottom: 24px;
+  gap: 14px;
+  margin-bottom: 22px;
   box-shadow: var(--shadow);
+  border: 1px solid var(--border);
   flex-wrap: wrap;
-  animation: fadeUp .5s ease-out .1s both;
-  border: 1.5px solid var(--border);
+  animation: fadeUp 0.5s ease-out 0.1s both;
 }
-.lvl-badge {
+.level-badge {
   background: var(--primary);
   color: #fff;
+  font-family: 'Outfit', sans-serif;
   font-weight: 800;
   font-size: 12px;
   padding: 8px 16px;
   border-radius: 100px;
-  white-space: nowrap;
   border: none;
-  cursor: pointer;
-  font-family: 'Outfit', sans-serif;
-  letter-spacing: .3px;
-  transition: background var(--transition), transform .15s;
+  white-space: nowrap;
+  letter-spacing: 0.02em;
   min-height: 40px;
+  transition: background var(--transition), transform 0.15s;
 }
-.lvl-badge:hover { background: var(--primary-dk); }
+.level-badge:hover { background: var(--primary-dk); }
+.level-badge:active { transform: scale(0.98); }
 .xp-wrap { flex: 1; min-width: 160px; }
 .xp-label {
-  font-size: 11px;
-  font-weight: 700;
+  font-size: 10px;
+  font-weight: 800;
   color: var(--text-muted);
   margin-bottom: 5px;
   display: flex;
   justify-content: space-between;
   text-transform: uppercase;
-  letter-spacing: .5px;
+  letter-spacing: 0.06em;
 }
 .xp-track {
   height: 8px;
@@ -614,56 +455,209 @@ button:focus-visible, a:focus-visible { border-radius: var(--radius-sm); }
   border-radius: 100px;
   background: linear-gradient(90deg, var(--primary), var(--zc-mint-100));
   width: 15%;
-  transition: width .6s ease-out;
+  transition: width 0.5s ease-out;
 }
-.pills { display: flex; gap: 8px; flex-wrap: wrap; }
-.pill {
+@keyframes xpBarPulse {
+  0%, 100% { filter: brightness(1); box-shadow: none; }
+  35% { filter: brightness(1.15); box-shadow: 0 0 14px rgba(0, 71, 187, 0.45); }
+}
+[data-theme="dark"] .xp-fill.xp-fill--pulse {
+  animation: xpBarPulseDark 0.7s ease;
+}
+@keyframes xpBarPulseDark {
+  0%, 100% { filter: brightness(1); box-shadow: none; }
+  35% { filter: brightness(1.18); box-shadow: 0 0 18px rgba(91, 155, 213, 0.4); }
+}
+.xp-fill.xp-fill--pulse { animation: xpBarPulse 0.7s ease; }
+@keyframes xpFloater {
+  to { opacity: 0; transform: translateX(-50%) translateY(-40px); }
+}
+.xp-floater {
+  position: absolute;
+  left: 50%;
+  bottom: 48px;
+  transform: translateX(-50%);
+  font-size: 13px;
+  font-weight: 900;
+  font-family: 'Outfit', sans-serif;
+  color: var(--primary);
+  pointer-events: none;
+  z-index: 6;
+  animation: xpFloater 0.8s ease-out forwards;
+  text-shadow: 0 1px 0 var(--card);
+}
+
+.game-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 18px;
+  animation: fadeUp 0.45s ease-out 0.12s both;
+}
+.game-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  padding: 8px 16px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-muted);
+  box-shadow: var(--shadow);
+}
+.game-pill strong { color: var(--primary); font-family: 'Outfit', sans-serif; font-size: 15px; }
+.game-pill--hint { flex: 1; min-width: 200px; justify-content: center; color: var(--text); }
+a.game-pill--link {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  transition: border-color var(--transition), background var(--transition);
+}
+a.game-pill--link:hover {
+  border-color: var(--primary);
   background: var(--primary-lt);
+}
+
+/* Quest-Navigation unter Profil-Punkten */
+.quest-nav {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow);
+  animation: fadeUp 0.45s ease-out 0.08s both;
+}
+.quest-nav-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.quest-nav-title {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 800;
+  font-size: 14px;
+  color: var(--text);
+  letter-spacing: -0.02em;
+}
+.quest-nav-sub { font-size: 11px; font-weight: 600; color: var(--text-muted); margin-top: 2px; }
+.quest-nav-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--primary-lt);
+  border: 2px solid var(--border);
+  color: var(--primary-on-lt);
   border-radius: 100px;
   padding: 8px 14px;
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 800;
+  min-height: 44px;
+  transition: border-color var(--transition), background var(--transition);
+}
+.quest-nav-toggle:hover { border-color: var(--primary); }
+.quest-nav-toggle .quest-nav-chev {
+  display: inline-block;
+  transition: transform 0.2s ease;
+  font-size: 10px;
+}
+.quest-nav-toggle[aria-expanded="false"] .quest-nav-chev {
+  transform: rotate(-90deg);
+}
+.quest-nav-anchors {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.quest-anchor {
+  font-size: 12px;
+  font-weight: 800;
+  padding: 10px 14px;
+  border-radius: 100px;
+  background: var(--bg-subtle);
+  color: var(--text);
+  text-decoration: none;
+  border: 2px solid var(--border);
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: border-color var(--transition), background var(--transition);
+}
+.quest-anchor:hover { border-color: var(--primary); background: var(--primary-lt); color: var(--primary-on-lt); }
+.quests-collapsible.collapsed { display: none; }
+.quest:target {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+  border-radius: var(--radius);
+}
+
+@keyframes achievBump {
+  0%, 100% { transform: scale(1); }
+  40% { transform: scale(1.05); }
+}
+.achiev.achiev-bump { animation: achievBump 0.45s ease; }
+.pills { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.pill {
+  background: var(--primary-lt);
   color: var(--primary-on-lt);
-  border: 1.5px solid transparent;
-  cursor: pointer;
+  border: 2px solid transparent;
+  border-radius: 100px;
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 700;
+  transition: border-color var(--transition), background var(--transition), color var(--transition);
   min-height: 40px;
-  transition: background var(--transition), border-color var(--transition), color var(--transition);
 }
 .pill:hover { border-color: var(--primary); }
-.pill.on { background: var(--primary); color: #fff; border-color: var(--primary); }
+.pill.on {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
 
-/* ── Grid ── */
+/* Grid */
 .grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 20px;
+  gap: 18px;
 }
-.full { grid-column: 1 / -1; }
-
-/* ── Card ── */
 .card {
   background: var(--card);
   border-radius: var(--radius);
-  padding: 24px;
+  padding: 22px;
   box-shadow: var(--shadow);
-  border: 1.5px solid var(--border);
-  animation: fadeUp .5s ease-out both;
-  transition: box-shadow var(--transition), border-color var(--transition);
+  border: 1px solid var(--border);
+  transition: transform var(--transition), box-shadow var(--transition);
+  animation: fadeUp 0.5s ease-out both;
 }
-.card:hover { box-shadow: var(--shadow-lg); }
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+}
+.full { grid-column: 1 / -1; }
 
-/* ── Section Label ── */
-.slabel {
+.section-label {
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--primary);
+  margin-bottom: 14px;
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 18px;
+  font-family: 'Outfit', sans-serif;
 }
-.slabel--top { align-items: flex-start; }
-.slabel-icon {
-  width: 32px;
-  height: 32px;
-  border-radius: 8px;
+.section-label .section-ic {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
   background: var(--primary-lt);
   display: flex;
   align-items: center;
@@ -671,471 +665,119 @@ button:focus-visible, a:focus-visible { border-radius: var(--radius-sm); }
   flex-shrink: 0;
   color: var(--primary-on-lt);
 }
-.slabel-icon svg { width: 18px; height: 18px; }
-.slabel-text {
-  font-family: 'Outfit', sans-serif;
-  font-size: 13px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: var(--primary-on-lt);
-}
-.slabel-text--stack {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 4px;
-}
-.slabel-hint {
-  font-size: 11px;
-  font-weight: 600;
-  text-transform: none;
-  letter-spacing: 0.02em;
-  color: var(--text-muted);
+.section-label .section-ic svg {
+  width: 18px;
+  height: 18px;
+  stroke-width: 2;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
-/* ── Donut ── */
-.donut-row { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+/* Donut */
+.donut-row { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; }
 .donut-box {
   position: relative;
   width: 170px;
   height: 170px;
   flex-shrink: 0;
-  cursor: pointer;
 }
 .donut-box svg { width: 100%; height: 100%; }
-.donut-seg { cursor: pointer; transition: stroke-width .2s, opacity .2s; }
-.donut-box.dim .donut-seg { opacity: .3; }
-.donut-box.dim .donut-seg.hi { opacity: 1; stroke-width: 26; }
 .donut-mid {
   position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  pointer-events: none;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
   text-align: center;
-  gap: 2px;
+  pointer-events: none;
 }
-.donut-mid-icon { color: var(--primary); }
-.donut-mid-icon svg { width: 28px; height: 28px; }
-.donut-mid-val { font-size: 20px; font-weight: 800; color: var(--danger); font-family: 'Outfit', sans-serif; }
-.donut-mid-sub { font-size: 10px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: .5px; }
-
-/* ── Legend ── */
+.donut-mid .pig { font-size: 28px; line-height: 1; }
+.donut-mid .val {
+  font-size: 19px;
+  font-weight: 900;
+  font-family: 'Outfit', sans-serif;
+  color: var(--danger);
+  margin-top: 2px;
+}
+.donut-mid .sub {
+  font-size: 10px;
+  color: var(--text-muted);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
 .legend { flex: 1; min-width: 180px; }
 .lrow {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 10px;
-  border-radius: var(--radius-sm);
+  padding: 9px 0;
   border-bottom: 1px solid var(--border);
   font-size: 13px;
-  cursor: pointer;
-  transition: background var(--transition);
-  width: 100%;
-  background: transparent;
-  border-left: none;
-  border-right: none;
-  border-top: none;
-  color: inherit;
-  text-align: left;
 }
-.lrow:last-of-type { border-bottom: none; }
-.lrow:hover { background: var(--primary-lt); }
-.lrow:hover .lbl { color: var(--primary-on-lt); }
-.lrow.open { background: var(--primary-lt); }
-.lrow.open .lbl { color: var(--primary-on-lt); }
-.lrow .lbl { display: flex; align-items: center; gap: 8px; color: var(--text-muted); }
-.lrow .dot { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
-.lrow .v { font-weight: 700; font-size: 14px; color: var(--text); }
-.lrow-total { border-top: 2px solid var(--border); margin-top: 4px; padding-top: 12px; cursor: default; }
-.lrow-total:hover { background: transparent; }
-.lrow-total .lbl { color: var(--text); font-weight: 700; }
-.lrow-detail {
-  display: none;
-  font-size: 12px;
-  color: var(--text);  /* full contrast — sits on --primary-lt bg */
-  line-height: 1.55;
-  padding: 4px 10px 10px 28px;
-  background: var(--primary-lt);
-  border-radius: 0 0 var(--radius-sm) var(--radius-sm);
-}
-.lrow-detail.open { display: block; }
-
-/* ── Relatable chips ── */
-.rel-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
-.rel-chip {
-  padding: 9px 14px;
-  border-radius: 100px;
-  border: 1.5px solid var(--border);
-  background: var(--card);
-  font-size: 12px;
-  font-weight: 600;
-  cursor: pointer;
-  color: var(--text);
-  min-height: 40px;
-  transition: all var(--transition);
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-}
-.rel-chip:hover { border-color: var(--primary); }
-.rel-chip.on { border-color: var(--primary); background: var(--primary-lt); color: var(--primary-on-lt); }
-.rel-chip svg { width: 14px; height: 14px; flex-shrink: 0; }
-.rel-result {
-  margin-top: 12px;
-  padding: 14px 16px;
-  background: var(--warn-lt);
-  border-left: 3px solid var(--warn);
-  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-  font-size: 13px;
-  font-weight: 600;
-  line-height: 1.55;
-  min-height: 3.2em;
-  /* --text on --warn-lt: light #1A1A1A on #FFF8CC = 16:1 ✓
-     dark  #E6EDF3 on #2A2200 = 9.8:1 ✓ */
-  color: var(--text);
-}
-
-/* ── House calc ── */
-.field { margin-bottom: 14px; }
-.field label {
-  display: flex;
-  justify-content: space-between;
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--text-muted);
-  margin-bottom: 6px;
-  text-transform: uppercase;
-  letter-spacing: .4px;
-}
-.field output { color: var(--primary); font-variant-numeric: tabular-nums; }
-input[type="range"] {
-  width: 100%;
-  height: 6px;
-  border-radius: 100px;
-  accent-color: var(--primary);
-  cursor: pointer;
-}
-.preset-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
-.preset {
-  padding: 8px 14px;
-  border-radius: 100px;
-  border: 1.5px solid var(--border);
-  background: var(--bg);
-  font-size: 12px;
-  font-weight: 700;
-  cursor: pointer;
-  color: var(--text);
-  min-height: 40px;
-  transition: all var(--transition);
-}
-.preset:hover, .preset.on { border-color: var(--primary); background: var(--primary-lt); color: var(--primary-on-lt); }
-.house-result {
-  margin-top: 16px;
-  padding: 16px;
-  background: var(--success-lt);
-  border: 1.5px solid var(--zc-moss-80);
-  border-radius: var(--radius);
-  font-size: 14px;
-  line-height: 1.6;
-  font-weight: 600;
-  color: var(--text);
-}
-.house-result strong { color: var(--success); font-size: 1.1em; }
-
-/* ── Dreams ── */
-.dream-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; }
-.dream {
-  padding: 18px 14px;
-  border-radius: var(--radius);
-  border: 1.5px solid var(--border);
-  background: var(--bg);
-  text-align: center;
-  cursor: pointer;
-  color: inherit;
-  transition: all var(--transition);
-  min-height: 110px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-}
-.dream:hover { border-color: var(--primary); transform: translateY(-2px); }
-.dream.on { border-color: var(--primary); background: var(--primary-lt); box-shadow: var(--shadow-lg); }
-.dream.on .t, .dream.on .s { color: var(--primary-on-lt); }
-.dream-icon { color: var(--primary); }
-.dream-icon svg { width: 28px; height: 28px; }
-.dream .t { font-weight: 800; font-size: 14px; font-family: 'Outfit', sans-serif; }
-.dream .s { font-size: 11px; color: var(--text-muted); font-weight: 500; }
-.dream-panel {
-  margin-top: 14px;
-  padding: 16px;
-  border-radius: var(--radius-sm);
-  background: var(--primary-lt);
-  font-size: 14px;
-  line-height: 1.55;
-  display: none;
-  border-left: 3px solid var(--primary);
-  color: var(--text); /* always use full text color, not primary-on-lt */
-}
-.dream-panel.open { display: block; }
-
-/* ── Timeline ── */
-.timeline {
-  display: flex;
-  gap: 0;
-  overflow-x: auto;
-  padding-bottom: 8px;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-  position: relative;
-}
-.timeline::before {
-  content: '';
-  position: absolute;
-  top: 32px;
-  left: 24px;
-  right: 24px;
-  height: 2px;
-  background: var(--border);
-  z-index: 0;
-}
-.tl-item {
-  flex: 0 0 auto;
-  width: 224px;
-  scroll-snap-align: start;
-  padding: 0 12px 0 0;
-  position: relative;
-  z-index: 1;
-}
-.tl-dot {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  border: 3px solid var(--border);
-  background: var(--card);
-  margin: 22px 0 12px 16px;
-  transition: background var(--transition), border-color var(--transition), box-shadow var(--transition);
-  cursor: pointer;
-}
-.tl-item.on .tl-dot { background: var(--primary); border-color: var(--primary); box-shadow: 0 0 0 4px var(--primary-lt); }
-.tl-card {
-  background: var(--bg);
-  border: 1.5px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 14px 14px 12px;
-  cursor: pointer;
-  transition: background var(--transition), border-color var(--transition);
-  margin-left: 8px;
-}
-.tl-item.on .tl-card { border-color: var(--primary); background: var(--primary-lt); }
-.tl-item.on .tl-title { color: var(--primary-on-lt); }
-.tl-item.on .tl-text { color: var(--text); opacity: 0.88; }
-.tl-card:hover { border-color: var(--primary); }
-/* Alter groß & klar */
-.tl-age-stack {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 2px;
-  margin-bottom: 8px;
-}
-.tl-age-num {
-  font-family: 'Outfit', sans-serif;
-  font-size: clamp(2rem, 5.5vw, 2.35rem);
-  font-weight: 900;
-  line-height: 0.95;
-  letter-spacing: -0.04em;
-  color: var(--primary);
-  font-variant-numeric: tabular-nums;
-}
-.tl-item.on .tl-age-num { color: var(--primary-on-lt); }
-.tl-age-num.tl-age-num--wide { font-size: clamp(1.65rem, 4.5vw, 2rem); }
-.tl-age-unit {
-  font-size: 10px;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
-  color: var(--text-muted);
-}
-.tl-item.on .tl-age-unit { color: var(--text); opacity: 0.75; }
-.tl-phase {
-  font-size: 10px;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--text-muted);
-  margin-bottom: 6px;
-}
-.tl-item.on .tl-phase { color: var(--primary-on-lt); opacity: 0.9; }
-.tl-title { font-weight: 800; font-size: 14px; margin: 0 0 4px; font-family: 'Outfit', sans-serif; color: var(--text); }
-.tl-item.on .tl-title { color: var(--primary-on-lt); }
-.tl-text { font-size: 12px; color: var(--text-muted); line-height: 1.45; }
-
-/* ── Notgroschen Meter ── */
-.meter-wrap { margin: 8px 0 16px; }
-.meter-track {
-  height: 16px;
-  background: var(--bg-subtle);
-  border-radius: 100px;
-  overflow: hidden;
-  position: relative;
-}
-.meter-fill {
-  height: 100%;
-  border-radius: 100px;
-  background: linear-gradient(90deg, var(--zc-peach-100), var(--zc-lemon-100), var(--zc-moss-80));
-  transition: width .8s ease-out;
-}
-.meter-labels {
-  display: flex;
-  justify-content: space-between;
-  font-size: 11px;
-  color: var(--text-muted);
-  font-weight: 600;
-  margin-top: 4px;
-}
-.meter-status {
+.lrow:last-of-type:not(.lrow-total) { border-bottom: none; }
+.lrow .lbl {
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-top: 12px;
-  font-size: 14px;
+  color: var(--text-muted);
   font-weight: 600;
 }
-.meter-status-dot {
+.lrow .dot {
   width: 10px;
   height: 10px;
-  border-radius: 50%;
+  border-radius: 3px;
   flex-shrink: 0;
 }
-.notg-input-row {
+.lrow .v { font-weight: 800; font-size: 14px; color: var(--text); }
+.lrow-total {
+  border-top: 2px solid var(--border);
+  margin-top: 6px;
+  padding-top: 10px;
+  border-bottom: none;
+}
+.lrow-total .lbl { color: var(--text); font-weight: 800; }
+
+/* Calendar */
+.cal-month {
   display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  align-items: flex-end;
-  margin-top: 14px;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
 }
-.notg-field { flex: 1; min-width: 120px; }
-.notg-field label { font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: .4px; display: block; margin-bottom: 6px; }
-.notg-field input[type="number"] {
-  width: 100%;
-  padding: 10px 12px;
-  border: 1.5px solid var(--border);
-  border-radius: var(--radius-sm);
-  background: var(--bg);
-  color: var(--text);
-  font-size: 14px;
-  font-weight: 600;
-  font-family: inherit;
-  transition: border-color var(--transition);
-}
-.notg-field input[type="number"]:focus { outline: none; border-color: var(--primary); }
-
-/* ── Tax Calc ── */
-.tax-row { display: flex; gap: 12px; flex-wrap: wrap; }
-.tax-col { flex: 1; min-width: 140px; }
-.tax-col label { font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: .4px; display: block; margin-bottom: 6px; }
-.tax-col select, .tax-col input[type="number"] {
-  width: 100%;
-  padding: 10px 12px;
-  border: 1.5px solid var(--border);
-  border-radius: var(--radius-sm);
-  background: var(--bg);
-  color: var(--text);
-  font-size: 14px;
-  font-weight: 600;
-  font-family: inherit;
-  transition: border-color var(--transition);
-  appearance: none;
-}
-.tax-col select:focus, .tax-col input[type="number"]:focus { outline: none; border-color: var(--primary); }
-.tax-result {
-  margin-top: 16px;
-  display: grid;
-  grid-template-columns: repeat(3,1fr);
-  gap: 12px;
-}
-.tax-stat {
-  background: var(--bg);
-  border: 1.5px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 14px 12px;
-  text-align: center;
-}
-/* ts-val sits on --bg (sand/dark-bg), primary is readable both modes */
-.tax-stat .ts-val { font-size: 22px; font-weight: 900; color: var(--primary); font-family: 'Outfit', sans-serif; }
-.tax-stat .ts-lbl { font-size: 11px; color: var(--text-muted); font-weight: 600; margin-top: 2px; text-transform: uppercase; letter-spacing: .4px; }
-
-/* ── 3a Vergleich ── */
-.compare-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; }
-.compare-card {
-  border: 1.5px solid var(--border);
-  border-radius: var(--radius);
-  padding: 16px 14px;
-  background: var(--bg);
-  cursor: pointer;
-  transition: all var(--transition);
-  text-align: left;
-}
-.compare-card:hover { border-color: var(--primary); }
-.compare-card.on { border-color: var(--primary); background: var(--primary-lt); }
-.compare-card.on .cc-name,
-.compare-card.on .cc-fee { color: var(--primary-on-lt); }
-.cc-icon { color: var(--primary); margin-bottom: 8px; }
-.cc-icon svg { width: 24px; height: 24px; }
-.cc-name { font-weight: 800; font-size: 14px; font-family: 'Outfit', sans-serif; margin-bottom: 4px; }
-.cc-fee { font-size: 12px; color: var(--text-muted); font-weight: 600; }
-.cc-badge {
-  display: inline-block;
-  margin-top: 8px;
-  padding: 3px 10px;
-  border-radius: 100px;
-  font-size: 11px;
-  font-weight: 700;
-  background: var(--success-lt);
-  /* success on success-lt: light #2D6A4F on #D8F3DC = 5.1:1 ✓
-     dark  #52B788 on #0D2818 = 4.6:1 ✓ */
-  color: var(--success);
-  border: 1px solid var(--success);
-}
-.compare-detail {
-  margin-top: 14px;
-  padding: 14px 16px;
-  background: var(--primary-lt);
-  border-radius: var(--radius-sm);
-  font-size: 13px;
-  line-height: 1.55;
-  display: none;
-  border-left: 3px solid var(--primary);
-  color: var(--text);
-}
-.compare-detail.open { display: block; }
-
-/* ── Calendar ── */
-.cal-month { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-.cal-month span { font-weight: 700; font-size: 15px; }
+.cal-month span { font-weight: 800; font-size: 15px; color: var(--text); font-family: 'Outfit', sans-serif; }
 .cal-nav {
   background: var(--primary-lt);
   border: none;
   border-radius: var(--radius-sm);
-  width: 40px;
-  height: 40px;
-  cursor: pointer;
+  width: 36px;
+  height: 36px;
   font-size: 18px;
-  color: var(--primary);
-  font-weight: 700;
-  transition: background var(--transition);
+  color: var(--primary-on-lt);
+  font-weight: 800;
+  transition: background var(--transition), color var(--transition);
+  min-height: 44px;
+  min-width: 44px;
 }
 .cal-nav:hover { background: var(--primary); color: #fff; }
-.cal-weekdays { display: grid; grid-template-columns: repeat(7,1fr); gap: 3px; margin-bottom: 4px; }
-.cal-weekdays span { text-align: center; font-size: 11px; font-weight: 700; color: var(--text-muted); padding: 4px 0; }
-.cal-days { display: grid; grid-template-columns: repeat(7,1fr); gap: 3px; }
+.cal-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  margin-bottom: 6px;
+}
+.cal-weekdays span {
+  text-align: center;
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--text-muted);
+  padding: 4px 0;
+}
+.cal-days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
 .cal-day {
   aspect-ratio: 1;
   display: flex;
@@ -1143,35 +785,43 @@ input[type="range"] {
   justify-content: center;
   border-radius: var(--radius-sm);
   font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  border: 1.5px solid transparent;
-  transition: all var(--transition);
+  font-weight: 700;
+  border: 2px solid transparent;
+  transition: background var(--transition), border-color var(--transition);
   background: transparent;
   color: var(--text);
   position: relative;
-  min-width: 36px;
-  min-height: 36px;
 }
-.cal-day:hover:not(.empty):not(.past) { background: var(--primary-lt); border-color: var(--primary); }
-.cal-day.selected { background: var(--primary); color: #fff; }
-.cal-day.today { border-color: var(--success); font-weight: 800; }
-.cal-day.past { color: var(--zg-8); cursor: default; }
+.cal-day:hover:not(.empty):not(.past) {
+  background: var(--primary-lt);
+  border-color: var(--primary);
+}
+.cal-day.selected { background: var(--primary); color: #fff; border-color: var(--primary); }
+.cal-day.today { border-color: var(--zc-mint-100); font-weight: 900; }
+.cal-day.past { color: var(--zg-9); cursor: default; }
+[data-theme="dark"] .cal-day.past { color: var(--text-muted); opacity: 0.45; }
 .cal-day.empty { cursor: default; }
-.cal-day.available::after { content:''; position:absolute; bottom:4px; width:4px; height:4px; border-radius:50%; background:var(--success); }
+.cal-day.available::after {
+  content: '';
+  position: absolute;
+  bottom: 4px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--zc-mint-100);
+}
 .time-slots { margin-top: 12px; display: none; flex-wrap: wrap; gap: 8px; }
 .time-slots.show { display: flex; }
 .slot {
-  padding: 9px 16px;
-  border: 1.5px solid var(--border);
+  padding: 8px 16px;
+  border: 2px solid var(--border);
   border-radius: var(--radius-sm);
   font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
+  font-weight: 700;
   background: var(--card);
   color: var(--text);
-  transition: all var(--transition);
-  min-height: 40px;
+  transition: border-color var(--transition), background var(--transition);
+  min-height: 44px;
 }
 .slot:hover { border-color: var(--primary); background: var(--primary-lt); }
 .slot.picked { background: var(--primary); border-color: var(--primary); color: #fff; }
@@ -1185,86 +835,104 @@ input[type="range"] {
   border: none;
   border-radius: var(--radius-sm);
   font-size: 15px;
-  font-weight: 700;
-  cursor: pointer;
+  font-weight: 800;
   min-height: 48px;
-  transition: background var(--transition), transform .15s;
-  display: none;
+  transition: background var(--transition), transform 0.15s;
 }
 .book-btn.show { display: block; }
 .book-btn:hover { background: var(--primary-dk); transform: translateY(-1px); }
-.booking-hint { font-size: 12px; color: var(--text-muted); margin-top: 10px; text-align: center; line-height: 1.5; }
+.booking-hint {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 10px;
+  text-align: center;
+  line-height: 1.5;
+}
 
-/* ── Chart ── */
+/* Chart */
 .chart-area { position: relative; height: 300px; margin-top: 8px; }
 canvas { width: 100% !important; }
-.toggle-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+.toggle-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
 .tog {
   background: var(--primary-lt);
-  border: 1.5px solid transparent;
+  border: 2px solid transparent;
   border-radius: 100px;
-  padding: 9px 18px;
+  padding: 8px 18px;
   font-size: 12px;
-  font-weight: 700;
+  font-weight: 800;
   color: var(--primary-on-lt);
-  cursor: pointer;
-  transition: background var(--transition), border-color var(--transition), color var(--transition);
+  transition: all var(--transition);
   min-height: 40px;
 }
-.tog.on { background: var(--primary); color: #fff; }
+.tog.on { background: var(--primary); color: #fff; border-color: var(--primary); }
 .tog:hover:not(.on) { border-color: var(--primary); }
 
-/* ── Achievements ── */
-.achiev-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; }
+/* Achievements */
+.achiev-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
 .achiev {
   background: var(--warn-lt);
-  border: 1.5px solid var(--warn);
+  border: 2px solid var(--warn);
   border-radius: var(--radius);
-  padding: 18px 14px;
+  padding: 18px 12px;
   text-align: center;
-  transition: transform var(--transition), border-color var(--transition), background var(--transition);
-  cursor: pointer;
-  color: var(--text);
+  transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
+  color: inherit;
+  width: 100%;
 }
-.achiev:hover { transform: scale(1.02); border-color: var(--warn); }
-.achiev.on { border-color: var(--primary); background: var(--primary-lt); color: var(--text); }
-.achiev-icon { color: var(--warn); margin-bottom: 8px; }
-.achiev-icon svg { width: 28px; height: 28px; }
-.achiev .num { font-size: 22px; font-weight: 900; color: var(--text); margin-bottom: 2px; font-family: 'Outfit', sans-serif; }
-.achiev .desc { font-size: 11px; color: var(--text-muted); font-weight: 600; line-height: 1.4; text-transform: uppercase; letter-spacing: .3px; }
-.achiev .tap { font-size: 10px; color: var(--primary); margin-top: 8px; font-weight: 700; }
+.achiev:hover { transform: scale(1.02); border-color: var(--primary); }
+.achiev.on {
+  border-color: var(--primary);
+  background: var(--primary-lt);
+  box-shadow: 0 0 0 2px var(--primary);
+}
+.achiev .emoji { font-size: 26px; margin-bottom: 6px; line-height: 1; display: block; }
+.achiev .num { font-size: 21px; font-weight: 900; font-family: 'Outfit', sans-serif; margin-bottom: 4px; }
+.achiev .desc { font-size: 11px; color: var(--text-muted); font-weight: 700; line-height: 1.35; }
+.achiev .tap-hint { font-size: 10px; color: var(--primary); font-weight: 800; margin-top: 8px; }
+
 .power-box {
   margin-top: 14px;
   background: var(--success-lt);
-  border: 1.5px solid var(--zc-moss-80);
+  border: 2px solid var(--zc-moss-80);
   border-radius: var(--radius);
-  padding: 16px 20px;
+  padding: 16px 18px;
+  text-align: center;
   font-size: 14px;
   font-weight: 600;
   line-height: 1.55;
+  color: var(--text);
 }
 .power-box strong { color: var(--success); }
 
-/* ── Quests ── */
+/* Quests */
 .quests { display: flex; flex-direction: column; gap: 10px; }
 .quest {
   display: flex;
   gap: 14px;
   align-items: center;
   background: var(--bg);
-  border: 1.5px solid var(--border);
+  border: 2px solid var(--border);
   border-radius: var(--radius);
-  padding: 14px 18px;
-  transition: all var(--transition);
-  cursor: pointer;
+  padding: 14px 16px;
+  transition: border-color var(--transition), background var(--transition), transform var(--transition);
   width: 100%;
-  color: inherit;
   text-align: left;
+  color: inherit;
 }
-.quest:hover { border-color: var(--primary); background: var(--primary-lt); transform: translateX(4px); }
-.quest:hover h3 { color: var(--primary-on-lt); }
-.quest:hover p  { color: var(--text-muted); }
-.quest.done { border-color: var(--success); background: var(--success-lt); opacity: .8; }
+.quest:hover:not(:disabled) {
+  border-color: var(--primary);
+  background: var(--primary-lt);
+  transform: translateX(4px);
+}
+.quest.done {
+  border-color: var(--success);
+  background: var(--success-lt);
+  opacity: 0.92;
+}
 .quest-icon {
   width: 44px;
   height: 44px;
@@ -1272,356 +940,141 @@ canvas { width: 100% !important; }
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 20px;
   flex-shrink: 0;
   background: var(--card);
   box-shadow: var(--shadow);
-  color: var(--primary);
 }
-.quest-icon svg { width: 22px; height: 22px; }
-.quest.done .quest-icon { color: var(--success); }
-.quest-text { flex: 1; }
-.quest-text h3 { font-size: 14px; font-weight: 700; margin-bottom: 2px; font-family: 'Outfit', sans-serif; }
-.quest-text p { font-size: 12px; color: var(--text-muted); line-height: 1.45; }
+.quest-text { flex: 1; min-width: 0; }
+.quest-text h3 { font-size: 14px; font-weight: 800; margin-bottom: 4px; font-family: 'Outfit', sans-serif; }
+.quest-text p { font-size: 12px; color: var(--text-muted); line-height: 1.45; font-weight: 600; }
 .quest-xp {
   background: var(--primary);
   color: #fff;
   font-size: 11px;
   font-weight: 800;
-  padding: 6px 12px;
+  padding: 5px 12px;
   border-radius: 100px;
   white-space: nowrap;
   flex-shrink: 0;
 }
 .quest.done .quest-xp { background: var(--success); }
 
-/* ── Toast ── */
+/* Toast + modal */
 .toast {
   position: fixed;
   bottom: 24px;
   left: 50%;
   transform: translateX(-50%) translateY(80px);
-  background: var(--zg-1);
-  color: var(--zg-white);
-  padding: 12px 22px;
+  background: var(--text);
+  color: var(--card);
+  padding: 12px 20px;
   border-radius: 100px;
-  font-size: 14px;
-  font-weight: 600;
-  box-shadow: var(--shadow-lg);
-  z-index: 300;
-  opacity: 0;
-  transition: transform .3s ease, opacity .3s ease;
-  max-width: 90vw;
-  text-align: center;
-  pointer-events: none;
-}
-.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-
-/* ── Modal ── */
-.backdrop {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,.5);
+  font-size: 13px;
+  font-weight: 700;
+  box-shadow: var(--shadow-hover);
   z-index: 200;
   opacity: 0;
   pointer-events: none;
-  transition: opacity .25s;
+  transition: transform 0.35s ease, opacity 0.35s ease;
+  max-width: min(90vw, 420px);
+  text-align: center;
+}
+.toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.45);
+  z-index: 150;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
 }
 .backdrop.open { opacity: 1; pointer-events: auto; }
 .modal {
   position: fixed;
   left: 50%;
-  top: 50%;
-  transform: translate(-50%,-50%) scale(.96);
+  top: 45%;
+  transform: translate(-50%, -50%) scale(0.94);
   background: var(--card);
+  color: var(--text);
+  padding: 28px 24px;
   border-radius: var(--radius);
-  padding: 28px;
-  max-width: 420px;
-  width: calc(100% - 32px);
-  z-index: 210;
-  box-shadow: var(--shadow-lg);
+  max-width: min(90vw, 400px);
+  z-index: 160;
+  box-shadow: var(--shadow-hover);
+  border: 1px solid var(--border);
   opacity: 0;
   pointer-events: none;
-  transition: opacity .25s, transform .25s;
-  max-height: 85vh;
-  overflow-y: auto;
+  transition: opacity 0.25s ease, transform 0.25s ease;
 }
-.modal.open { opacity: 1; pointer-events: auto; transform: translate(-50%,-50%) scale(1); }
+.modal.open { opacity: 1; pointer-events: auto; transform: translate(-50%, -50%) scale(1); }
 .modal h2 { font-size: 1.25rem; margin-bottom: 10px; }
-.modal p { font-size: 14px; color: var(--text-muted); line-height: 1.55; margin-bottom: 10px; }
+.modal p { font-size: 14px; color: var(--text-muted); line-height: 1.55; margin-bottom: 18px; }
 .modal-close {
-  margin-top: 8px;
   width: 100%;
   padding: 12px;
   background: var(--primary);
   color: #fff;
   border: none;
   border-radius: var(--radius-sm);
-  font-weight: 700;
-  cursor: pointer;
-  min-height: 44px;
-  font-family: inherit;
-  font-size: 14px;
-}
-
-
-/* ── Tooltip: weicher Schatten, kein Rahmen ── */
-.tip {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  position: relative;
-  cursor: help;
-  border: none;
-  color: inherit;
-  font: inherit;
-  background: none;
-  padding: 0;
-  white-space: nowrap;
-  vertical-align: baseline;
-}
-.tip-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 15px;
-  height: 15px;
-  border-radius: 50%;
-  background: var(--primary);
-  color: #fff;
-  font-size: 9px;
   font-weight: 800;
-  flex-shrink: 0;
-  line-height: 1;
-  font-style: normal;
-}
-.tip-bubble {
-  position: absolute;
-  bottom: calc(100% + 10px);
-  left: 50%;
-  transform: translateX(-50%);
-  background: var(--card);
-  color: var(--text);
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 1.5;
-  padding: 10px 14px;
-  border-radius: var(--radius-sm);
-  width: min(240px, 86vw);
-  white-space: normal;
-  border: none;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.14), 0 4px 12px rgba(0, 0, 0, 0.06);
-  z-index: 200;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity .18s ease;
-  font-family: 'Inter', sans-serif;
-}
-[data-theme="dark"] .tip-bubble {
-  background: var(--bg-subtle);
-  color: var(--text);
-  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45), 0 4px 12px rgba(0, 0, 0, 0.25);
-}
-.tip-bubble::after {
-  content: '';
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  margin-left: -6px;
-  width: 0;
-  height: 0;
-  border: 6px solid transparent;
-  border-top-color: var(--card);
-  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.06));
-}
-[data-theme="dark"] .tip-bubble::after {
-  border-top-color: var(--bg-subtle);
-}
-.tip:hover .tip-bubble,
-.tip:focus-visible .tip-bubble { opacity: 1; }
-.tip:focus:not(:focus-visible) { outline: none; }
-.tip:focus-visible {
-  outline: 2px solid var(--primary);
-  outline-offset: 3px;
-  border-radius: 4px;
-}
-.tip--sm { font-size: 11px; }
-.tip--upper {
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.4px;
-}
-.tip--scenario { margin-left: 2px; }
-
-/* ── 3a Explainer ── */
-.explainer-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-  margin-bottom: 16px;
-}
-.ex-card {
-  background: var(--bg);
-  border: 1.5px solid var(--border);
-  border-radius: var(--radius);
-  padding: 16px 14px;
-  text-align: center;
-}
-.ex-icon { color: var(--primary); margin-bottom: 8px; }
-.ex-icon svg { width: 28px; height: 28px; }
-.ex-val { font-size: 20px; font-weight: 900; color: var(--text); font-family: 'Outfit', sans-serif; margin-bottom: 4px; }
-.ex-lbl { font-size: 11px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: .4px; line-height: 1.4; }
-.ex-cta-row { display: flex; gap: 10px; flex-wrap: wrap; }
-.ex-cta {
-  flex: 1;
-  min-width: 140px;
-  padding: 13px 18px;
-  border-radius: var(--radius-sm);
   font-size: 14px;
-  font-weight: 700;
-  cursor: pointer;
-  font-family: 'Outfit', sans-serif;
-  min-height: 44px;
-  transition: background var(--transition), border-color var(--transition), color var(--transition);
+  min-height: 48px;
+}
+.modal-close:hover { background: var(--primary-dk); }
+
+.footer {
   text-align: center;
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 32px;
+  line-height: 1.65;
 }
-.ex-cta-primary {
-  background: var(--primary);
-  color: #fff;
-  border: none;
-}
-.ex-cta-primary:hover { background: var(--primary-dk); }
-.ex-cta-secondary {
-  background: transparent;
-  color: var(--primary);
-  border: 1.5px solid var(--primary);
-}
-.ex-cta-secondary:hover { background: var(--primary-lt); }
-.ex-faq { margin-top: 14px; display: flex; flex-direction: column; gap: 6px; }
-.ex-faq-item {
-  border: 1.5px solid var(--border);
-  border-radius: var(--radius-sm);
-  overflow: hidden;
-}
-.ex-faq-q {
-  width: 100%;
-  padding: 12px 16px;
-  background: var(--bg);
-  border: none;
-  text-align: left;
-  font-size: 13px;
-  font-weight: 700;
-  cursor: pointer;
-  color: var(--text);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 8px;
-  font-family: inherit;
-  min-height: 44px;
-  transition: background var(--transition);
-}
-.ex-faq-q:hover { background: var(--primary-lt); color: var(--primary-on-lt); }
-.ex-faq-q .faq-arrow { flex-shrink: 0; transition: transform .2s; color: var(--primary); }
-.ex-faq-item.open .faq-arrow { transform: rotate(180deg); }
-.ex-faq-a {
-  display: none;
-  padding: 12px 16px;
-  font-size: 13px;
-  color: var(--text);
-  line-height: 1.6;
-  background: var(--card);
-  border-top: 1px solid var(--border);
-}
-.ex-faq-item.open .ex-faq-a { display: block; }
 
-/* ── Zinseszins explainer ── */
-.zins-intro {
-  background: var(--primary-lt);
-  border-radius: var(--radius);
-  padding: 16px 18px;
-  margin-bottom: 16px;
-  border-left: 3px solid var(--primary);
-}
-.zins-intro p { font-size: 14px; line-height: 1.6; color: var(--text); margin: 0; }
-.zins-intro strong { color: var(--primary-on-lt); }
-.zins-stats {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-  margin-bottom: 14px;
-}
-.zins-stat {
-  background: var(--bg);
-  border: 1.5px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 12px 10px;
-  text-align: center;
-}
-.zins-stat .zs-val { font-size: 18px; font-weight: 900; color: var(--primary); font-family: 'Outfit', sans-serif; }
-.zins-stat .zs-lbl { font-size: 10px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: .3px; margin-top: 3px; line-height: 1.3; }
-
-/* ── Footer ── */
-.footer { text-align: center; font-size: 11px; color: var(--text-muted); margin-top: 40px; line-height: 1.7; opacity: .8; }
-
-/* ── Responsive ── */
 @media (max-width: 900px) {
   .grid { grid-template-columns: 1fr; }
   .full { grid-column: auto; }
-  .achiev-row, .compare-grid, .dream-grid { grid-template-columns: 1fr; }
-  .tax-result { grid-template-columns: 1fr; }
-  .explainer-grid, .zins-stats { grid-template-columns: 1fr; }
+  .achiev-row { grid-template-columns: 1fr; }
 }
 @media (max-width: 600px) {
   .donut-row { flex-direction: column; align-items: center; }
+  .level-bar { flex-direction: column; align-items: stretch; }
+  .hero h1 { font-size: 1.5rem; }
   .quest { flex-wrap: wrap; }
-  .quest-xp { margin-top: 6px; }
-  .timeline::before { display: none; }
+  .quest-xp { margin-top: 4px; }
 }
 </style>
 </head>
 <body>
 
-<!-- ═══════════════════════════════════════
-     TOPBAR
-════════════════════════════════════════ -->
 <header class="topbar">
-  <a class="topbar-logo" href="https://www.zurich.ch" target="_blank" rel="noopener">
-    <!-- Official Zurich "Z" logo mark -->
-    <svg width="32" height="32" viewBox="0 0 48 48" fill="none" aria-label="Zurich Logo">
+  <a href="https://www.zurich.ch" target="_blank" rel="noopener" aria-label="Zurich">
+    <svg class="zurich-logo" viewBox="0 0 48 48" fill="none" aria-hidden="true">
       <circle cx="24" cy="24" r="24" fill="white"/>
       <path d="M11 33V31.2L29.6 17H12V12H37V13.8L18.4 28H37V33H11Z" fill="#0047BB"/>
     </svg>
-    <span class="topbar-wordmark">Zurich</span>
+    <span class="topbar-text">Zurich</span>
   </a>
-  <div class="topbar-divider"></div>
   <span class="topbar-sub">Vorsorge-Buddy</span>
-  <div class="topbar-spacer"></div>
-  <!-- Game HUD -->
-  <div class="hud">
-    <div class="hud-info">
+  <span class="topbar-spacer"></span>
+  <div class="topbar-hud">
+    <div class="hud-avatar" id="hudAvatar" aria-hidden="true">M</div>
+    <div class="hud-col">
       <span class="hud-name" id="hudName">Michalis</span>
-      <div class="hud-xp-row">
-        <span class="hud-lvl" id="hudLvl">LVL 1 · Starter</span>
-        <div class="hud-xp-track"><div class="hud-xp-fill" id="hudXpFill"></div></div>
-        <span class="hud-xp-val"><span id="hudXpCur">150</span> XP</span>
-      </div>
+      <span class="hud-streak"><span class="streak-flame" aria-hidden="true">&#x1f525;</span> <span id="streakCount">1</span>-Tage-Streak</span>
     </div>
-    <div class="hud-avatar" id="hudAvatar">M</div>
   </div>
-  <button type="button" class="topbar-btn" id="themeToggle" aria-label="Darstellung wechseln">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-    Dark
-  </button>
+  <button type="button" class="theme-btn" id="themeBtn" aria-label="Hell- oder Dunkelmodus">Dark</button>
 </header>
 
 <div class="container">
 
-  <!-- Hero (full-width gamified arena) -->
-  <div class="hero-shell">
   <div class="hero">
     <div class="piggy-wrap">
-        <button type="button" class="piggy-btn" id="piggyBtn" aria-label="Sparschwein antippen — Spar-Tipp und einen XP-Punkt">
-          <span class="piggy-stack">
+      <button type="button" class="piggy-btn" id="piggyBtn" aria-label="Sparschwein antippen — Spar-Tipp und einen XP-Punkt">
+        <span class="piggy-stack">
           <span class="piggy-scene" aria-hidden="true">
             <span class="piggy-coin">F</span>
             <span class="piggy-coin">F</span>
@@ -1653,529 +1106,226 @@ canvas { width: 100% !important; }
             </svg>
           </span>
           <span class="piggy-hint">Hier tippen · Tipp + XP</span>
-          </span>
-        </button>
+        </span>
+      </button>
     </div>
-    <h1>Hallo, <em id="heroName">Michalis</em> — dein Vorsorge-Check</h1>
-    <p class="hero-sub">Was du heute tun kannst — einfach erklärt.</p>
-    <p class="hero-hint">Karten klicken · Quests erledigen = XP · Demo-Zahlen</p>
-    <div class="hero-tray">
-      <p class="hero-tray-label">Dein Spielstand — Profil wählen</p>
-      <div class="pills hero-profile-grid" id="profilePills" role="group" aria-label="Alter / Situation">
-        <button type="button" class="pill hero-slot on" data-profile="student">
-          <span class="hero-slot-tag">Path A</span>
-          <span class="hero-slot-row">
-            <span class="hero-slot-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-            </span>
-            <span class="hero-slot-text">
-              <span class="hero-slot-title">22 J.</span>
-              <span class="hero-slot-sub">Studium</span>
-              <span class="hero-slot-xp">Start-Bonus · hohe Lücke</span>
-            </span>
-          </span>
-        </button>
-        <button type="button" class="pill hero-slot" data-profile="youngpro">
-          <span class="hero-slot-tag">Path B</span>
-          <span class="hero-slot-row">
-            <span class="hero-slot-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
-            </span>
-            <span class="hero-slot-text">
-              <span class="hero-slot-title">26 J.</span>
-              <span class="hero-slot-sub">Berufseinstieg</span>
-              <span class="hero-slot-xp">PK läuft · 3a maxen</span>
-            </span>
-          </span>
-        </button>
-        <button type="button" class="pill hero-slot" data-profile="nest">
-          <span class="hero-slot-tag">Path C</span>
-          <span class="hero-slot-row">
-            <span class="hero-slot-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-            </span>
-            <span class="hero-slot-text">
-              <span class="hero-slot-title">32 J.</span>
-              <span class="hero-slot-sub">Familie</span>
-              <span class="hero-slot-xp">Haus &amp; Puffer im Fokus</span>
-            </span>
-          </span>
-        </button>
-      </div>
+    <h1>Hallo, <em class="hero-first" id="heroFirstName">Michalis</em> — dein <span class="hero-accent">Vorsorge-Check</span></h1>
+    <div class="hero-rank-wrap">
+      <p class="rank-line" id="rankLine" role="status">Neuling · erste Quests warten</p>
     </div>
-  </div>
+    <p class="tagline">Level up deine finanzielle Zukunft in der Schweiz — interaktiv &amp; ohne Öde.</p>
   </div>
 
-  <!-- ── Zeitleiste — ganz oben ── -->
-  <div class="card" style="animation-delay:.05s">
-    <div class="slabel slabel--top">
-      <div class="slabel-icon" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
+  <div class="level-bar" role="region" aria-label="Spielstand">
+    <button type="button" class="level-badge" id="levelBadge" aria-haspopup="dialog" aria-controls="infoModal">LVL 1 — Starter</button>
+    <div class="xp-wrap">
+      <div class="xp-label"><span>Vorsorge-XP</span><span id="xpNumbers">150 / 1'000</span></div>
+      <div class="xp-track"><div class="xp-fill" id="xpFill"></div></div>
+    </div>
+    <div class="pills" role="group" aria-label="Profil wählen">
+      <button type="button" class="pill on" data-profile="student">22 J. · Studium</button>
+      <button type="button" class="pill" data-profile="youngpro">26 J. · Beruf</button>
+      <button type="button" class="pill" data-profile="nest">32 J. · Familie</button>
+    </div>
+  </div>
+
+  <nav class="quest-nav" aria-label="Nächste Schritte — Quests">
+    <div class="quest-nav-head">
+      <div>
+        <div class="quest-nav-title">Deine nächsten Quests</div>
+        <div class="quest-nav-sub">Direkt unter deinem Profil — Anker springen zur Quest, oder Liste einklappen.</div>
       </div>
-      <span class="slabel-text slabel-text--stack">
-        <span>Was wann wichtig wird</span>
-        <span class="slabel-hint">Alter passt sich deinem Profil an</span>
+      <button type="button" class="quest-nav-toggle" id="questsToggle" aria-expanded="true" aria-controls="questsCollapsible">
+        <span id="questsToggleLabel">Einklappen</span>
+        <span class="quest-nav-chev" aria-hidden="true">▼</span>
+      </button>
+    </div>
+    <div class="quest-nav-anchors">
+      <a href="#quest-q1" class="quest-anchor"><span aria-hidden="true">&#x1f9e0;</span> 3-Säulen</a>
+      <a href="#quest-q2" class="quest-anchor"><span aria-hidden="true">&#x1f4f1;</span> 3a-Konto</a>
+      <a href="#quest-q3" class="quest-anchor"><span aria-hidden="true">&#x1f3e0;</span> Eigenheim</a>
+      <a href="#quests-panel" class="quest-anchor">Alle anzeigen</a>
+    </div>
+  </nav>
+
+  <div class="game-strip" aria-label="Gamification-Fortschritt">
+    <a href="#quests-panel" class="game-pill game-pill--link">
+      <span>Quests erledigt</span>
+      <strong id="questDoneCount">0</strong><span>/ 3</span>
+    </a>
+    <div class="game-pill game-pill--hint">XP, Level &amp; Streak — wie bei Git-Dashboards (Streeek &amp; Co.), nur für Vorsorge</div>
+  </div>
+
+  <div class="card full quests-card" id="quests-panel" style="animation-delay:0.05s">
+    <div class="section-label">
+      <span class="section-ic" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
       </span>
+      Quests — abhaken für XP
     </div>
-    <div class="timeline" id="timelineTop">
-      <div class="tl-item on" data-tl="now">
-        <div class="tl-dot"></div>
-        <div class="tl-card">
-          <div class="tl-age-stack">
-            <span class="tl-age-num" id="tlNumNow">22</span>
-            <span class="tl-age-unit">Jahre</span>
-          </div>
-          <div class="tl-phase">Ab jetzt</div>
-          <div class="tl-title">Basis checken</div>
-          <div class="tl-text">Lücke kennen, 3a-Optionen sichten, kein Overthink.</div>
-        </div>
-      </div>
-      <div class="tl-item" data-tl="five">
-        <div class="tl-dot"></div>
-        <div class="tl-card">
-          <div class="tl-age-stack">
-            <span class="tl-age-num" id="tlNum5">27</span>
-            <span class="tl-age-unit">Jahre</span>
-          </div>
-          <div class="tl-phase">In 5 Jahren</div>
-          <div class="tl-title">Hebel ziehen</div>
-          <div class="tl-text">PK-Extras, 3a maxen, Lohn steigt → Sparquote halten.</div>
-        </div>
-      </div>
-      <div class="tl-item" data-tl="house">
-        <div class="tl-dot"></div>
-        <div class="tl-card">
-          <div class="tl-age-stack">
-            <span class="tl-age-num" id="tlNumHaus">32</span>
-            <span class="tl-age-unit">Jahre · typ. Phase</span>
-          </div>
-          <div class="tl-phase">Haus &amp; Eigenkapital</div>
-          <div class="tl-title">Eigenkapital</div>
-          <div class="tl-text">3a für Wohneigentum vorbeziehen, Nebenkosten einrechnen.</div>
-        </div>
-      </div>
-      <div class="tl-item" data-tl="50">
-        <div class="tl-dot"></div>
-        <div class="tl-card">
-          <div class="tl-age-stack">
-            <span class="tl-age-num tl-age-num--wide" id="tlNum50">50+</span>
-            <span class="tl-age-unit">Jahre</span>
-          </div>
-          <div class="tl-phase">Vor der Rente</div>
-          <div class="tl-title">Feintuning</div>
-          <div class="tl-text">Anpassen vor Rente, PK-Einkauf prüfen, Einmalzahlungen.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ── Träume ── -->
-  <div class="card" id="dreamCard" style="animation-delay:.08s">
-    <div class="slabel">
-      <div class="slabel-icon" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
-      </div>
-      <span class="slabel-text">Was willst du erreichen?</span>
-    </div>
-    <div class="dream-grid" id="dreamGrid">
-      <button type="button" class="dream" data-dream="haus">
-        <div class="dream-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-        </div>
-        <span class="t">Eigenheim</span>
-        <span class="s">Eigenkapital + 3a-Hack</span>
-      </button>
-      <button type="button" class="dream" data-dream="frei">
-        <div class="dream-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-        </div>
-        <span class="t">Früher locker</span>
-        <span class="s">Weniger arbeiten, mehr Optionen</span>
-      </button>
-      <button type="button" class="dream" data-dream="safe">
-        <div class="dream-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
-        </div>
-        <span class="t">Safety First</span>
-        <span class="s">Puffer + Altersvorsorge</span>
-      </button>
-    </div>
-    <div class="dream-panel" id="dreamPanel"></div>
-  </div>
-
-  <!-- Level Bar -->
-  <!-- GRID -->
-  <div class="grid">
-
-    <!-- ── Spar-Meter ── -->
-    <div class="card" style="animation-delay:.1s">
-      <div class="slabel">
-        <div class="slabel-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
-        </div>
-        <span class="slabel-text">Woher kommt deine Rente?</span>
-      </div>
-      <div class="donut-row">
-        <div class="donut-box" id="donutBox">
-          <svg viewBox="0 0 200 200" aria-hidden="true">
-            <circle cx="100" cy="100" r="80" fill="none" stroke="var(--bg-subtle)" stroke-width="22"/>
-            <circle class="donut-seg hi" data-i="0" cx="100" cy="100" r="80" fill="none"
-              stroke="var(--zc-blue-zurich)" stroke-width="22"
-              stroke-dasharray="240 503" stroke-linecap="round" transform="rotate(-90 100 100)">
-              <animate attributeName="stroke-dasharray" from="0 503" to="240 503" dur=".9s" fill="freeze"/>
-            </circle>
-            <circle class="donut-seg" data-i="1" cx="100" cy="100" r="80" fill="none"
-              stroke="var(--zc-lilac-100)" stroke-width="22"
-              stroke-dasharray="163 503" stroke-dashoffset="-240" stroke-linecap="round" transform="rotate(-90 100 100)">
-              <animate attributeName="stroke-dasharray" from="0 503" to="163 503" dur=".9s" begin=".25s" fill="freeze"/>
-            </circle>
-            <circle class="donut-seg" data-i="2" cx="100" cy="100" r="80" fill="none"
-              stroke="var(--zc-peach-100)" stroke-width="22"
-              stroke-dasharray="100 503" stroke-dashoffset="-403" stroke-linecap="round" transform="rotate(-90 100 100)">
-              <animate attributeName="stroke-dasharray" from="0 503" to="100 503" dur=".9s" begin=".5s" fill="freeze"/>
-            </circle>
-          </svg>
-          <div class="donut-mid">
-            <div class="donut-mid-icon">
-              <!-- pension icon -->
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>
-            </div>
-            <div class="donut-mid-val" id="donutVal">CHF 951</div>
-            <div class="donut-mid-sub" id="donutSub">fehlt / Mt</div>
-          </div>
-        </div>
-        <div class="legend">
-          <button type="button" class="lrow" data-det="ahv">
-            <span class="lbl"><span class="dot" style="background:var(--zc-blue-zurich)"></span>Staat (AHV) <button type="button" class="tip tip--sm" tabindex="0" onclick="event.stopPropagation()"><span class="tip-icon" aria-hidden="true">i</span><span class="tip-bubble" role="tooltip">Staatliche Rente — fliesst automatisch ab 65, du zahlst monatlich über den Lohn ein.</span></button></span>
-            <span class="v">CHF 2'200</span>
-          </button>
-          <button type="button" class="lrow" data-det="pk">
-            <span class="lbl"><span class="dot" style="background:var(--zc-lilac-100)"></span>Arbeitgeber (PK) <button type="button" class="tip tip--sm" tabindex="0" onclick="event.stopPropagation()"><span class="tip-icon" aria-hidden="true">i</span><span class="tip-bubble" role="tooltip">Pensionskasse — dein Arbeitgeber zahlt mindestens gleich viel wie du. Pflicht ab CHF 22'050 Jahreslohn.</span></button></span>
-            <span class="v">CHF 1'515</span>
-          </button>
-          <button type="button" class="lrow" data-det="luecke">
-            <span class="lbl"><span class="dot" style="background:var(--zc-peach-100)"></span>Fehlt noch <button type="button" class="tip tip--sm" tabindex="0" onclick="event.stopPropagation()"><span class="tip-icon" aria-hidden="true">i</span><span class="tip-bubble" role="tooltip">Monatliche Lücke bis zur Zielrente (80% Lohn). Schliessen z.B. mit 3a-Konto.</span></button></span>
-            <span class="v" style="color:var(--danger)" id="legendGap">CHF 951</span>
-          </button>
-          <div class="lrow lrow-total">
-            <span class="lbl">Zielrente <button type="button" class="tip tip--sm" tabindex="0" onclick="event.stopPropagation()"><span class="tip-icon" aria-hidden="true">i</span><span class="tip-bubble" role="tooltip">Demo-Wert: 80% des letzten Lohns — übliche Faustregel für den Lebensstandard im Alter.</span></button></span>
-            <span class="v">CHF 4'667</span>
-          </div>
-          <!-- Spar-Hebel -->
-          <div style="margin-top:14px">
-            <div style="font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Monatlich einzahlen</div>
-            <div class="rel-row" role="group" aria-label="Monatlicher Sparbetrag">
-              <button type="button" class="rel-chip" data-save="50" data-label="Kaffee-Budget">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
-                CHF 50 / Mt
-              </button>
-              <button type="button" class="rel-chip" data-save="100" data-label="Takeaway-Budget">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><path d="M3 6h18c0 3-4 6-9 6S3 9 3 6z"/><path d="M3 18h18"/></svg>
-                CHF 100 / Mt
-              </button>
-              <button type="button" class="rel-chip" data-save="200" data-label="Spar-Ziel">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-                CHF 200 / Mt
-              </button>
-              <button type="button" class="rel-chip" data-save="400" data-label="Power-Sparer">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
-                CHF 400 / Mt
-              </button>
-            </div>
-            <div class="rel-result" id="relResult" style="padding:0;background:none;border:none;font-size:13px;color:var(--text-muted)">Betrag wählen ↑</div>
-            <div id="relBar" style="display:none;margin-top:10px">
-              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px">
-                <span style="font-size:12px;font-weight:700;color:var(--text)" id="relBarLabel">0% der Lücke</span>
-                <span style="font-size:11px;color:var(--text-muted)" id="relBarRest"></span>
-              </div>
-              <div style="height:10px;background:var(--bg-subtle);border-radius:100px;overflow:hidden">
-                <div id="relBarFill" style="height:100%;border-radius:100px;background:var(--primary);transition:width .4s ease;width:0%"></div>
-              </div>
-              <div id="relAction" style="margin-top:10px;padding:10px 14px;background:var(--success-lt);border-radius:var(--radius-sm);border-left:3px solid var(--success);font-size:13px;font-weight:600;color:var(--text);line-height:1.5"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ── Haus-Rechner ── -->
-    <div class="card" style="animation-delay:.15s">
-      <div class="slabel">
-        <div class="slabel-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-        </div>
-        <span class="slabel-text">Wann kann ich kaufen? <button type="button" class="tip" tabindex="0"><span class="tip-icon" aria-hidden="true">i</span><span class="tip-bubble" role="tooltip">Grobe Orientierung — kein Versprechen. 3a kann für Wohneigentum vorgezogen werden (WEF).</span></button></span>
-      </div>
-      <div class="preset-row" role="group" aria-label="Immobilien-Preset">
-        <button type="button" class="preset on" data-price="620000">Studio</button>
-        <button type="button" class="preset" data-price="950000">3.5-Zi</button>
-        <button type="button" class="preset" data-price="1400000">EFH / Traum</button>
-      </div>
-      <div class="field">
-        <label>Kaufpreis <output id="outPrice">CHF 620'000</output></label>
-        <input type="range" id="rPrice" min="400000" max="2000000" step="10000" value="620000">
-      </div>
-      <div class="field">
-        <label><button type="button" class="tip" tabindex="0">Eigenkapital<span class="tip-icon" aria-hidden="true">i</span><span class="tip-bubble" role="tooltip">Der Anteil, den du selbst mitbringst — mindestens 20% des Kaufpreises. Davon müssen 10% aus eigenen Mitteln kommen (nicht aus der PK).</span></button>-Ziel <output id="outEq">20%</output></label>
-        <input type="range" id="rEq" min="10" max="35" step="1" value="20">
-      </div>
-      <div class="field">
-        <label>Monatlich sparen <output id="outSave">CHF 400</output></label>
-        <input type="range" id="rSave" min="50" max="2000" step="50" value="400">
-      </div>
-      <div class="field">
-        <label><button type="button" class="tip" tabindex="0">Rendite<span class="tip-icon" aria-hidden="true">i</span><span class="tip-bubble" role="tooltip">Wie viel dein Gespartes pro Jahr wächst — z.B. durch ein Sparkonto oder Investitionen. Kein Sparkonto zahlt 5%, aber Fonds können das langfristig erreichen.</span></button> (Annahme) <output id="outYield">5.0%</output></label>
-        <input type="range" id="rYield" min="0" max="10" step="0.5" value="5">
-      </div>
-      <div class="house-result" id="houseResult" role="status"></div>
-    </div>
-
-    <!-- ── Notgroschen-Meter ── -->
-    <div class="card" style="animation-delay:.2s">
-      <div class="slabel">
-        <div class="slabel-icon" aria-hidden="true">
-          <!-- shield icon -->
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        </div>
-        <span class="slabel-text">Dein Sicherheitspuffer <button type="button" class="tip" tabindex="0"><span class="tip-icon" aria-hidden="true">i</span><span class="tip-bubble" role="tooltip">Ziel: 3–6 Monatsausgaben auf der Seite, bevor du langfristig anlegst.</span></button></span>
-      </div>
-      <div class="notg-input-row">
-        <div class="notg-field">
-          <label>Monatliche Ausgaben (CHF)</label>
-          <input type="number" id="notgExp" value="2800" min="500" max="20000" step="100">
-        </div>
-        <div class="notg-field">
-          <label>Aktuell gespart (CHF)</label>
-          <input type="number" id="notgSaved" value="4200" min="0" max="200000" step="100">
-        </div>
-      </div>
-      <div class="meter-wrap" style="margin-top:16px">
-        <div class="meter-track"><div class="meter-fill" id="notgFill" style="width:25%"></div></div>
-        <div class="meter-labels">
-          <span>0</span><span>1 Mt</span><span>3 Mt ✓</span><span>6 Mt ✓✓</span>
-        </div>
-      </div>
-      <div class="meter-status" id="notgStatus">
-        <div class="meter-status-dot" id="notgDot" style="background:var(--danger)"></div>
-        <span id="notgText">Berechne…</span>
-      </div>
-    </div>
-
-    <!-- ── Steuer-Sparrechner ── -->
-    <div class="card" style="animation-delay:.25s">
-      <div class="slabel">
-        <div class="slabel-icon" aria-hidden="true">
-          <!-- currency-swissfrancs / bank-note icon -->
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2"/><path d="M6 12h.01M18 12h.01"/></svg>
-        </div>
-        <span class="slabel-text">Wie viel Steuern spare ich mit 3a?</span>
-      </div>
-      <div class="tax-row">
-        <div class="tax-col">
-          <label>Bruttolohn (CHF / Jahr)</label>
-          <input type="number" id="taxIncome" value="70000" min="20000" max="500000" step="1000">
-        </div>
-        <div class="tax-col">
-          <label>Kanton</label>
-          <select id="taxKanton">
-            <option value="0.28">Zürich (~28%)</option>
-            <option value="0.22">Zug (~22%)</option>
-            <option value="0.25">Bern (~25%)</option>
-            <option value="0.26">Basel (~26%)</option>
-            <option value="0.24">Aargau (~24%)</option>
-            <option value="0.30">Genf (~30%)</option>
-          </select>
-        </div>
-        <div class="tax-col">
-          <label>3a-Einzahlung (CHF)</label>
-          <input type="number" id="taxContrib" value="7258" min="0" max="7258" step="100">
-        </div>
-      </div>
-      <div class="tax-result" id="taxResult">
-        <div class="tax-stat"><div class="ts-val" id="taxSave">–</div><div class="ts-lbl">Steuer-Ersparnis</div></div>
-        <div class="tax-stat"><div class="ts-val" id="taxRoi">–</div><div class="ts-lbl"><button type="button" class="tip tip--upper" tabindex="0">Sofort-Rendite<span class="tip-icon" aria-hidden="true">i</span><span class="tip-bubble" role="tooltip">Wieviel % du sofort zurückbekommst — allein durch die Steuerersparnis, noch bevor dein Geld irgendeine Rendite macht.</span></button></div></div>
-        <div class="tax-stat"><div class="ts-val" id="taxNet">–</div><div class="ts-lbl">Netto-Kosten</div></div>
-      </div>
-    </div>
-
-
-
-    <!-- ── Buchungs-Kalender ── -->
-    <div class="card" style="animation-delay:.36s">
-      <div class="slabel">
-        <div class="slabel-icon" aria-hidden="true">
-          <!-- calendar icon -->
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-        </div>
-        <span class="slabel-text">Gratis Videoberatung</span>
-      </div>
-      <div class="cal-month">
-        <button type="button" class="cal-nav" onclick="changeMonth(-1)" aria-label="Vorheriger Monat">‹</button>
-        <span id="calTitle"></span>
-        <button type="button" class="cal-nav" onclick="changeMonth(1)" aria-label="Nächster Monat">›</button>
-      </div>
-      <div class="cal-weekdays"><span>Mo</span><span>Di</span><span>Mi</span><span>Do</span><span>Fr</span><span>Sa</span><span>So</span></div>
-      <div class="cal-days" id="calDays"></div>
-      <div class="time-slots" id="timeSlots"></div>
-      <button type="button" class="book-btn" id="bookBtn" onclick="bookNow()">Slot sichern — Buchungsfenster öffnen</button>
-      <p class="booking-hint">Kostenlos &amp; unverbindlich</p>
-    </div>
-
-    <!-- ── Zinseszins-Chart ── -->
-    <div class="card" style="animation-delay:.38s">
-      <div class="slabel">
-        <div class="slabel-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
-        </div>
-        <span class="slabel-text">Früh anfangen lohnt sich — sieh selbst</span>
-      </div>
-
-      <div class="zins-intro">
-        <p>CHF 200/Mt → nach 40 Jahren fast das <strong>4-fache</strong>. <button type="button" class="tip" tabindex="0">Zinseszins<span class="tip-icon" aria-hidden="true">i</span><span class="tip-bubble" role="tooltip">Deine Rendite wird reinvestiert und macht selbst wieder Rendite. Je früher du anfängst, desto mehr profitierst du.</span></button> macht's möglich.</p>
-      </div>
-
-      <div class="zins-stats" id="zinsStats">
-        <div class="zins-stat">
-          <div class="zs-val" id="zsEingezahlt">–</div>
-          <div class="zs-lbl">Selbst eingezahlt</div>
-        </div>
-        <div class="zins-stat">
-          <div class="zs-val" id="zsEndwert">–</div>
-          <div class="zs-lbl">Endwert nach 40 J.</div>
-        </div>
-        <div class="zins-stat">
-          <div class="zs-val" id="zsBonus">–</div>
-          <div class="zs-lbl">Rendite-Bonus</div>
-        </div>
-      </div>
-
-      <div class="toggle-row">
-        <button type="button" class="tog on" onclick="setScenario('opt')">
-          Gut (6%)
-          <button type="button" class="tip tip--sm tip--scenario" tabindex="0" onclick="event.stopPropagation()"><span class="tip-icon" aria-hidden="true">i</span><span class="tip-bubble" role="tooltip">Historische Rendite eines globalen Aktienportfolios — möglich, aber nicht garantiert.</span></button>
-        </button>
-        <button type="button" class="tog" onclick="setScenario('mid')">
-          Mittel (5%)
-          <button type="button" class="tip tip--sm tip--scenario" tabindex="0" onclick="event.stopPropagation()"><span class="tip-icon" aria-hidden="true">i</span><span class="tip-bubble" role="tooltip">Gemischtes Portfolio aus Aktien und Obligationen — realistischer Mittelwert.</span></button>
-        </button>
-        <button type="button" class="tog" onclick="setScenario('con')">
-          Konservativ (4%)
-          <button type="button" class="tip tip--sm tip--scenario" tabindex="0" onclick="event.stopPropagation()"><span class="tip-icon" aria-hidden="true">i</span><span class="tip-bubble" role="tooltip">Mehr Obligationen, weniger Schwankung — aber auch weniger Wachstum.</span></button>
-        </button>
-      </div>
-      <div class="chart-area"><canvas id="chart"></canvas></div>
-      <p style="font-size:11px;color:var(--text-muted);margin-top:8px;line-height:1.5">Vereinfachte Simulation, keine Garantie. Steuern und Gebühren nicht eingerechnet.</p>
-    </div>
-
-    <!-- ── Achievements ── -->
-    <div class="card full" style="animation-delay:.4s">
-      <div class="slabel">
-        <div class="slabel-icon" aria-hidden="true">
-          <!-- award icon -->
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
-        </div>
-        <span class="slabel-text">Zahlen, die sich lohnen</span>
-      </div>
-      <div class="achiev-row">
-        <button type="button" class="achiev" data-ach="3a">
-          <div class="achiev-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
-          </div>
-          <div class="num">CHF 7'258</div>
-          <div class="desc">Max 3a 2026</div>
-          <div class="tap">Tap für Fact</div>
-        </button>
-        <button type="button" class="achiev" data-ach="tax">
-          <div class="achiev-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-          </div>
-          <div class="num">~CHF 1'450</div>
-          <div class="desc">Steuer-Cashback / Jahr</div>
-          <div class="tap">Tap für Fact</div>
-        </button>
-        <button type="button" class="achiev" data-ach="40">
-          <div class="achiev-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
-          </div>
-          <div class="num">~CHF 58k</div>
-          <div class="desc">Steuern gespart in 40 J.</div>
-          <div class="tap">Tap für Fact</div>
-        </button>
-      </div>
-      <div class="power-box" id="achievFact">
-        Karte antippen für Fact.
-      </div>
-    </div>
-
-    <!-- ── Quests ── -->
-    <div class="card full" style="animation-delay:.42s">
-      <div class="slabel">
-        <div class="slabel-icon" aria-hidden="true">
-          <!-- list-tick icon -->
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
-        </div>
-        <span class="slabel-text">Deine nächsten Schritte</span>
-      </div>
+    <div id="questsCollapsible">
       <div class="quests">
-        <button type="button" class="quest" data-xp="200" data-quest="q1">
-          <div class="quest-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-          </div>
+        <button type="button" class="quest" id="quest-q1" data-xp="200" data-quest="q1">
+          <div class="quest-icon" aria-hidden="true">&#x1f9e0;</div>
           <div class="quest-text">
-            <h3>3-Säulen in 60 Sekunden</h3>
-            <p>AHV + PK + 3a verstehen</p>
+            <h3>3-Säulen-System verstehen</h3>
+            <p>AHV + PK + 3a — die 3a ist dein Hebel.</p>
           </div>
           <div class="quest-xp">+200 XP</div>
         </button>
-        <button type="button" class="quest" data-xp="350" data-quest="q2">
-          <div class="quest-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
-          </div>
+        <button type="button" class="quest" id="quest-q2" data-xp="350" data-quest="q2">
+          <div class="quest-icon" aria-hidden="true">&#x1f4f1;</div>
           <div class="quest-text">
             <h3>3a-Konto eröffnen</h3>
-            <p>Low Fees, passende Strategie wählen</p>
+            <p>Digital, niedrige Kosten — Start z.&nbsp;B. mit CHF 50/Mt.</p>
           </div>
           <div class="quest-xp">+350 XP</div>
         </button>
-        <button type="button" class="quest" data-xp="450" data-quest="q3">
-          <div class="quest-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-          </div>
+        <button type="button" class="quest" id="quest-q3" data-xp="450" data-quest="q3">
+          <div class="quest-icon" aria-hidden="true">&#x1f3e0;</div>
           <div class="quest-text">
-            <h3>Haus-Checkliste öffnen</h3>
-            <p>Eigenkapital, 3a-Vorbezug, Nebenkosten</p>
+            <h3>3a = Eigenheim-Hack</h3>
+            <p>Guthaben für Wohneigentum vorbezogen — planbar mit Fachperson.</p>
           </div>
           <div class="quest-xp">+450 XP</div>
         </button>
-        <button type="button" class="quest" data-xp="300" data-quest="q4">
-          <div class="quest-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid">
+
+    <div class="card" style="animation-delay:0.08s">
+      <div class="section-label">
+        <span class="section-ic" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        </span>
+        Dein Spar-Meter
+      </div>
+      <div class="donut-row">
+        <div class="donut-box">
+          <svg viewBox="0 0 200 200" aria-hidden="true">
+            <circle cx="100" cy="100" r="80" fill="none" stroke="var(--bg-subtle)" stroke-width="22"/>
+            <circle cx="100" cy="100" r="80" fill="none" stroke="var(--primary)" stroke-width="22"
+              stroke-dasharray="240 503" stroke-linecap="round" transform="rotate(-90 100 100)">
+              <animate attributeName="stroke-dasharray" from="0 503" to="240 503" dur="0.9s" fill="freeze"/>
+            </circle>
+            <circle cx="100" cy="100" r="80" fill="none" stroke="var(--accent)" stroke-width="22"
+              stroke-dasharray="163 503" stroke-dashoffset="-240" stroke-linecap="round" transform="rotate(-90 100 100)">
+              <animate attributeName="stroke-dasharray" from="0 503" to="163 503" dur="0.9s" begin="0.2s" fill="freeze"/>
+            </circle>
+            <circle cx="100" cy="100" r="80" fill="none" stroke="var(--danger)" stroke-width="22"
+              stroke-dasharray="100 503" stroke-dashoffset="-403" stroke-linecap="round" transform="rotate(-90 100 100)">
+              <animate attributeName="stroke-dasharray" from="0 503" to="100 503" dur="0.9s" begin="0.45s" fill="freeze"/>
+            </circle>
+          </svg>
+          <div class="donut-mid">
+            <span class="pig" aria-hidden="true">&#x1f416;</span>
+            <div class="val" id="donutVal">CHF 951</div>
+            <div class="sub" id="donutSub">Lücke / Mt</div>
           </div>
-          <div class="quest-text">
-            <h3>Notgroschen-Ziel setzen</h3>
-            <p>3 Monatsausgaben liquid halten</p>
+        </div>
+        <div class="legend">
+          <div class="lrow">
+            <span class="lbl"><span class="dot" style="background:var(--primary)"></span> AHV (1. Säule)</span>
+            <span class="v">CHF 2'200</span>
           </div>
-          <div class="quest-xp">+300 XP</div>
-        </button>
+          <div class="lrow">
+            <span class="lbl"><span class="dot" style="background:var(--accent)"></span> Pensionskasse</span>
+            <span class="v">CHF 1'515</span>
+          </div>
+          <div class="lrow">
+            <span class="lbl"><span class="dot" style="background:var(--danger)"></span> Vorsorgelücke</span>
+            <span class="v" style="color:var(--danger)" id="legendGap">CHF 951</span>
+          </div>
+          <div class="lrow lrow-total">
+            <span class="lbl">Ziel (80% Lohn)</span>
+            <span class="v">CHF 4'667</span>
+          </div>
+        </div>
       </div>
     </div>
 
-  </div><!-- /grid -->
+    <div class="card" style="animation-delay:0.12s">
+      <div class="section-label">
+        <span class="section-ic" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </span>
+        Gratis Videoberatung
+      </div>
+      <div class="cal-month">
+        <button type="button" class="cal-nav" id="calPrev" aria-label="Vorheriger Monat">‹</button>
+        <span id="calTitle"></span>
+        <button type="button" class="cal-nav" id="calNext" aria-label="Nächster Monat">›</button>
+      </div>
+      <div class="cal-weekdays">
+        <span>Mo</span><span>Di</span><span>Mi</span><span>Do</span><span>Fr</span><span>Sa</span><span>So</span>
+      </div>
+      <div class="cal-days" id="calDays"></div>
+      <div class="time-slots" id="timeSlots"></div>
+      <button type="button" class="book-btn" id="bookBtn">Termin sichern — Buchung öffnen</button>
+      <p class="booking-hint">Kostenlos &amp; unverbindlich mit einem Zurich Vorsorge-Experten</p>
+    </div>
+
+    <div class="card full" style="animation-delay:0.16s">
+      <div class="section-label">
+        <span class="section-ic" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+        </span>
+        Zinseszins-Booster — 40 Jahre
+      </div>
+      <div class="toggle-row">
+        <button type="button" class="tog on" data-scen="opt">Optimistisch (6%)</button>
+        <button type="button" class="tog" data-scen="con">Konservativ (4%)</button>
+      </div>
+      <div class="chart-area"><canvas id="chart"></canvas></div>
+    </div>
+
+    <div class="card full" style="animation-delay:0.2s">
+      <div class="section-label">
+        <span class="section-ic" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+        </span>
+        Steuer-Achievements
+      </div>
+      <div class="achiev-row">
+        <button type="button" class="achiev" data-ach="3a">
+          <span class="emoji" aria-hidden="true">&#x1f48e;</span>
+          <div class="num">CHF 7'258</div>
+          <div class="desc">Max 3a-Beitrag 2026</div>
+          <div class="tap-hint">Antippen</div>
+        </button>
+        <button type="button" class="achiev" data-ach="tax">
+          <span class="emoji" aria-hidden="true">&#x1f4b0;</span>
+          <div class="num">~CHF 1'450</div>
+          <div class="desc">Steuer-Cashback / Jahr</div>
+          <div class="tap-hint">Antippen</div>
+        </button>
+        <button type="button" class="achiev" data-ach="40">
+          <span class="emoji" aria-hidden="true">&#x1f680;</span>
+          <div class="num">~CHF 58k</div>
+          <div class="desc">Total gespart in 40 J.</div>
+          <div class="tap-hint">Antippen</div>
+        </button>
+      </div>
+      <div class="power-box" id="powerBox">
+        Tippe eine Karte — hier erscheint dein Fact zur 3a &amp; Steuern.
+      </div>
+    </div>
+
+  </div>
 
   <div class="footer">
-    Demo-Werte — keine Finanzberatung. Stand 2026.
+    Grobe Schätzung, keine Finanzberatung. Demo: Berufseinstieg, Lohn CHF 70'000 — Ist-Werte hängen von Karriere, Kanton und PK ab. Stand 2026.
   </div>
-</div><!-- /container -->
-
-<!-- Modal -->
-<div class="backdrop" id="backdrop"></div>
-<div class="modal" id="lvlModal" role="dialog" aria-modal="true" aria-labelledby="lvlModalTitle">
-  <h2 id="lvlModalTitle">Level &amp; Profil</h2>
-  <p>Level = Motivation. Profile ändern die Demo-Lücke.</p>
-  <button type="button" class="modal-close" id="lvlModalClose">Alles klar</button>
 </div>
 
-<!-- Toast -->
+<div class="backdrop" id="backdrop"></div>
+<div class="modal" id="infoModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <h2 id="modalTitle">Level &amp; XP</h2>
+  <p id="modalBody">XP sammeln mit Sparschwein und Quests. Level sind nur Motivation — Profile ändern die Demo-Lücke im Spar-Meter.</p>
+  <button type="button" class="modal-close" id="modalClose">Alles klar</button>
+</div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
@@ -2183,39 +1333,206 @@ canvas { width: 100% !important; }
 (function () {
   'use strict';
 
-  const BOOKING_URL = 'https://outlook.office.com/book/VideoberatungmitExperten@zurichinsurance.onmicrosoft.com/?ismsaljsauthenabled';
-  const fmtN = n => Math.round(n).toLocaleString('de-CH');
-  const fmt  = n => 'CHF ' + fmtN(n);
+  var BOOKING_URL = 'https://outlook.office.com/book/VideoberatungmitExperten@zurichinsurance.onmicrosoft.com/?ismsaljsauthenabled';
 
-  /* ── Dream copy ── */
-  const dreamCopy = {
-    haus: '🏠 <strong>Eigenheim:</strong> Min. 20% Eigenkapital nötig. 3a-Konto kann für den Kauf vorbezogen werden.',
-    frei: '⏱️ <strong>Früher locker:</strong> Mehr jetzt anlegen = mehr Optionen ab 50+.',
-    safe: '🛡️ <strong>Safety First:</strong> Erst 3–6 Monatsausgaben aufbauen, dann langfristig anlegen.'
+  /**
+   * Name für Personalisierung (z. B. Claude-Plugin / Demo).
+   * Gamification-Ideen angelehnt an Open-Source-Patterns wie Contribution-Streaks &
+   * XP-Level-Bars (z. B. github.com/bizilabs/streeek, Git-Quest / GitHeat-ähnliche Dashboards).
+   */
+  var USER_NAME = 'Michalis';
+
+  function ymdLocal(d) {
+    var y = d.getFullYear();
+    var m = d.getMonth() + 1;
+    var day = d.getDate();
+    return y + '-' + (m < 10 ? '0' : '') + m + '-' + (day < 10 ? '0' : '') + day;
+  }
+
+  function initUser() {
+    var parts = String(USER_NAME).trim().split(/\s+/);
+    var first = parts[0] || 'du';
+    var elH = document.getElementById('heroFirstName');
+    var elN = document.getElementById('hudName');
+    var elA = document.getElementById('hudAvatar');
+    if (elH) elH.textContent = first;
+    if (elN) elN.textContent = first;
+    if (elA) elA.textContent = first.charAt(0).toUpperCase();
+    var mb = document.getElementById('modalBody');
+    if (mb) {
+      mb.textContent = first + ', hier sammelst du XP mit Sparschwein, Achievements und Quests. Level sind Spass — Profile steuern die Demo-Zahlen im Spar-Meter.';
+    }
+  }
+
+  function initStreak() {
+    var today = ymdLocal(new Date());
+    var last = null;
+    try { last = localStorage.getItem('vb-streak-day'); } catch (e) {}
+    var n = 1;
+    try { n = parseInt(localStorage.getItem('vb-streak-n') || '1', 10) || 1; } catch (e2) { n = 1; }
+    if (!last) {
+      n = 1;
+    } else if (last === today) {
+      /* unverändert */
+    } else {
+      var yest = new Date();
+      yest.setHours(12, 0, 0, 0);
+      yest.setDate(yest.getDate() - 1);
+      if (last === ymdLocal(yest)) {
+        n = n + 1;
+      } else {
+        n = 1;
+      }
+    }
+    try {
+      localStorage.setItem('vb-streak-day', today);
+      localStorage.setItem('vb-streak-n', String(n));
+    } catch (e3) {}
+    var sc = document.getElementById('streakCount');
+    if (sc) sc.textContent = String(n);
+  }
+
+  initUser();
+  initStreak();
+
+  /* Theme */
+  var themeBtn = document.getElementById('themeBtn');
+  function applyTheme(mode) {
+    var dark = mode === 'dark';
+    document.documentElement.setAttribute('data-theme', dark ? 'dark' : '');
+    document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+    themeBtn.textContent = dark ? 'Light' : 'Dark';
+    try { localStorage.setItem('vb-theme', mode); } catch (e) {}
+    if (window.chrt) window.chrt.update();
+  }
+  try {
+    var saved = localStorage.getItem('vb-theme');
+    if (saved === 'dark' || saved === 'light') applyTheme(saved);
+    else if (window.matchMedia('(prefers-color-scheme: dark)').matches) applyTheme('dark');
+    else applyTheme('light');
+  } catch (e) { applyTheme('light'); }
+  themeBtn.addEventListener('click', function () {
+    applyTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+  });
+
+  /* Toast */
+  var toastEl = document.getElementById('toast');
+  var toastT;
+  function toast(msg) {
+    toastEl.textContent = msg;
+    toastEl.classList.add('show');
+    clearTimeout(toastT);
+    toastT = setTimeout(function () { toastEl.classList.remove('show'); }, 2600);
+  }
+
+  /* Modal */
+  var backdrop = document.getElementById('backdrop');
+  var infoModal = document.getElementById('infoModal');
+  function closeModal() {
+    backdrop.classList.remove('open');
+    infoModal.classList.remove('open');
+  }
+  function openModal() {
+    backdrop.classList.add('open');
+    infoModal.classList.add('open');
+  }
+  document.getElementById('modalClose').addEventListener('click', closeModal);
+  backdrop.addEventListener('click', closeModal);
+  document.getElementById('levelBadge').addEventListener('click', openModal);
+
+  /* Profiles + gap */
+  var profiles = {
+    student: { gap: 951, label: 'Studium · hohe Lücke normal' },
+    youngpro: { gap: 720, label: 'Beruf · PK läuft' },
+    nest: { gap: 1100, label: 'Familie · mehr Ausgaben' }
   };
+  function fmtChf(n) {
+    return 'CHF ' + Math.round(n).toLocaleString('de-CH');
+  }
+  function setProfile(key) {
+    var p = profiles[key];
+    if (!p) return;
+    document.getElementById('donutVal').textContent = fmtChf(p.gap);
+    document.getElementById('legendGap').textContent = fmtChf(p.gap);
+    document.getElementById('donutSub').textContent = 'Lücke / Mt';
+    toast('Profil: ' + p.label);
+  }
+  document.querySelectorAll('.level-bar .pill').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      document.querySelectorAll('.level-bar .pill').forEach(function (b) { b.classList.remove('on'); });
+      btn.classList.add('on');
+      setProfile(btn.getAttribute('data-profile'));
+    });
+  });
 
-  // Init on load
-  initChart();
-  renderCal();
-  updateHouse();
-  updateNotg();
-  updateTax();
+  /* XP / Level (vor Sparschwein, damit Tap sicher funktioniert) */
+  var xp = 150;
+  var XP_MAX = 1000;
+  var LEVELS = { 1: 'Starter', 2: 'Sparer', 3: 'Stratege', 4: 'Boss-Mode' };
+  var RANK_COPY = {
+    1: 'Neuling · erste Quests warten',
+    2: 'Sparer · du hast den Dreh raus',
+    3: 'Stratege · Hebel & Lücke im Blick',
+    4: 'Vorsorge-Champ · maximale Klarheit'
+  };
+  var xpFill = document.getElementById('xpFill');
+  var xpNumbers = document.getElementById('xpNumbers');
+  var levelBadge = document.getElementById('levelBadge');
+  var lastSyncedLevel = null;
+
+  function pulseXpBar() {
+    if (!xpFill) return;
+    xpFill.classList.remove('xp-fill--pulse');
+    void xpFill.offsetWidth;
+    xpFill.classList.add('xp-fill--pulse');
+  }
+
+  function syncXp() {
+    var pct = Math.min(100, (xp / XP_MAX) * 100);
+    var lvl = xp >= 800 ? 4 : xp >= 550 ? 3 : xp >= 300 ? 2 : 1;
+    if (lastSyncedLevel !== null && lvl > lastSyncedLevel) {
+      toast('Level up! LVL ' + lvl + ' — ' + LEVELS[lvl]);
+    }
+    lastSyncedLevel = lvl;
+    xpFill.style.width = pct + '%';
+    xpNumbers.textContent = xp.toLocaleString('de-CH') + ' / ' + XP_MAX.toLocaleString('de-CH');
+    levelBadge.textContent = 'LVL ' + lvl + ' — ' + LEVELS[lvl];
+    var rl = document.getElementById('rankLine');
+    if (rl) rl.textContent = RANK_COPY[lvl];
+  }
+
+  function addXp(d) {
+    xp = Math.min(XP_MAX, Math.max(0, xp + d));
+    if (d !== 0) pulseXpBar();
+    syncXp();
+  }
   syncXp();
 
-  /* ── Piggy: ein klarer Tap — rotierende Tipps (keine Fake-Aktionen) ── */
-  const piggyBtn = document.getElementById('piggyBtn');
-  const piggyScene = piggyBtn.querySelector('.piggy-scene');
-  const piggyTips = [
+  function spawnXpFloater(node, label) {
+    if (!node) return;
+    var f = document.createElement('span');
+    f.className = 'xp-floater';
+    f.textContent = label;
+    f.setAttribute('aria-hidden', 'true');
+    node.appendChild(f);
+    setTimeout(function () { if (f.parentNode) f.remove(); }, 850);
+  }
+
+  /* Sparschwein — wie in der vorherigen Vollversion */
+  var piggyBtn = document.getElementById('piggyBtn');
+  var piggyScene = piggyBtn ? piggyBtn.querySelector('.piggy-scene') : null;
+  var piggyTips = [
     'AHV läuft automatisch über den Lohn — ab 65 zahlt der Staat mit.',
     'PK: Arbeitgeber zahlt mindestens gleich viel wie du.',
     '3a: bis CHF 7\'258/Jahr sparen und Steuern senken.',
     'Früh sparen = Zinseszins. Warten kostet Rendite.',
     'Eigenheim: Eigenkapital planen; 3a kann für den Kauf vorgezogen werden.',
-    'Erst Notgroschen, dann langfristig anlegen.',
+    'Erst Notgroschen, dann langfristig anlegen.'
   ];
-  let piggyTipI = 0;
+  var piggyTipI = 0;
 
   function triggerPiggyJiggle() {
+    if (!piggyBtn) return;
     piggyBtn.classList.remove('jiggle');
     void piggyBtn.offsetWidth;
     piggyBtn.classList.add('jiggle');
@@ -2227,446 +1544,268 @@ canvas { width: 100% !important; }
     setTimeout(function () { piggyBtn.classList.remove('jiggle'); }, 550);
   }
 
-  piggyBtn.addEventListener('click', function () {
-    const coin = document.createElement('span');
-    coin.className = 'coin-pop';
-    coin.textContent = '🪙';
-    piggyBtn.appendChild(coin);
-    coin.addEventListener('animationend', function () { coin.remove(); });
-    triggerPiggyJiggle();
-    toast(piggyTips[piggyTipI % piggyTips.length]);
-    piggyTipI++;
-    addXp(1, null);
-  });
-
-  /* ── Toast ── */
-  let toastT;
-  function toast(msg) {
-    const el = document.getElementById('toast');
-    el.textContent = msg;
-    el.classList.add('show');
-    clearTimeout(toastT);
-    toastT = setTimeout(() => el.classList.remove('show'), 2600);
+  if (piggyBtn) {
+    piggyBtn.addEventListener('click', function () {
+      var coin = document.createElement('span');
+      coin.className = 'coin-pop';
+      coin.textContent = '\uD83E\uDE99';
+      coin.setAttribute('aria-hidden', 'true');
+      piggyBtn.appendChild(coin);
+      coin.addEventListener('animationend', function () { coin.remove(); });
+      triggerPiggyJiggle();
+      spawnXpFloater(piggyBtn, '+1 XP');
+      toast(piggyTips[piggyTipI % piggyTips.length]);
+      piggyTipI++;
+      addXp(1);
+    });
   }
 
-  /* ── Theme ── */
-  const themeBtn = document.getElementById('themeToggle');
-  function applyTheme(m) {
-    const isDark = m === 'dark';
-    document.documentElement.setAttribute('data-theme', isDark ? 'dark' : '');
-    document.documentElement.style.colorScheme = isDark ? 'dark' : 'light';
-    themeBtn.innerHTML = m === 'dark'
-      ? '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg> Light'
-      : '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg> Dark';
-    localStorage.setItem('vb-theme', m);
-  }
-  const saved = localStorage.getItem('vb-theme');
-  applyTheme(saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light');
-  themeBtn.addEventListener('click', () => {
-    applyTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
-  });
-
-  /* ── User ── */
-  const USER_NAME = 'Michalis'; // ← für Claude-Plugin hier den Namen einsetzen
-  (function initUser() {
-    const first = USER_NAME.split(' ')[0];
-    document.getElementById('heroName').textContent = first;
-    document.getElementById('hudName').textContent = first;
-    document.getElementById('hudAvatar').textContent = first.charAt(0).toUpperCase();
-  })();
-
-  /* ── XP ── */
-  let xp = 150;
-  const XP_MAX = 1000;
-  const LEVELS = { 1: 'Starter', 2: 'Sparer', 3: 'Stratege', 4: 'Boss-Mode' };
-  function syncXp() {
-    const pct = Math.min(100, (xp / XP_MAX) * 100);
-    const lvl = xp >= 800 ? 4 : xp >= 550 ? 3 : xp >= 300 ? 2 : 1;
-    document.getElementById('hudXpCur').textContent = xp;
-    document.getElementById('hudXpFill').style.width = pct + '%';
-    document.getElementById('hudLvl').textContent = 'LVL ' + lvl + ' · ' + LEVELS[lvl];
-  }
-  function addXp(d, msg) { xp = Math.min(XP_MAX, Math.max(0, xp + d)); syncXp(); if (msg) toast(msg); }
-
-  /* ── Modal ── */
-  const backdrop = document.getElementById('backdrop');
-  const lvlModal = document.getElementById('lvlModal');
-  function closeModal() { backdrop.classList.remove('open'); lvlModal.classList.remove('open'); }
-  document.getElementById('lvlModalClose').addEventListener('click', closeModal);
-  backdrop.addEventListener('click', closeModal);
-
-  /* ── Profiles ── */
-  let currentGap = 951;
-  const profiles = {
-    student:  { tag: '22 J. · Studium',        gap: 951,  age: 22 },
-    youngpro: { tag: '26 J. · Berufseinstieg',  gap: 720,  age: 26 },
-    nest:     { tag: '32 J. · Familie',          gap: 1100, age: 32 }
+  /* Achievements */
+  var achFacts = {
+    '3a': '\u26A1 Max 3a 2026: CHF 7\'258. Jeder Franken senkt das steuerbare Einkommen — Effekt = dein Grenzsteuersatz.',
+    tax: '\u26A1 Steuer-Cashback: grob Grenzsteuersatz \u00D7 Einzahlung. Rechner bei der Kantonalsteuer.',
+    '40': '\u26A1 \u00DCber 40 Jahre: Steuervorteile + Zinseszins. Startdatum schl\u00E4gt \u00ABperfektes Timing\u00BB.'
   };
-  function updateTimelineAges(age) {
-    const n = document.getElementById('tlNumNow');
-    const f = document.getElementById('tlNum5');
-    const h = document.getElementById('tlNumHaus');
-    if (n) n.textContent = String(age);
-    if (f) f.textContent = String(age + 5);
-    if (h) h.textContent = String(age + 10);
-  }
-  const startPill = document.querySelector('#profilePills .pill.on');
-  if (startPill && profiles[startPill.dataset.profile]) {
-    updateTimelineAges(profiles[startPill.dataset.profile].age);
-  }
-  document.getElementById('profilePills').addEventListener('click', e => {
-    const btn = e.target.closest('.pill');
-    if (!btn) return;
-    document.querySelectorAll('.pill').forEach(p => p.classList.remove('on'));
-    btn.classList.add('on');
-    const p = profiles[btn.dataset.profile];
-    if (!p) return;
-    currentGap = p.gap;
-    updateTimelineAges(p.age);
-    centerLabels[2].val = fmt(p.gap);
-    document.getElementById('donutVal').textContent = fmt(p.gap);
-    document.getElementById('legendGap').textContent = fmt(p.gap);
-    document.getElementById('donutSub').textContent = 'fehlt noch';
-    // Refresh active chip if one is selected
-    const activeChip = document.querySelector('.rel-chip.on');
-    if (activeChip) activeChip.click();
-    toast('Situation geändert: ' + p.tag);
-  });
-
-  /* ── Donut ── */
-  const donutBox = document.getElementById('donutBox');
-  const segs = donutBox.querySelectorAll('.donut-seg');
-  const centerLabels = [
-    { val: 'CHF 2\'200', sub: 'Staat zahlt' },
-    { val: 'CHF 1\'515', sub: 'Arbeitgeber zahlt' },
-    { val: fmt(currentGap), sub: 'fehlt noch' }
-  ];
-  segs.forEach((c, i) => {
-    c.addEventListener('click', () => {
-      donutBox.classList.add('dim');
-      segs.forEach(s => s.classList.remove('hi'));
-      c.classList.add('hi');
-      document.getElementById('donutVal').textContent = centerLabels[i].val;
-      document.getElementById('donutSub').textContent = centerLabels[i].sub;
-    });
-  });
-
-  /* ── Legend ── */
-  document.querySelectorAll('.lrow[data-det]').forEach(row => {
-    row.addEventListener('click', () => {
-      const id = row.dataset.det;
-      const det = document.getElementById('det-' + id);
-      const was = det.classList.contains('open');
-      document.querySelectorAll('.lrow-detail').forEach(d => d.classList.remove('open'));
-      document.querySelectorAll('.lrow[data-det]').forEach(r => r.classList.remove('open'));
-      if (!was) { det.classList.add('open'); row.classList.add('open'); }
-    });
-  });
-
-  /* ── Spar-Hebel chips ── */
-  const relActions = {
-    50:  { emoji: '☕', text: 'Das entspricht etwa 8 Cappuccinos weniger pro Monat — und schliesst schon einen Teil deiner Lücke. Kleiner Start, echter Effekt.' },
-    100: { emoji: '🥡', text: 'Rund 3–4 Takeaways weniger pro Monat. Klingt wenig, macht über 40 Jahre mit Zinseszins einen riesigen Unterschied.' },
-    200: { emoji: '💪', text: 'Das ist der 3a-Einstieg, den die meisten empfehlen. Steuerersparnis on top — du bekommst einen Teil davon sofort zurück.' },
-    400: { emoji: '🚀', text: 'Power-Modus: CHF 400/Mt entspricht fast dem halben 3a-Maximum. Du schliesst die Lücke deutlich schneller als der Durchschnitt.' }
-  };
-  document.querySelectorAll('.rel-chip').forEach(chip => {
-    chip.addEventListener('click', () => {
-      document.querySelectorAll('.rel-chip').forEach(c => c.classList.remove('on'));
-      chip.classList.add('on');
-      const save = parseInt(chip.dataset.save, 10);
-      const pct = Math.min(100, Math.round((save / currentGap) * 100));
-      const rest = Math.max(0, currentGap - save);
-      const act = relActions[save];
-
-      document.getElementById('relResult').textContent =
-        fmt(save) + '/Monat → schliesst ' + pct + '% deiner Lücke (' + fmt(currentGap) + '/Mt).';
-
-      document.getElementById('relBarLabel').textContent = pct + '% der Lücke geschlossen';
-      document.getElementById('relBarRest').textContent = rest > 0 ? fmt(rest) + ' bleiben offen' : 'Lücke vollständig geschlossen!';
-      document.getElementById('relBarFill').style.width = pct + '%';
-      document.getElementById('relBarFill').style.background = pct >= 100 ? 'var(--success)' : pct >= 50 ? 'var(--primary)' : 'var(--warn)';
-      document.getElementById('relAction').textContent = act.emoji + '  ' + act.text;
-      document.getElementById('relBar').style.display = 'block';
-    });
-  });
-
-  /* ── House calc ── */
-  function updateHouse() {
-    const price = +document.getElementById('rPrice').value;
-    const eq    = +document.getElementById('rEq').value / 100;
-    const save  = +document.getElementById('rSave').value;
-    const yld   = +document.getElementById('rYield').value;
-    document.getElementById('outPrice').textContent = fmt(price);
-    document.getElementById('outEq').textContent    = Math.round(eq * 100) + '%';
-    document.getElementById('outSave').textContent  = fmt(save);
-    document.getElementById('outYield').textContent = yld.toFixed(1).replace('.', ',') + '%';
-    const target = price * eq;
-    const rm = yld / 100 / 12;
-    let months;
-    if (save <= 0) { months = Infinity; }
-    else if (rm <= 0) { months = Math.ceil(target / save); }
-    else {
-      const n = 1 + (target * rm) / save;
-      months = n <= 1 ? 0 : Math.ceil(Math.log(n) / Math.log(1 + rm));
-    }
-    const el = document.getElementById('houseResult');
-    if (!isFinite(months) || months > 1200) {
-      el.innerHTML = 'Mit dieser Rate dauert es sehr lange — Rate oder Ziel anpassen.';
-    } else {
-      const yrs = (months / 12).toFixed(1).replace('.', ',');
-      el.innerHTML = 'Du brauchst <strong>' + fmt(target) + '</strong> Eigenkapital (' + Math.round(eq*100) + '% des Kaufpreises).<br><br>Bei <strong>' + fmtN(save) + ' CHF/Monat</strong> sparst du das in ca. <strong>' + yrs + ' Jahren</strong> zusammen — vereinfacht, ohne Steuern.';
-    }
-  }
-  ['rPrice','rEq','rSave','rYield'].forEach(id => {
-    document.getElementById(id).addEventListener('input', updateHouse);
-  });
-  document.querySelectorAll('.preset').forEach(p => {
-    p.addEventListener('click', () => {
-      document.querySelectorAll('.preset').forEach(x => x.classList.remove('on'));
-      p.classList.add('on');
-      document.getElementById('rPrice').value = p.dataset.price;
-      updateHouse();
-      toast('Preset: ' + p.textContent.trim());
-    });
-  });
-
-  /* ── Notgroschen ── */
-  function updateNotg() {
-    const exp   = Math.max(1, +document.getElementById('notgExp').value || 2800);
-    const saved = Math.max(0, +document.getElementById('notgSaved').value || 0);
-    const months = saved / exp;
-    const pct = Math.min(100, (months / 6) * 100);
-    document.getElementById('notgFill').style.width = pct + '%';
-    const dot  = document.getElementById('notgDot');
-    const text = document.getElementById('notgText');
-    if (months < 1) {
-      dot.style.background = 'var(--danger)';
-      text.textContent = 'Kritisch — weniger als 1 Monatsausgabe liquid (' + months.toFixed(1) + ' Mt).';
-    } else if (months < 3) {
-      dot.style.background = 'var(--warn)';
-      text.textContent = 'Aufbau — ' + months.toFixed(1) + ' Monate gesichert. Ziel: 3–6 Mt.';
-    } else if (months < 6) {
-      dot.style.background = 'var(--zc-mint-100)';
-      text.textContent = 'Gut — ' + months.toFixed(1) + ' Monate liquid. Für mehr Sicherheit weiter aufbauen.';
-    } else {
-      dot.style.background = 'var(--success)';
-      text.textContent = 'Stark — ' + months.toFixed(1) + ' Monate Puffer. Jetzt 3a maxen!';
-    }
-  }
-  ['notgExp','notgSaved'].forEach(id => {
-    document.getElementById(id).addEventListener('input', updateNotg);
-  });
-
-  /* ── Tax calc ── */
-  function updateTax() {
-    const income  = Math.max(0, +document.getElementById('taxIncome').value || 0);
-    const rate    = +document.getElementById('taxKanton').value;
-    const contrib = Math.min(7258, Math.max(0, +document.getElementById('taxContrib').value || 0));
-    const save    = Math.round(contrib * rate);
-    const roi     = contrib > 0 ? ((save / contrib) * 100).toFixed(1) + '%' : '–';
-    const net     = contrib - save;
-    document.getElementById('taxSave').textContent = fmt(save);
-    document.getElementById('taxRoi').textContent  = roi;
-    document.getElementById('taxNet').textContent  = fmt(net);
-  }
-  ['taxIncome','taxKanton','taxContrib'].forEach(id => {
-    document.getElementById(id).addEventListener('input', updateTax);
-    document.getElementById(id).addEventListener('change', updateTax);
-  });
-
-  /* ── Dreams ── */
-  const dreamPanel = document.getElementById('dreamPanel');
-  document.getElementById('dreamGrid').addEventListener('click', e => {
-    const b = e.target.closest('.dream');
-    if (!b) return;
-    document.querySelectorAll('.dream').forEach(d => d.classList.remove('on'));
-    b.classList.add('on');
-    dreamPanel.innerHTML = dreamCopy[b.dataset.dream] || '';
-    dreamPanel.classList.add('open');
-  });
-
-  /* ── Timeline ── */
-  document.getElementById('timelineTop').addEventListener('click', e => {
-    const item = e.target.closest('.tl-item');
-    if (!item) return;
-    document.querySelectorAll('#timelineTop .tl-item').forEach(i => i.classList.remove('on'));
-    item.classList.add('on');
-    toast(item.querySelector('.tl-title').textContent + ' — im Blick behalten');
-  });
-
-
-  /* ── Achievements ── */
-  const achFacts = {
-    '3a': 'Max 3a 2026: CHF 7\'258 (Angestellte). Jeder Franken senkt das steuerbare Einkommen — Effekt hängt vom Grenzsteuersatz ab.',
-    tax:  'Steuer-Cashback: grob Grenzsteuersatz × Einzahlung. Nicht jeder Franken wird gleich besteuert — Rechner oben zeigt deine Näherung.',
-    '40': 'Über 40 Jahre summieren sich Steuervorteile + Zinseszins massiv. Startdatum schlägt perfektes Timing — früh anfangen zählt mehr.'
-  };
-  document.querySelectorAll('.achiev').forEach(a => {
-    a.addEventListener('click', () => {
-      document.querySelectorAll('.achiev').forEach(x => x.classList.remove('on'));
+  document.querySelectorAll('.achiev').forEach(function (a) {
+    a.addEventListener('click', function () {
+      document.querySelectorAll('.achiev').forEach(function (x) { x.classList.remove('on'); });
       a.classList.add('on');
-      document.getElementById('achievFact').textContent = achFacts[a.dataset.ach] || '';
+      a.classList.remove('achiev-bump');
+      void a.offsetWidth;
+      a.classList.add('achiev-bump');
+      setTimeout(function () { a.classList.remove('achiev-bump'); }, 500);
+      document.getElementById('powerBox').textContent = achFacts[a.getAttribute('data-ach')] || '';
+      addXp(5);
+      toast('+5 XP — Fact geladen');
     });
   });
 
-  /* ── Quests ── */
-  const done = new Set();
-  document.querySelectorAll('.quest').forEach(q => {
-    q.addEventListener('click', () => {
-      const id = q.dataset.quest;
-      const xpV = +q.dataset.xp;
+  /* Quests */
+  var done = new Set();
+  function updateQuestHud() {
+    var el = document.getElementById('questDoneCount');
+    if (el) el.textContent = String(done.size);
+  }
+  document.querySelectorAll('.quest').forEach(function (q) {
+    q.addEventListener('click', function () {
+      var id = q.getAttribute('data-quest');
+      var xv = parseInt(q.getAttribute('data-xp'), 10);
       if (done.has(id)) {
         done.delete(id);
         q.classList.remove('done');
-        addXp(-xpV, 'Quest zurückgenommen');
+        q.querySelector('.quest-xp').textContent = '+' + xv + ' XP';
+        addXp(-xv);
+        toast('Quest zur\u00FCckgenommen');
       } else {
         done.add(id);
         q.classList.add('done');
-        addXp(xpV, '+' + xpV + ' XP — nice!');
+        q.querySelector('.quest-xp').textContent = '\u2713 ' + xv + ' XP';
+        addXp(xv);
+        toast('+' + xv + ' XP — Quest erledigt');
       }
+      updateQuestHud();
     });
   });
+  updateQuestHud();
 
-  /* ── Calendar ── */
-  const MONTHS = ['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'];
-  let calDate = new Date();
-  let selDate = null;
+  function expandQuestsIfCollapsed() {
+    var col = document.getElementById('questsCollapsible');
+    var btn = document.getElementById('questsToggle');
+    var lbl = document.getElementById('questsToggleLabel');
+    if (!col || !col.classList.contains('collapsed') || !btn) return;
+    col.classList.remove('collapsed');
+    btn.setAttribute('aria-expanded', 'true');
+    if (lbl) lbl.textContent = 'Einklappen';
+  }
 
-  window.renderCal = function () {
-    const y = calDate.getFullYear(), m = calDate.getMonth();
-    document.getElementById('calTitle').textContent = MONTHS[m] + ' ' + y;
-    const first = new Date(y, m, 1).getDay();
-    const off = first === 0 ? 6 : first - 1;
-    const days = new Date(y, m + 1, 0).getDate();
-    const today = new Date();
-    let h = '';
-    for (let i = 0; i < off; i++) h += '<div class="cal-day empty"></div>';
-    for (let d = 1; d <= days; d++) {
-      const dt = new Date(y, m, d);
-      const past = dt < new Date(today.getFullYear(), today.getMonth(), today.getDate());
-      const isToday = d === today.getDate() && m === today.getMonth() && y === today.getFullYear();
-      const weekend = dt.getDay() === 0 || dt.getDay() === 6;
-      const sel = selDate && d === selDate.getDate() && m === selDate.getMonth() && y === selDate.getFullYear();
-      const avail = !past && !weekend;
-      let cls = 'cal-day';
-      if (past) cls += ' past';
+  var qToggle = document.getElementById('questsToggle');
+  if (qToggle) {
+    qToggle.addEventListener('click', function () {
+      var col = document.getElementById('questsCollapsible');
+      var lbl = document.getElementById('questsToggleLabel');
+      var open = qToggle.getAttribute('aria-expanded') === 'true';
+      if (open) {
+        qToggle.setAttribute('aria-expanded', 'false');
+        if (col) col.classList.add('collapsed');
+        if (lbl) lbl.textContent = 'Ausklappen';
+      } else {
+        qToggle.setAttribute('aria-expanded', 'true');
+        if (col) col.classList.remove('collapsed');
+        if (lbl) lbl.textContent = 'Einklappen';
+      }
+    });
+  }
+
+  document.querySelectorAll('.quest-anchor[href^="#quest-"]').forEach(function (a) {
+    a.addEventListener('click', function () { expandQuestsIfCollapsed(); });
+  });
+  var qaAll = document.querySelector('a.quest-anchor[href="#quests-panel"]');
+  if (qaAll) qaAll.addEventListener('click', function () { expandQuestsIfCollapsed(); });
+  document.querySelectorAll('a.game-pill--link[href="#quests-panel"]').forEach(function (a) {
+    a.addEventListener('click', function () { expandQuestsIfCollapsed(); });
+  });
+
+  /* Calendar */
+  var months = ['Januar','Februar','M\u00E4rz','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'];
+  var calDate = new Date();
+  var selectedDate = null;
+
+  function renderCal() {
+    var y = calDate.getFullYear();
+    var m = calDate.getMonth();
+    document.getElementById('calTitle').textContent = months[m] + ' ' + y;
+    var first = new Date(y, m, 1).getDay();
+    var offset = first === 0 ? 6 : first - 1;
+    var daysInMonth = new Date(y, m + 1, 0).getDate();
+    var today = new Date();
+    var html = '';
+    var i, d, date, isPast, isToday, isWeekend, isSelected, isAvail, cls;
+    for (i = 0; i < offset; i++) html += '<div class="cal-day empty"></div>';
+    for (d = 1; d <= daysInMonth; d++) {
+      date = new Date(y, m, d);
+      isPast = date < new Date(today.getFullYear(), today.getMonth(), today.getDate());
+      isToday = d === today.getDate() && m === today.getMonth() && y === today.getFullYear();
+      isWeekend = date.getDay() === 0 || date.getDay() === 6;
+      isSelected = selectedDate && d === selectedDate.getDate() && m === selectedDate.getMonth() && y === selectedDate.getFullYear();
+      isAvail = !isPast && !isWeekend;
+      cls = 'cal-day';
+      if (isPast) cls += ' past';
       if (isToday) cls += ' today';
-      if (sel) cls += ' selected';
-      if (avail) cls += ' available';
-      h += '<div class="' + cls + '"' + (avail ? ' onclick="pickDate(' + y + ',' + m + ',' + d + ')"' : '') + '>' + d + '</div>';
+      if (isSelected) cls += ' selected';
+      if (isAvail) cls += ' available';
+      html += '<div class="' + cls + '"' + (isAvail ? ' role="button" tabindex="0" data-d="' + d + '"' : '') + '>' + d + '</div>';
     }
-    document.getElementById('calDays').innerHTML = h;
-  };
+    document.getElementById('calDays').innerHTML = html;
+    document.querySelectorAll('.cal-day.available').forEach(function (el) {
+      var dayNum = parseInt(el.getAttribute('data-d'), 10);
+      el.addEventListener('click', function () { pickDate(y, m, dayNum); });
+      el.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pickDate(y, m, dayNum); }
+      });
+    });
+  }
 
-  window.pickDate = function (y, m, d) {
-    selDate = new Date(y, m, d);
+  function pickDate(y, m, d) {
+    selectedDate = new Date(y, m, d);
     renderCal();
-    const slotsEl = document.getElementById('timeSlots');
-    slotsEl.innerHTML = ['09:00','10:00','11:00','13:00','14:00','15:00','16:00']
-      .map(s => '<div class="slot" onclick="pickSlot(this,\'' + s + '\')">' + s + '</div>').join('');
+    var slotsEl = document.getElementById('timeSlots');
+    var slots = ['09:00','10:00','11:00','13:00','14:00','15:00','16:00'];
+    slotsEl.innerHTML = slots.map(function (s) {
+      return '<button type="button" class="slot" data-time="' + s + '">' + s + '</button>';
+    }).join('');
     slotsEl.classList.add('show');
     document.getElementById('bookBtn').classList.remove('show');
-  };
+    slotsEl.querySelectorAll('.slot').forEach(function (slot) {
+      slot.addEventListener('click', function () {
+        slotsEl.querySelectorAll('.slot').forEach(function (s) { s.classList.remove('picked'); });
+        slot.classList.add('picked');
+        document.getElementById('bookBtn').classList.add('show');
+      });
+    });
+    toast('Datum gew\u00E4hlt — Slot w\u00E4hlen');
+  }
 
-  window.pickSlot = function (el, time) {
-    document.querySelectorAll('.slot').forEach(s => s.classList.remove('picked'));
-    el.classList.add('picked');
-    document.getElementById('bookBtn').classList.add('show');
-  };
+  document.getElementById('bookBtn').addEventListener('click', function () {
+    window.open(BOOKING_URL, '_blank');
+    toast('Buchungsfenster ge\u00F6ffnet');
+  });
 
-  window.bookNow = function () { window.open(BOOKING_URL, '_blank'); };
-
-  window.changeMonth = function (dir) {
-    calDate.setMonth(calDate.getMonth() + dir);
-    selDate = null;
+  document.getElementById('calPrev').addEventListener('click', function () {
+    calDate.setMonth(calDate.getMonth() - 1);
+    selectedDate = null;
     document.getElementById('timeSlots').classList.remove('show');
     document.getElementById('bookBtn').classList.remove('show');
     renderCal();
-  };
+  });
+  document.getElementById('calNext').addEventListener('click', function () {
+    calDate.setMonth(calDate.getMonth() + 1);
+    selectedDate = null;
+    document.getElementById('timeSlots').classList.remove('show');
+    document.getElementById('bookBtn').classList.remove('show');
+    renderCal();
+  });
 
-  /* ── Chart ── */
-  const Y = 40;
-  const ages = Array.from({ length: Y + 1 }, (_, i) => 25 + i);
+  renderCal();
+
+  /* Chart */
+  var Y = 40;
+  var ages = Array.from({ length: Y + 1 }, function (_, i) { return 25 + i; });
   function grow(m, r) {
-    const res = [0]; let t = 0;
-    for (let i = 1; i <= Y; i++) {
-      for (let j = 0; j < 12; j++) t = t * (1 + r / 12) + m;
+    var res = [0];
+    var t = 0;
+    var i, j;
+    for (i = 1; i <= Y; i++) {
+      for (j = 0; j < 12; j++) t = t * (1 + r / 12) + m;
       res.push(Math.round(t));
     }
     return res;
   }
-  function dep(m) { return Array.from({ length: Y + 1 }, (_, i) => m * 12 * i); }
-  const datasets = {
-    opt: [grow(400,.06),grow(200,.06),grow(100,.06),grow(50,.06)],
-    mid: [grow(400,.05),grow(200,.05),grow(100,.05),grow(50,.05)],
-    con: [grow(400,.04),grow(200,.04),grow(100,.04),grow(50,.04)]
+  function dep(m) {
+    return Array.from({ length: Y + 1 }, function (_, i) { return m * 12 * i; });
+  }
+  var S = {
+    opt: { d50: grow(50, 0.06), d100: grow(100, 0.06), d200: grow(200, 0.06), d400: grow(400, 0.06) },
+    con: { d50: grow(50, 0.04), d100: grow(100, 0.04), d200: grow(200, 0.04), d400: grow(400, 0.04) }
   };
-  const chartColors = ['#E74C3C','#7B61C4','#0047BB','#00B4A0'];
-  const chartLabels = ['CHF 400/Mt','CHF 200/Mt','CHF 100/Mt','CHF 50/Mt'];
-  let chrt = null;
-
-  function initChart() {
-    if (chrt) { updateZinsStats('opt'); return; }
-    const ctx = document.getElementById('chart').getContext('2d');
-    chrt = new Chart(ctx, {
+  var COL = ['#E74C3C', '#7B61C4', '#0047BB', '#00B4A0'];
+  var chartEl = document.getElementById('chart');
+  if (typeof Chart !== 'undefined' && chartEl) {
+    window.chrt = new Chart(chartEl.getContext('2d'), {
       type: 'line',
       data: {
         labels: ages,
         datasets: [
-          ...chartLabels.map((l, i) => ({
-            label: l, data: datasets.opt[i],
-            borderColor: chartColors[i], backgroundColor: chartColors[i] + '12',
-            fill: true, tension: .35, borderWidth: 2.5, pointRadius: 0, pointHoverRadius: 5
-          })),
-          { label: 'Einbezahlt (200/Mt)', data: dep(200), borderColor: '#aaa', borderDash: [6,4], borderWidth: 1.5, pointRadius: 0, fill: false, tension: 0 }
+          { label: 'CHF 400/Mt', data: S.opt.d400, borderColor: COL[0], backgroundColor: COL[0] + '14', fill: true, tension: 0.35, borderWidth: 2.5, pointRadius: 0, pointHoverRadius: 5 },
+          { label: 'CHF 200/Mt', data: S.opt.d200, borderColor: COL[1], backgroundColor: COL[1] + '14', fill: true, tension: 0.35, borderWidth: 2.5, pointRadius: 0, pointHoverRadius: 5 },
+          { label: 'CHF 100/Mt', data: S.opt.d100, borderColor: COL[2], backgroundColor: COL[2] + '14', fill: true, tension: 0.35, borderWidth: 2.5, pointRadius: 0, pointHoverRadius: 5 },
+          { label: 'CHF 50/Mt', data: S.opt.d50, borderColor: COL[3], backgroundColor: COL[3] + '12', fill: true, tension: 0.35, borderWidth: 2, pointRadius: 0, pointHoverRadius: 5 },
+          { label: 'Einbezahlt (200/Mt)', data: dep(200), borderColor: '#b8b8b8', borderDash: [6, 4], borderWidth: 1.5, pointRadius: 0, fill: false, tension: 0 }
         ]
       },
       options: {
-        responsive: true, maintainAspectRatio: false,
+        responsive: true,
+        maintainAspectRatio: false,
         interaction: { mode: 'index', intersect: false },
         plugins: {
-          legend: { position: 'top', labels: { color: '#666', font: { family: 'Inter', size: 12, weight: '600' }, usePointStyle: true, pointStyle: 'circle', padding: 14 } },
+          legend: { position: 'top', labels: { usePointStyle: true, pointStyle: 'circle', padding: 14, font: { size: 11, weight: '600' } } },
           tooltip: {
-            backgroundColor: '#fff', titleColor: '#1a1a1a', bodyColor: '#666',
-            borderColor: '#e6e6e6', borderWidth: 1,
-            titleFont: { family: 'Inter', weight: '700' }, bodyFont: { family: 'Inter' },
-            padding: 12, cornerRadius: 8,
+            backgroundColor: '#ffffff',
+            titleColor: '#1a1a1a',
+            bodyColor: '#555555',
+            borderColor: '#e6e6e6',
+            borderWidth: 1,
+            padding: 12,
+            cornerRadius: 8,
             callbacks: {
-              title: i => 'Alter ' + i[0].label,
-              label: i => ' ' + i.dataset.label + ': CHF ' + i.raw.toLocaleString('de-CH')
+              title: function (items) { return items.length ? 'Alter ' + items[0].label : ''; },
+              label: function (ctx) { return ' ' + ctx.dataset.label + ': CHF ' + ctx.raw.toLocaleString('de-CH'); }
             }
           }
         },
         scales: {
-          x: { grid: { color: '#f0f0f0' }, ticks: { color: '#aaa', font: { family: 'Inter', size: 11 }, maxTicksLimit: 9 } },
-          y: { grid: { color: '#f0f0f0' }, ticks: { color: '#aaa', font: { family: 'Inter', size: 11 }, callback: v => v >= 1000 ? (v/1000).toFixed(0) + 'k' : v } }
+          x: { grid: { color: 'rgba(0,0,0,0.06)' }, ticks: { maxTicksLimit: 9, font: { size: 10 }, color: '#888888' } },
+          y: { grid: { color: 'rgba(0,0,0,0.06)' }, ticks: { font: { size: 10 }, color: '#888888', callback: function (v) { return v >= 1000 ? (v / 1000).toFixed(0) + 'k' : v; } } }
         }
       }
     });
-    updateZinsStats('opt');
   }
 
-  function updateZinsStats(s) {
-    const endVal = datasets[s][1][Y]; // CHF 200/Mt scenario
-    const eingezahlt = 200 * 12 * Y;
-    const bonus = endVal - eingezahlt;
-    document.getElementById('zsEingezahlt').textContent = fmt(eingezahlt);
-    document.getElementById('zsEndwert').textContent = fmt(endVal);
-    document.getElementById('zsBonus').textContent = '+' + fmt(bonus);
-  }
-
-  window.setScenario = function (s) {
-    if (!chrt) return;
-    datasets[s].forEach((d, i) => { chrt.data.datasets[i].data = d; });
-    chrt.update();
-    document.querySelectorAll('.tog').forEach(b => {
-      const t = b.textContent.toLowerCase();
-      b.classList.toggle('on', (s==='opt'&&t.includes('gut'))||(s==='mid'&&t.includes('mittel'))||(s==='con'&&t.includes('konservativ')));
+  document.querySelectorAll('.tog').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var s = b.getAttribute('data-scen');
+      if (!window.chrt || !S[s]) return;
+      document.querySelectorAll('.tog').forEach(function (x) { x.classList.remove('on'); });
+      b.classList.add('on');
+      var d = S[s];
+      var c = window.chrt;
+      c.data.datasets[0].data = d.d400;
+      c.data.datasets[1].data = d.d200;
+      c.data.datasets[2].data = d.d100;
+      c.data.datasets[3].data = d.d50;
+      c.update();
+      toast(s === 'opt' ? 'Szenario: 6 % p.a.' : 'Szenario: 4 % p.a.');
     });
-    updateZinsStats(s);
-  };
-
+  });
 })();
 </script>
 </body>
