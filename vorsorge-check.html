@@ -5,1173 +5,1248 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Vorsorge-Buddy — Dein Check | Zurich</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap');
-
-  :root {
-    --zurich-blue: #2167AE;
-    --zurich-blue-dark: #17508a;
-    --zurich-blue-light: #e8f1fa;
-    --zurich-blue-mid: #ABBCF2;
-    --accent-green: #00a87e;
-    --accent-green-light: #e6f9f3;
-    --accent-coral: #e74c5e;
-    --accent-coral-light: #fdeef0;
-    --accent-yellow: #f5a623;
-    --accent-yellow-light: #fef6e6;
-    --accent-purple: #7b61c4;
-    --accent-purple-light: #f0ecf9;
-    --bg: #f7f5f0;
-    --bg-tan: #efe9dd;
-    --card: #ffffff;
-    --text: #2C2400;
-    --text-muted: #6b6b6b;
-    --radius: 16px;
-    --radius-sm: 10px;
-    --shadow: 0 2px 12px rgba(0,0,0,0.06);
-    --shadow-hover: 0 8px 28px rgba(33,103,174,0.12);
-    --overlay: rgba(44, 36, 0, 0.45);
-  }
-
-  [data-theme="dark"] {
-    --bg: #12151a;
-    --bg-tan: #1e232b;
-    --card: #1a1f28;
-    --text: #f2efe6;
-    --text-muted: #9aa3b2;
-    --zurich-blue-light: #243044;
-    --accent-green-light: #0d2a22;
-    --accent-coral-light: #2a181c;
-    --accent-yellow-light: #2a2312;
-    --accent-purple-light: #221c2e;
-    --shadow: 0 2px 16px rgba(0,0,0,0.35);
-    --shadow-hover: 0 12px 40px rgba(0,0,0,0.45);
-    --overlay: rgba(0,0,0,0.65);
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  body {
-    font-family: 'Inter', -apple-system, sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    transition: background 0.25s, color 0.2s;
-  }
-
-  h1, h2, h3, .font-display { font-family: 'Outfit', 'Inter', sans-serif; }
-
-  .topbar {
-    background: var(--zurich-blue);
-    padding: 14px 24px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    flex-wrap: wrap;
-  }
-
-  .zurich-logo { width: 36px; height: 36px; flex-shrink: 0; }
-
-  .topbar-text {
-    color: #fff;
-    font-size: 15px;
-    font-weight: 700;
-    letter-spacing: 0.3px;
-    font-family: 'Outfit', sans-serif;
-  }
-
-  .topbar-sub {
-    color: rgba(255,255,255,0.75);
-    font-size: 12px;
-    font-weight: 500;
-  }
-
-  .topbar-spacer { flex: 1; min-width: 8px; }
-
-  .icon-btn {
-    background: rgba(255,255,255,0.15);
-    border: 1px solid rgba(255,255,255,0.25);
-    color: #fff;
-    border-radius: 100px;
-    padding: 8px 14px;
-    font-size: 12px;
-    font-weight: 700;
-    cursor: pointer;
-    font-family: inherit;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    min-height: 44px;
-    transition: background 0.2s, transform 0.15s;
-  }
-
-  .icon-btn:hover { background: rgba(255,255,255,0.28); }
-  .icon-btn:active { transform: scale(0.97); }
-
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 32px 20px 60px;
-  }
-
-  .hero {
-    text-align: center;
-    margin-bottom: 24px;
-    animation: fadeUp 0.6s ease-out;
-  }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  @keyframes piggyBounce {
-    0%, 100% { transform: translateY(0) rotate(0deg); }
-    25% { transform: translateY(-6px) rotate(-2deg); }
-    75% { transform: translateY(-3px) rotate(1.5deg); }
-  }
-
-  @keyframes coinDrop {
-    0% { opacity: 1; top: -16px; transform: translateX(-50%) rotate(0deg) scale(1); }
-    80% { opacity: 1; }
-    100% { opacity: 0; top: 44px; transform: translateX(-50%) rotate(360deg) scale(0.6); }
-  }
-
-  .piggy-scene {
-    position: relative;
-    display: inline-block;
-    margin-bottom: 4px;
-    cursor: pointer;
-  }
-
-  .piggy-scene:focus-visible { outline: 3px solid var(--accent-yellow); outline-offset: 4px; border-radius: 12px; }
-
-  .piggy-svg {
-    width: 100px;
-    height: 100px;
-    animation: piggyBounce 3s ease-in-out infinite;
-    filter: drop-shadow(0 6px 16px rgba(33,103,174,0.18));
-    transition: transform 0.3s;
-  }
-
-  .piggy-scene:active .piggy-svg { transform: scale(1.08); }
-
-  .coin {
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    background: var(--accent-yellow);
-    border-radius: 50%;
-    border: 2.5px solid #d4911a;
-    font-size: 10px;
-    font-weight: 900;
-    color: #a06c00;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    animation: coinDrop 2.5s ease-in infinite;
-    top: -16px;
-    left: 50%;
-    pointer-events: none;
-  }
-  .coin:nth-child(2) { animation-delay: 0.8s; left: 38%; }
-  .coin:nth-child(3) { animation-delay: 1.6s; left: 62%; }
-
-  .hero h1 {
-    font-size: clamp(1.5rem, 5vw, 2rem);
-    font-weight: 800;
-    color: var(--text);
-    line-height: 1.2;
-  }
-
-  .hero h1 span { color: var(--zurich-blue); }
-
-  .hero .tagline {
-    font-size: 15px;
-    color: var(--text-muted);
-    margin-top: 8px;
-    max-width: 420px;
-    margin-left: auto;
-    margin-right: auto;
-    line-height: 1.45;
-  }
-
-  .hero-hint {
-    font-size: 12px;
-    color: var(--text-muted);
-    margin-top: 10px;
-    opacity: 0.85;
-  }
-
-  .level-bar {
-    background: var(--card);
-    border-radius: var(--radius);
-    padding: 14px 20px;
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    margin-bottom: 20px;
-    box-shadow: var(--shadow);
-    flex-wrap: wrap;
-    animation: fadeUp 0.5s ease-out 0.15s both;
-  }
-
-  .level-badge {
-    background: var(--zurich-blue);
-    color: #fff;
-    font-weight: 700;
-    font-size: 12px;
-    padding: 8px 14px;
-    border-radius: 100px;
-    white-space: nowrap;
-    letter-spacing: 0.3px;
-    cursor: pointer;
-    border: none;
-    font-family: inherit;
-    min-height: 44px;
-    transition: transform 0.15s, background 0.2s;
-  }
-
-  .level-badge:hover { background: var(--zurich-blue-dark); }
-
-  .xp-wrap { flex: 1; min-width: 140px; }
-
-  .xp-label {
-    font-size: 11px;
-    font-weight: 700;
-    color: var(--text-muted);
-    margin-bottom: 4px;
-    display: flex;
-    justify-content: space-between;
-  }
-
-  .xp-track {
-    height: 10px;
-    background: var(--bg-tan);
-    border-radius: 100px;
-    overflow: hidden;
-  }
-
-  .xp-fill {
-    height: 100%;
-    border-radius: 100px;
-    background: linear-gradient(90deg, var(--zurich-blue), var(--accent-green));
-    width: 15%;
-    transition: width 0.6s ease-out;
-  }
-
-  .pills { display: flex; gap: 8px; flex-wrap: wrap; }
-
-  .pill {
-    background: var(--zurich-blue-light);
-    border-radius: 100px;
-    padding: 8px 14px;
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--zurich-blue);
-    border: 2px solid transparent;
-    cursor: pointer;
-    font-family: inherit;
-    min-height: 44px;
-    transition: border-color 0.2s, transform 0.15s;
-  }
-
-  .pill:hover { border-color: var(--zurich-blue); }
-  .pill.on { border-color: var(--zurich-blue); background: var(--zurich-blue); color: #fff; }
-
-  .grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 18px;
-  }
-
-  .card {
-    background: var(--card);
-    border-radius: var(--radius);
-    padding: 24px;
-    box-shadow: var(--shadow);
-    transition: transform 0.25s, box-shadow 0.25s;
-    animation: fadeUp 0.5s ease-out both;
-  }
-
-  .card:hover { box-shadow: var(--shadow-hover); }
-
-  .card.interactive { cursor: default; }
-
-  .full { grid-column: 1 / -1; }
-
-  .section-label {
-    font-size: 11px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    color: var(--zurich-blue);
-    margin-bottom: 16px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-family: 'Outfit', sans-serif;
-  }
-
-  .section-label .icon { font-size: 16px; }
-
-  .donut-row {
-    display: flex;
-    align-items: center;
-    gap: 24px;
-    flex-wrap: wrap;
-  }
-
-  .donut-box {
-    position: relative;
-    width: 170px;
-    height: 170px;
-    flex-shrink: 0;
-    cursor: pointer;
-  }
-
-  .donut-box svg { width: 100%; height: 100%; }
-
-  .donut-seg {
-    cursor: pointer;
-    transition: opacity 0.2s, stroke-width 0.2s;
-  }
-
-  .donut-box.dim .donut-seg { opacity: 0.35; }
-  .donut-box.dim .donut-seg.active { opacity: 1; stroke-width: 26; }
-
-  .donut-mid {
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    pointer-events: none;
-  }
-
-  .donut-mid .pig { font-size: 30px; line-height: 1; }
-  .donut-mid .val {
-    font-size: 20px;
-    font-weight: 800;
-    color: var(--accent-coral);
-    margin-top: -2px;
-  }
-  .donut-mid .sub { font-size: 10px; color: var(--text-muted); font-weight: 600; }
-
-  .legend { flex: 1; min-width: 180px; }
-
-  .lrow {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 12px;
-    margin: 0 -8px;
-    border-radius: var(--radius-sm);
-    border-bottom: 1px solid var(--bg-tan);
-    font-size: 13px;
-    cursor: pointer;
-    transition: background 0.2s, transform 0.15s;
-    text-align: left;
-    width: calc(100% + 16px);
-    background: transparent;
-    border-left: none;
-    border-right: none;
-    border-top: none;
-    color: inherit;
-    font-family: inherit;
-  }
-
-  .lrow:last-of-type { border-bottom: none; }
-
-  .lrow:hover { background: var(--zurich-blue-light); }
-
-  .lrow:focus-visible { outline: 2px solid var(--zurich-blue); outline-offset: 2px; }
-
-  .lrow.expanded { background: var(--zurich-blue-light); }
-
-  .lrow .lbl {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: var(--text-muted);
-  }
-
-  .lrow .dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 4px;
-    flex-shrink: 0;
-  }
-
-  .lrow .v { font-weight: 700; font-size: 14px; color: var(--text); }
-
-  .lrow-total {
-    border-top: 2px solid var(--bg-tan);
-    margin-top: 4px;
-    padding-top: 12px;
-    cursor: default;
-  }
-
-  .lrow-total:hover { background: transparent; }
-
-  .lrow-total .lbl { color: var(--text); font-weight: 700; }
-
-  .lrow-detail {
-    display: none;
-    font-size: 12px;
-    color: var(--text-muted);
-    line-height: 1.5;
-    padding: 0 12px 10px 30px;
-    margin-top: -4px;
-  }
-
-  .lrow-detail.open { display: block; }
-
-  .rel-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 14px;
-  }
-
-  .rel-chip {
-    padding: 10px 16px;
-    border-radius: 100px;
-    border: 2px solid var(--bg-tan);
-    background: var(--card);
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    font-family: inherit;
-    color: var(--text);
-    min-height: 44px;
-    transition: all 0.2s;
-  }
-
-  .rel-chip:hover { border-color: var(--zurich-blue); }
-  .rel-chip.active {
-    border-color: var(--zurich-blue);
-    background: var(--zurich-blue-light);
-    color: var(--zurich-blue);
-  }
-
-  .rel-result {
-    margin-top: 14px;
-    padding: 14px 16px;
-    background: var(--accent-yellow-light);
-    border-radius: var(--radius-sm);
-    font-size: 14px;
-    font-weight: 600;
-    line-height: 1.5;
-    min-height: 3em;
-  }
-
-  [data-theme="dark"] .rel-result {
-    background: var(--accent-yellow-light);
-    color: var(--text);
-  }
-
-  .house-card .field {
-    margin-bottom: 16px;
-  }
-
-  .house-card label {
-    display: flex;
-    justify-content: space-between;
-    font-size: 12px;
-    font-weight: 700;
-    color: var(--text-muted);
-    margin-bottom: 8px;
-  }
-
-  .house-card output { font-variant-numeric: tabular-nums; color: var(--zurich-blue); }
-
-  input[type="range"] {
-    width: 100%;
-    height: 8px;
-    border-radius: 100px;
-    accent-color: var(--zurich-blue);
-    cursor: pointer;
-  }
-
-  .preset-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; }
-
-  .preset {
-    padding: 8px 12px;
-    border-radius: 100px;
-    border: 2px solid var(--bg-tan);
-    background: var(--bg);
-    font-size: 12px;
-    font-weight: 700;
-    cursor: pointer;
-    font-family: inherit;
-    color: var(--text);
-    min-height: 44px;
-    transition: all 0.2s;
-  }
-
-  .preset:hover, .preset.on {
-    border-color: var(--zurich-blue);
-    background: var(--zurich-blue-light);
-    color: var(--zurich-blue);
-  }
-
-  .house-result {
-    margin-top: 18px;
-    padding: 18px;
-    background: var(--accent-green-light);
-    border: 2px solid #a3e6d2;
-    border-radius: var(--radius);
-    font-size: 15px;
-    line-height: 1.55;
-    font-weight: 600;
-  }
-
-  .house-result strong { color: var(--accent-green); font-size: 1.15em; }
-
-  .dream-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-  }
-
-  .dream {
-    padding: 18px 14px;
-    border-radius: var(--radius);
-    border: 2px solid var(--bg-tan);
-    background: var(--bg);
-    text-align: center;
-    cursor: pointer;
-    font-family: inherit;
-    color: inherit;
-    transition: all 0.25s;
-    min-height: 120px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-  }
-
-  .dream:hover { border-color: var(--zurich-blue); transform: translateY(-2px); }
-  .dream.on {
-    border-color: var(--zurich-blue);
-    background: var(--zurich-blue-light);
-    box-shadow: var(--shadow);
-  }
-
-  .dream .emo { font-size: 32px; line-height: 1; }
-  .dream .t { font-weight: 800; font-size: 14px; font-family: 'Outfit', sans-serif; }
-  .dream .s { font-size: 11px; color: var(--text-muted); font-weight: 600; }
-
-  .dream-panel {
-    margin-top: 16px;
-    padding: 16px;
-    border-radius: var(--radius-sm);
-    background: var(--zurich-blue-light);
-    font-size: 14px;
-    line-height: 1.55;
-    display: none;
-  }
-
-  .dream-panel.open { display: block; }
-
-  .timeline {
-    display: flex;
-    gap: 12px;
-    overflow-x: auto;
-    padding: 8px 4px 16px;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  .timeline-item {
-    flex: 0 0 auto;
-    width: 200px;
-    scroll-snap-align: start;
-    padding: 16px;
-    border-radius: var(--radius);
-    background: var(--bg);
-    border: 2px solid var(--bg-tan);
-    cursor: pointer;
-    text-align: left;
-    font-family: inherit;
-    color: inherit;
-    transition: border-color 0.2s, transform 0.15s;
-  }
-
-  .timeline-item:hover { border-color: var(--zurich-blue); }
-  .timeline-item.active { border-color: var(--accent-green); background: var(--accent-green-light); }
-
-  .timeline-item .age { font-size: 11px; font-weight: 800; color: var(--zurich-blue); text-transform: uppercase; letter-spacing: 0.5px; }
-  .timeline-item .ttl { font-weight: 800; font-size: 15px; margin: 6px 0; font-family: 'Outfit', sans-serif; }
-  .timeline-item .tx { font-size: 12px; color: var(--text-muted); line-height: 1.45; }
-
-  .booking-card { padding: 24px; }
-
-  .cal-month {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 14px;
-  }
-
-  .cal-month span {
-    font-weight: 700;
-    font-size: 15px;
-    color: var(--text);
-  }
-
-  .cal-nav {
-    background: var(--zurich-blue-light);
-    border: none;
-    border-radius: 8px;
-    width: 44px;
-    height: 44px;
-    cursor: pointer;
-    font-size: 18px;
-    color: var(--zurich-blue);
-    font-weight: 700;
-    transition: background 0.2s;
-  }
-
-  .cal-nav:hover { background: var(--zurich-blue-mid); color: #fff; }
-
-  .cal-weekdays {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 4px;
-    margin-bottom: 6px;
-  }
-
-  .cal-weekdays span {
-    text-align: center;
-    font-size: 11px;
-    font-weight: 700;
-    color: var(--text-muted);
-    padding: 4px 0;
-  }
-
-  .cal-days {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 4px;
-  }
-
-  .cal-day {
-    aspect-ratio: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: var(--radius-sm);
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    border: 2px solid transparent;
-    transition: all 0.2s;
-    background: transparent;
-    color: var(--text);
-    min-width: 40px;
-    min-height: 40px;
-  }
-
-  .cal-day:hover:not(.empty):not(.past) {
-    background: var(--zurich-blue-light);
-    border-color: var(--zurich-blue);
-  }
-
-  .cal-day.selected {
-    background: var(--zurich-blue);
-    color: #fff;
-    border-color: var(--zurich-blue);
-  }
-
-  .cal-day.today {
-    border-color: var(--accent-green);
-    font-weight: 800;
-  }
-
-  .cal-day.past { color: #999; cursor: default; }
-  .cal-day.empty { cursor: default; }
-
-  .cal-day.available::after {
-    content: '';
-    position: absolute;
-    bottom: 4px;
-    width: 4px;
-    height: 4px;
-    border-radius: 50%;
-    background: var(--accent-green);
-  }
-
-  .cal-day { position: relative; }
-
-  .time-slots {
-    margin-top: 14px;
-    display: none;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-
-  .time-slots.show { display: flex; }
-
-  .slot {
-    padding: 10px 16px;
-    border: 2px solid var(--bg-tan);
-    border-radius: var(--radius-sm);
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    background: var(--card);
-    color: var(--text);
-    transition: all 0.2s;
-    min-height: 44px;
-    font-family: inherit;
-  }
-
-  .slot:hover {
-    border-color: var(--zurich-blue);
-    background: var(--zurich-blue-light);
-  }
-
-  .slot.picked {
-    background: var(--zurich-blue);
-    border-color: var(--zurich-blue);
-    color: #fff;
-  }
-
-  .book-btn {
-    display: none;
-    width: 100%;
-    margin-top: 14px;
-    padding: 14px;
-    background: var(--zurich-blue);
-    color: #fff;
-    border: none;
-    border-radius: var(--radius-sm);
-    font-size: 15px;
-    font-weight: 700;
-    cursor: pointer;
-    font-family: inherit;
-    min-height: 48px;
-    transition: background 0.2s, transform 0.15s;
-  }
-
-  .book-btn.show { display: block; }
-
-  .book-btn:hover {
-    background: var(--zurich-blue-dark);
-    transform: translateY(-1px);
-  }
-
-  .booking-hint {
-    font-size: 12px;
-    color: var(--text-muted);
-    margin-top: 10px;
-    text-align: center;
-    line-height: 1.5;
-  }
-
-  .chart-area { position: relative; height: 320px; margin-top: 8px; }
-  canvas { width: 100% !important; }
-
-  .toggle-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
-
-  .tog {
-    font-family: inherit;
-    background: var(--zurich-blue-light);
-    border: 2px solid transparent;
-    border-radius: 100px;
-    padding: 10px 18px;
-    font-size: 12px;
-    font-weight: 700;
-    color: var(--zurich-blue);
-    cursor: pointer;
-    transition: all 0.2s;
-    min-height: 44px;
-  }
-
-  .tog.on {
-    background: var(--zurich-blue);
-    color: #fff;
-  }
-
-  .tog:hover:not(.on) { border-color: var(--zurich-blue); }
-
-  .achiev-row {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-  }
-
-  .achiev {
-    background: var(--accent-yellow-light);
-    border: 2px solid #f5dfa0;
-    border-radius: var(--radius);
-    padding: 20px 14px;
-    text-align: center;
-    transition: transform 0.2s, border-color 0.2s;
-    cursor: pointer;
-    font-family: inherit;
-    color: inherit;
-  }
-
-  .achiev:hover { transform: scale(1.02); border-color: var(--accent-yellow); }
-
-  .achiev.flipped { border-color: var(--zurich-blue); background: var(--zurich-blue-light); }
-
-  .achiev .emoji { font-size: 28px; margin-bottom: 6px; }
-  .achiev .num { font-size: 22px; font-weight: 800; color: var(--text); margin-bottom: 2px; }
-  .achiev .desc { font-size: 11px; color: var(--text-muted); font-weight: 600; line-height: 1.4; }
-  .achiev .flip-hint { font-size: 10px; color: var(--zurich-blue); margin-top: 8px; font-weight: 700; }
-
-  .power-box {
-    margin-top: 16px;
-    background: var(--accent-green-light);
-    border: 2px solid #a3e6d2;
-    border-radius: var(--radius);
-    padding: 16px 20px;
-    text-align: center;
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--text);
-    line-height: 1.5;
-  }
-
-  .power-box strong { color: var(--accent-green); }
-
-  .quests { display: flex; flex-direction: column; gap: 10px; }
-
-  .quest {
-    display: flex;
-    gap: 14px;
-    align-items: center;
-    background: var(--bg);
-    border: 2px solid var(--bg-tan);
-    border-radius: var(--radius);
-    padding: 14px 18px;
-    transition: all 0.25s;
-    cursor: pointer;
-    text-align: left;
-    width: 100%;
-    font-family: inherit;
-    color: inherit;
-  }
-
-  .quest:hover {
-    border-color: var(--zurich-blue);
-    background: var(--zurich-blue-light);
-    transform: translateX(4px);
-  }
-
-  .quest.done {
-    opacity: 0.72;
-    border-color: var(--accent-green);
-    background: var(--accent-green-light);
-  }
-
-  .quest-icon {
-    width: 44px;
-    height: 44px;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
-    flex-shrink: 0;
-    background: var(--card);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-  }
-
-  .quest-text { flex: 1; }
-
-  .quest-text h3 {
-    font-size: 14px;
-    font-weight: 700;
-    margin-bottom: 2px;
-    font-family: 'Outfit', sans-serif;
-  }
-
-  .quest-text p {
-    font-size: 12px;
-    color: var(--text-muted);
-    line-height: 1.45;
-  }
-
-  .quest-xp {
-    background: var(--zurich-blue);
-    color: #fff;
-    font-size: 11px;
-    font-weight: 800;
-    padding: 6px 12px;
-    border-radius: 100px;
-    white-space: nowrap;
-    flex-shrink: 0;
-  }
-
-  .quest.done .quest-xp { background: var(--accent-green); }
-
-  .toast {
-    position: fixed;
-    bottom: 24px;
-    left: 50%;
-    transform: translateX(-50%) translateY(100px);
-    background: var(--text);
-    color: var(--bg);
-    padding: 14px 22px;
-    border-radius: 100px;
-    font-size: 14px;
-    font-weight: 600;
-    box-shadow: var(--shadow-hover);
-    z-index: 200;
-    opacity: 0;
-    transition: transform 0.35s ease, opacity 0.35s ease;
-    max-width: 90vw;
-    text-align: center;
-  }
-
-  .toast.show {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
-  }
-
-  .modal-backdrop {
-    position: fixed;
-    inset: 0;
-    background: var(--overlay);
-    z-index: 150;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.25s;
-  }
-
-  .modal-backdrop.open {
-    opacity: 1;
-    pointer-events: auto;
-  }
-
-  .modal {
-    position: fixed;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%) scale(0.95);
-    background: var(--card);
-    border-radius: var(--radius);
-    padding: 24px;
-    max-width: 420px;
-    width: calc(100% - 32px);
-    z-index: 160;
-    box-shadow: var(--shadow-hover);
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.25s, transform 0.25s;
-    max-height: 85vh;
-    overflow-y: auto;
-  }
-
-  .modal.open {
-    opacity: 1;
-    pointer-events: auto;
-    transform: translate(-50%, -50%) scale(1);
-  }
-
-  .modal h2 { font-size: 1.25rem; margin-bottom: 12px; }
-  .modal p { font-size: 14px; color: var(--text-muted); line-height: 1.55; margin-bottom: 12px; }
-  .modal-close {
-    margin-top: 8px;
-    width: 100%;
-    padding: 12px;
-    background: var(--zurich-blue);
-    color: #fff;
-    border: none;
-    border-radius: var(--radius-sm);
-    font-weight: 700;
-    cursor: pointer;
-    font-family: inherit;
-    min-height: 48px;
-  }
-
-  .footer {
-    text-align: center;
-    font-size: 11px;
-    color: var(--text-muted);
-    margin-top: 36px;
-    line-height: 1.6;
-    opacity: 0.85;
-  }
-
-  @media (max-width: 900px) {
-    .grid { grid-template-columns: 1fr; }
-    .full { grid-column: auto; }
-    .achiev-row { grid-template-columns: 1fr; }
-    .dream-grid { grid-template-columns: 1fr; }
-  }
-
-  @media (max-width: 600px) {
-    .donut-row { flex-direction: column; align-items: center; }
-    .level-bar { flex-direction: column; align-items: stretch; gap: 10px; }
-    .quest { flex-wrap: wrap; }
-    .quest-xp { margin-top: 6px; }
-  }
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800;900&display=swap');
+
+/* ── Zurich Design System Tokens ── */
+:root {
+  /* Brand */
+  --zc-blue-dark:    #003781;
+  --zc-blue-zurich:  #0047BB;
+  --zc-blue-mid:     #6699CC;
+  --zc-blue-light:   #B3CCE8;
+  --zc-blue-sky:     #E5EEF8;
+  --zc-sand-stone:   #F5F0E8;
+  --zc-dove:         #E8E4DC;
+  --zg-white:        #FFFFFF;
+  /* Secondary */
+  --zc-moss-100:     #2D6A4F;
+  --zc-moss-80:      #52B788;
+  --zc-moss-20:      #D8F3DC;
+  --zc-teal-100:     #0A7E8C;
+  --zc-teal-20:      #D0F0F4;
+  --zc-mint-100:     #00B4A0;
+  --zc-mint-20:      #CCEFEC;
+  --zc-lemon-aa:     #C9A800;
+  --zc-lemon-100:    #FFD700;
+  --zc-lemon-20:     #FFF8CC;
+  --zc-peach-aa:     #C0392B;
+  --zc-peach-100:    #E74C3C;
+  --zc-peach-20:     #FDECEA;
+  --zc-candy-100:    #E91E8C;
+  --zc-lilac-100:    #7B61C4;
+  --zc-lilac-20:     #EDE8F9;
+  /* Gray */
+  --zg-1:  #1A1A1A;
+  --zg-2:  #333333;
+  --zg-3:  #4D4D4D;
+  --zg-4:  #666666;
+  --zg-5:  #808080;
+  --zg-6:  #999999;
+  --zg-7:  #B3B3B3;
+  --zg-8:  #CCCCCC;
+  --zg-9:  #E6E6E6;
+  /* Semantic */
+  --bg:          var(--zc-sand-stone);
+  --bg-subtle:   var(--zc-dove);
+  --card:        var(--zg-white);
+  --text:        var(--zg-1);
+  --text-muted:  var(--zg-4);
+  --border:      var(--zg-9);
+  --primary:     var(--zc-blue-zurich);
+  --primary-dk:  var(--zc-blue-dark);
+  --primary-lt:  var(--zc-blue-sky);
+  --success:     var(--zc-moss-100);
+  --success-lt:  var(--zc-moss-20);
+  --warn:        var(--zc-lemon-aa);
+  --warn-lt:     var(--zc-lemon-20);
+  --danger:      var(--zc-peach-aa);
+  --danger-lt:   var(--zc-peach-20);
+  --accent:      var(--zc-lilac-100);
+  --accent-lt:   var(--zc-lilac-20);
+  --radius:      12px;
+  --radius-sm:   8px;
+  --shadow:      0 1px 4px rgba(0,0,0,.07), 0 4px 16px rgba(0,0,0,.05);
+  --shadow-lg:   0 8px 32px rgba(0,71,187,.12);
+  --transition:  0.22s ease;
+}
+
+[data-theme="dark"] {
+  --bg:         #0D1117;
+  --bg-subtle:  #161B22;
+  --card:       #1C2128;
+  --text:       #E6EDF3;
+  --text-muted: #8B949E;
+  --border:     #30363D;
+  --primary-lt: #1A2744;
+  --success-lt: #0D2818;
+  --warn-lt:    #2A2200;
+  --danger-lt:  #2A1010;
+  --accent-lt:  #1E1730;
+  --shadow:     0 1px 4px rgba(0,0,0,.4), 0 4px 16px rgba(0,0,0,.3);
+  --shadow-lg:  0 8px 32px rgba(0,0,0,.5);
+}
+
+/* ── Reset ── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  transition: background var(--transition), color var(--transition);
+  -webkit-font-smoothing: antialiased;
+}
+h1,h2,h3,.display { font-family: 'Outfit', sans-serif; }
+button { font-family: inherit; }
+a { color: inherit; }
+
+/* ── Topbar ── */
+.topbar {
+  background: var(--primary);
+  padding: 0 24px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(0,0,0,.18);
+}
+.topbar-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+.topbar-wordmark {
+  color: #fff;
+  font-family: 'Outfit', sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: -0.3px;
+}
+.topbar-divider {
+  width: 1px;
+  height: 24px;
+  background: rgba(255,255,255,.3);
+}
+.topbar-sub {
+  color: rgba(255,255,255,.75);
+  font-size: 13px;
+  font-weight: 500;
+}
+.topbar-spacer { flex: 1; }
+.topbar-btn {
+  background: rgba(255,255,255,.15);
+  border: 1.5px solid rgba(255,255,255,.3);
+  color: #fff;
+  border-radius: 100px;
+  padding: 0 16px;
+  height: 36px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: background var(--transition);
+  white-space: nowrap;
+}
+.topbar-btn:hover { background: rgba(255,255,255,.28); }
+
+/* ── Container ── */
+.container { max-width: 1200px; margin: 0 auto; padding: 32px 20px 72px; }
+
+/* ── Animations ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes xpGrow { to { width: var(--xp-target, 15%); } }
+@keyframes strokeIn {
+  from { stroke-dasharray: 0 503; }
+}
+@keyframes pulse {
+  0%,100% { transform: scale(1); }
+  50%      { transform: scale(1.04); }
+}
+
+/* ── Hero ── */
+.hero {
+  text-align: center;
+  padding: 40px 0 28px;
+  animation: fadeUp .6s ease-out;
+}
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--primary-lt);
+  color: var(--primary);
+  border-radius: 100px;
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .4px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.hero h1 {
+  font-size: clamp(1.75rem, 5vw, 2.5rem);
+  font-weight: 900;
+  line-height: 1.15;
+  color: var(--text);
+  max-width: 600px;
+  margin: 0 auto 12px;
+}
+.hero h1 em { color: var(--primary); font-style: normal; }
+.hero-sub {
+  font-size: 16px;
+  color: var(--text-muted);
+  max-width: 480px;
+  margin: 0 auto 8px;
+  line-height: 1.55;
+}
+.hero-hint {
+  font-size: 12px;
+  color: var(--text-muted);
+  opacity: .7;
+}
+
+/* ── Level Bar ── */
+.level-bar {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+  box-shadow: var(--shadow);
+  flex-wrap: wrap;
+  animation: fadeUp .5s ease-out .1s both;
+  border: 1.5px solid var(--border);
+}
+.lvl-badge {
+  background: var(--primary);
+  color: #fff;
+  font-weight: 800;
+  font-size: 12px;
+  padding: 8px 16px;
+  border-radius: 100px;
+  white-space: nowrap;
+  border: none;
+  cursor: pointer;
+  font-family: 'Outfit', sans-serif;
+  letter-spacing: .3px;
+  transition: background var(--transition), transform .15s;
+  min-height: 40px;
+}
+.lvl-badge:hover { background: var(--primary-dk); }
+.xp-wrap { flex: 1; min-width: 160px; }
+.xp-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-muted);
+  margin-bottom: 5px;
+  display: flex;
+  justify-content: space-between;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+}
+.xp-track {
+  height: 8px;
+  background: var(--bg-subtle);
+  border-radius: 100px;
+  overflow: hidden;
+}
+.xp-fill {
+  height: 100%;
+  border-radius: 100px;
+  background: linear-gradient(90deg, var(--primary), var(--zc-mint-100));
+  width: 15%;
+  transition: width .6s ease-out;
+}
+.pills { display: flex; gap: 8px; flex-wrap: wrap; }
+.pill {
+  background: var(--primary-lt);
+  border-radius: 100px;
+  padding: 8px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--primary);
+  border: 1.5px solid transparent;
+  cursor: pointer;
+  min-height: 40px;
+  transition: all var(--transition);
+}
+.pill:hover { border-color: var(--primary); }
+.pill.on { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+/* ── Grid ── */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+.full { grid-column: 1 / -1; }
+
+/* ── Card ── */
+.card {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 24px;
+  box-shadow: var(--shadow);
+  border: 1.5px solid var(--border);
+  animation: fadeUp .5s ease-out both;
+  transition: box-shadow var(--transition), border-color var(--transition);
+}
+.card:hover { box-shadow: var(--shadow-lg); }
+
+/* ── Section Label ── */
+.slabel {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.slabel-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: var(--primary-lt);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--primary);
+}
+.slabel-icon svg { width: 18px; height: 18px; }
+.slabel-text {
+  font-family: 'Outfit', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--primary);
+}
+
+/* ── Donut ── */
+.donut-row { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+.donut-box {
+  position: relative;
+  width: 170px;
+  height: 170px;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+.donut-box svg { width: 100%; height: 100%; }
+.donut-seg { cursor: pointer; transition: stroke-width .2s, opacity .2s; }
+.donut-box.dim .donut-seg { opacity: .3; }
+.donut-box.dim .donut-seg.hi { opacity: 1; stroke-width: 26; }
+.donut-mid {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  text-align: center;
+  gap: 2px;
+}
+.donut-mid-icon { color: var(--primary); }
+.donut-mid-icon svg { width: 28px; height: 28px; }
+.donut-mid-val { font-size: 20px; font-weight: 800; color: var(--danger); font-family: 'Outfit', sans-serif; }
+.donut-mid-sub { font-size: 10px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: .5px; }
+
+/* ── Legend ── */
+.legend { flex: 1; min-width: 180px; }
+.lrow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 10px;
+  border-radius: var(--radius-sm);
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+  cursor: pointer;
+  transition: background var(--transition);
+  width: 100%;
+  background: transparent;
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  color: inherit;
+  text-align: left;
+}
+.lrow:last-of-type { border-bottom: none; }
+.lrow:hover { background: var(--primary-lt); }
+.lrow.open { background: var(--primary-lt); }
+.lrow .lbl { display: flex; align-items: center; gap: 8px; color: var(--text-muted); }
+.lrow .dot { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
+.lrow .v { font-weight: 700; font-size: 14px; color: var(--text); }
+.lrow-total { border-top: 2px solid var(--border); margin-top: 4px; padding-top: 12px; cursor: default; }
+.lrow-total:hover { background: transparent; }
+.lrow-total .lbl { color: var(--text); font-weight: 700; }
+.lrow-detail {
+  display: none;
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.55;
+  padding: 4px 10px 10px 28px;
+}
+.lrow-detail.open { display: block; }
+
+/* ── Relatable chips ── */
+.rel-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.rel-chip {
+  padding: 9px 14px;
+  border-radius: 100px;
+  border: 1.5px solid var(--border);
+  background: var(--card);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--text);
+  min-height: 40px;
+  transition: all var(--transition);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.rel-chip:hover { border-color: var(--primary); }
+.rel-chip.on { border-color: var(--primary); background: var(--primary-lt); color: var(--primary); }
+.rel-chip svg { width: 14px; height: 14px; flex-shrink: 0; }
+.rel-result {
+  margin-top: 12px;
+  padding: 14px 16px;
+  background: var(--warn-lt);
+  border-left: 3px solid var(--warn);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.55;
+  min-height: 3.2em;
+  color: var(--text);
+}
+
+/* ── House calc ── */
+.field { margin-bottom: 14px; }
+.field label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: .4px;
+}
+.field output { color: var(--primary); font-variant-numeric: tabular-nums; }
+input[type="range"] {
+  width: 100%;
+  height: 6px;
+  border-radius: 100px;
+  accent-color: var(--primary);
+  cursor: pointer;
+}
+.preset-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+.preset {
+  padding: 8px 14px;
+  border-radius: 100px;
+  border: 1.5px solid var(--border);
+  background: var(--bg);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  color: var(--text);
+  min-height: 40px;
+  transition: all var(--transition);
+}
+.preset:hover, .preset.on { border-color: var(--primary); background: var(--primary-lt); color: var(--primary); }
+.house-result {
+  margin-top: 16px;
+  padding: 16px;
+  background: var(--success-lt);
+  border: 1.5px solid var(--zc-moss-80);
+  border-radius: var(--radius);
+  font-size: 14px;
+  line-height: 1.6;
+  font-weight: 600;
+  color: var(--text);
+}
+.house-result strong { color: var(--success); font-size: 1.1em; }
+
+/* ── Dreams ── */
+.dream-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; }
+.dream {
+  padding: 18px 14px;
+  border-radius: var(--radius);
+  border: 1.5px solid var(--border);
+  background: var(--bg);
+  text-align: center;
+  cursor: pointer;
+  color: inherit;
+  transition: all var(--transition);
+  min-height: 110px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.dream:hover { border-color: var(--primary); transform: translateY(-2px); }
+.dream.on { border-color: var(--primary); background: var(--primary-lt); box-shadow: var(--shadow-lg); }
+.dream-icon { color: var(--primary); }
+.dream-icon svg { width: 28px; height: 28px; }
+.dream .t { font-weight: 800; font-size: 14px; font-family: 'Outfit', sans-serif; }
+.dream .s { font-size: 11px; color: var(--text-muted); font-weight: 500; }
+.dream-panel {
+  margin-top: 14px;
+  padding: 16px;
+  border-radius: var(--radius-sm);
+  background: var(--primary-lt);
+  font-size: 14px;
+  line-height: 1.55;
+  display: none;
+  border-left: 3px solid var(--primary);
+}
+.dream-panel.open { display: block; }
+
+/* ── Timeline ── */
+.timeline {
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  position: relative;
+}
+.timeline::before {
+  content: '';
+  position: absolute;
+  top: 28px;
+  left: 24px;
+  right: 24px;
+  height: 2px;
+  background: var(--border);
+  z-index: 0;
+}
+.tl-item {
+  flex: 0 0 auto;
+  width: 200px;
+  scroll-snap-align: start;
+  padding: 0 12px 0 0;
+  position: relative;
+  z-index: 1;
+}
+.tl-dot {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 3px solid var(--border);
+  background: var(--card);
+  margin: 18px 0 12px 16px;
+  transition: all var(--transition);
+  cursor: pointer;
+}
+.tl-item.on .tl-dot { background: var(--primary); border-color: var(--primary); box-shadow: 0 0 0 4px var(--primary-lt); }
+.tl-card {
+  background: var(--bg);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  cursor: pointer;
+  transition: all var(--transition);
+  margin-left: 8px;
+}
+.tl-item.on .tl-card { border-color: var(--primary); background: var(--primary-lt); }
+.tl-card:hover { border-color: var(--primary); }
+.tl-age { font-size: 11px; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: .5px; }
+.tl-title { font-weight: 800; font-size: 14px; margin: 4px 0; font-family: 'Outfit', sans-serif; }
+.tl-text { font-size: 12px; color: var(--text-muted); line-height: 1.45; }
+
+/* ── Notgroschen Meter ── */
+.meter-wrap { margin: 8px 0 16px; }
+.meter-track {
+  height: 16px;
+  background: var(--bg-subtle);
+  border-radius: 100px;
+  overflow: hidden;
+  position: relative;
+}
+.meter-fill {
+  height: 100%;
+  border-radius: 100px;
+  background: linear-gradient(90deg, var(--zc-peach-100), var(--zc-lemon-100), var(--zc-moss-80));
+  transition: width .8s ease-out;
+}
+.meter-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 600;
+  margin-top: 4px;
+}
+.meter-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  font-size: 14px;
+  font-weight: 600;
+}
+.meter-status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.notg-input-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  margin-top: 14px;
+}
+.notg-field { flex: 1; min-width: 120px; }
+.notg-field label { font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: .4px; display: block; margin-bottom: 6px; }
+.notg-field input[type="number"] {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 600;
+  font-family: inherit;
+  transition: border-color var(--transition);
+}
+.notg-field input[type="number"]:focus { outline: none; border-color: var(--primary); }
+
+/* ── Tax Calc ── */
+.tax-row { display: flex; gap: 12px; flex-wrap: wrap; }
+.tax-col { flex: 1; min-width: 140px; }
+.tax-col label { font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: .4px; display: block; margin-bottom: 6px; }
+.tax-col select, .tax-col input[type="number"] {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 600;
+  font-family: inherit;
+  transition: border-color var(--transition);
+  appearance: none;
+}
+.tax-col select:focus, .tax-col input[type="number"]:focus { outline: none; border-color: var(--primary); }
+.tax-result {
+  margin-top: 16px;
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 12px;
+}
+.tax-stat {
+  background: var(--bg);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 14px 12px;
+  text-align: center;
+}
+.tax-stat .ts-val { font-size: 22px; font-weight: 900; color: var(--primary); font-family: 'Outfit', sans-serif; }
+.tax-stat .ts-lbl { font-size: 11px; color: var(--text-muted); font-weight: 600; margin-top: 2px; text-transform: uppercase; letter-spacing: .4px; }
+
+/* ── 3a Vergleich ── */
+.compare-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; }
+.compare-card {
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px 14px;
+  background: var(--bg);
+  cursor: pointer;
+  transition: all var(--transition);
+  text-align: left;
+}
+.compare-card:hover { border-color: var(--primary); }
+.compare-card.on { border-color: var(--primary); background: var(--primary-lt); }
+.cc-icon { color: var(--primary); margin-bottom: 8px; }
+.cc-icon svg { width: 24px; height: 24px; }
+.cc-name { font-weight: 800; font-size: 14px; font-family: 'Outfit', sans-serif; margin-bottom: 4px; }
+.cc-fee { font-size: 12px; color: var(--text-muted); font-weight: 600; }
+.cc-badge {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 3px 10px;
+  border-radius: 100px;
+  font-size: 11px;
+  font-weight: 700;
+  background: var(--success-lt);
+  color: var(--success);
+}
+.compare-detail {
+  margin-top: 14px;
+  padding: 14px 16px;
+  background: var(--primary-lt);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  line-height: 1.55;
+  display: none;
+  border-left: 3px solid var(--primary);
+}
+.compare-detail.open { display: block; }
+
+/* ── Calendar ── */
+.cal-month { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.cal-month span { font-weight: 700; font-size: 15px; }
+.cal-nav {
+  background: var(--primary-lt);
+  border: none;
+  border-radius: var(--radius-sm);
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  font-size: 18px;
+  color: var(--primary);
+  font-weight: 700;
+  transition: background var(--transition);
+}
+.cal-nav:hover { background: var(--primary); color: #fff; }
+.cal-weekdays { display: grid; grid-template-columns: repeat(7,1fr); gap: 3px; margin-bottom: 4px; }
+.cal-weekdays span { text-align: center; font-size: 11px; font-weight: 700; color: var(--text-muted); padding: 4px 0; }
+.cal-days { display: grid; grid-template-columns: repeat(7,1fr); gap: 3px; }
+.cal-day {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1.5px solid transparent;
+  transition: all var(--transition);
+  background: transparent;
+  color: var(--text);
+  position: relative;
+  min-width: 36px;
+  min-height: 36px;
+}
+.cal-day:hover:not(.empty):not(.past) { background: var(--primary-lt); border-color: var(--primary); }
+.cal-day.selected { background: var(--primary); color: #fff; }
+.cal-day.today { border-color: var(--success); font-weight: 800; }
+.cal-day.past { color: var(--zg-8); cursor: default; }
+.cal-day.empty { cursor: default; }
+.cal-day.available::after { content:''; position:absolute; bottom:4px; width:4px; height:4px; border-radius:50%; background:var(--success); }
+.time-slots { margin-top: 12px; display: none; flex-wrap: wrap; gap: 8px; }
+.time-slots.show { display: flex; }
+.slot {
+  padding: 9px 16px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  background: var(--card);
+  color: var(--text);
+  transition: all var(--transition);
+  min-height: 40px;
+}
+.slot:hover { border-color: var(--primary); background: var(--primary-lt); }
+.slot.picked { background: var(--primary); border-color: var(--primary); color: #fff; }
+.book-btn {
+  display: none;
+  width: 100%;
+  margin-top: 12px;
+  padding: 14px;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  min-height: 48px;
+  transition: background var(--transition), transform .15s;
+  display: none;
+}
+.book-btn.show { display: block; }
+.book-btn:hover { background: var(--primary-dk); transform: translateY(-1px); }
+.booking-hint { font-size: 12px; color: var(--text-muted); margin-top: 10px; text-align: center; line-height: 1.5; }
+
+/* ── Chart ── */
+.chart-area { position: relative; height: 300px; margin-top: 8px; }
+canvas { width: 100% !important; }
+.toggle-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+.tog {
+  background: var(--primary-lt);
+  border: 1.5px solid transparent;
+  border-radius: 100px;
+  padding: 9px 18px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--primary);
+  cursor: pointer;
+  transition: all var(--transition);
+  min-height: 40px;
+}
+.tog.on { background: var(--primary); color: #fff; }
+.tog:hover:not(.on) { border-color: var(--primary); }
+
+/* ── Achievements ── */
+.achiev-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; }
+.achiev {
+  background: var(--warn-lt);
+  border: 1.5px solid var(--zc-lemon-aa);
+  border-radius: var(--radius);
+  padding: 18px 14px;
+  text-align: center;
+  transition: all var(--transition);
+  cursor: pointer;
+  color: inherit;
+}
+.achiev:hover { transform: scale(1.02); border-color: var(--warn); }
+.achiev.on { border-color: var(--primary); background: var(--primary-lt); }
+.achiev-icon { color: var(--warn); margin-bottom: 8px; }
+.achiev-icon svg { width: 28px; height: 28px; }
+.achiev .num { font-size: 22px; font-weight: 900; color: var(--text); margin-bottom: 2px; font-family: 'Outfit', sans-serif; }
+.achiev .desc { font-size: 11px; color: var(--text-muted); font-weight: 600; line-height: 1.4; text-transform: uppercase; letter-spacing: .3px; }
+.achiev .tap { font-size: 10px; color: var(--primary); margin-top: 8px; font-weight: 700; }
+.power-box {
+  margin-top: 14px;
+  background: var(--success-lt);
+  border: 1.5px solid var(--zc-moss-80);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.55;
+}
+.power-box strong { color: var(--success); }
+
+/* ── Quests ── */
+.quests { display: flex; flex-direction: column; gap: 10px; }
+.quest {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  background: var(--bg);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 18px;
+  transition: all var(--transition);
+  cursor: pointer;
+  width: 100%;
+  color: inherit;
+  text-align: left;
+}
+.quest:hover { border-color: var(--primary); background: var(--primary-lt); transform: translateX(4px); }
+.quest.done { border-color: var(--success); background: var(--success-lt); opacity: .8; }
+.quest-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: var(--card);
+  box-shadow: var(--shadow);
+  color: var(--primary);
+}
+.quest-icon svg { width: 22px; height: 22px; }
+.quest.done .quest-icon { color: var(--success); }
+.quest-text { flex: 1; }
+.quest-text h3 { font-size: 14px; font-weight: 700; margin-bottom: 2px; font-family: 'Outfit', sans-serif; }
+.quest-text p { font-size: 12px; color: var(--text-muted); line-height: 1.45; }
+.quest-xp {
+  background: var(--primary);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 6px 12px;
+  border-radius: 100px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.quest.done .quest-xp { background: var(--success); }
+
+/* ── Toast ── */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(80px);
+  background: var(--zg-1);
+  color: var(--zg-white);
+  padding: 12px 22px;
+  border-radius: 100px;
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: var(--shadow-lg);
+  z-index: 300;
+  opacity: 0;
+  transition: transform .3s ease, opacity .3s ease;
+  max-width: 90vw;
+  text-align: center;
+  pointer-events: none;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* ── Modal ── */
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.5);
+  z-index: 200;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .25s;
+}
+.backdrop.open { opacity: 1; pointer-events: auto; }
+.modal {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%) scale(.96);
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 28px;
+  max-width: 420px;
+  width: calc(100% - 32px);
+  z-index: 210;
+  box-shadow: var(--shadow-lg);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .25s, transform .25s;
+  max-height: 85vh;
+  overflow-y: auto;
+}
+.modal.open { opacity: 1; pointer-events: auto; transform: translate(-50%,-50%) scale(1); }
+.modal h2 { font-size: 1.25rem; margin-bottom: 10px; }
+.modal p { font-size: 14px; color: var(--text-muted); line-height: 1.55; margin-bottom: 10px; }
+.modal-close {
+  margin-top: 8px;
+  width: 100%;
+  padding: 12px;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  cursor: pointer;
+  min-height: 44px;
+  font-family: inherit;
+  font-size: 14px;
+}
+
+/* ── Footer ── */
+.footer { text-align: center; font-size: 11px; color: var(--text-muted); margin-top: 40px; line-height: 1.7; opacity: .8; }
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .grid { grid-template-columns: 1fr; }
+  .full { grid-column: auto; }
+  .achiev-row, .compare-grid, .dream-grid { grid-template-columns: 1fr; }
+  .tax-result { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .donut-row { flex-direction: column; align-items: center; }
+  .level-bar { flex-direction: column; align-items: stretch; gap: 10px; }
+  .quest { flex-wrap: wrap; }
+  .quest-xp { margin-top: 6px; }
+  .timeline::before { display: none; }
+}
 </style>
 </head>
 <body>
 
-<div class="topbar">
-  <svg class="zurich-logo" viewBox="0 0 48 48" fill="none" aria-hidden="true">
-    <circle cx="24" cy="24" r="24" fill="white"/>
-    <path d="M12 32V30.5L28 18H13V14H35V15.5L19 28H35V32H12Z" fill="#2167AE"/>
-  </svg>
-  <span class="topbar-text">Vorsorge-Buddy</span>
-  <span class="topbar-sub">by Zurich Schweiz</span>
-  <span class="topbar-spacer"></span>
-  <button type="button" class="icon-btn" id="themeToggle" aria-label="Darstellung wechseln">🌙 Dark</button>
-</div>
+<!-- ═══════════════════════════════════════
+     TOPBAR
+════════════════════════════════════════ -->
+<header class="topbar">
+  <a class="topbar-logo" href="https://www.zurich.ch" target="_blank" rel="noopener">
+    <!-- Official Zurich "Z" logo mark -->
+    <svg width="32" height="32" viewBox="0 0 48 48" fill="none" aria-label="Zurich Logo">
+      <circle cx="24" cy="24" r="24" fill="white"/>
+      <path d="M11 33V31.2L29.6 17H12V12H37V13.8L18.4 28H37V33H11Z" fill="#0047BB"/>
+    </svg>
+    <span class="topbar-wordmark">Zurich</span>
+  </a>
+  <div class="topbar-divider"></div>
+  <span class="topbar-sub">Vorsorge-Buddy</span>
+  <div class="topbar-spacer"></div>
+  <button type="button" class="topbar-btn" id="themeToggle" aria-label="Darstellung wechseln">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    Dark
+  </button>
+</header>
 
 <div class="container">
 
+  <!-- ═══════════════════════════════════════
+       HERO
+  ════════════════════════════════════════ -->
   <div class="hero">
-    <div class="piggy-scene" id="piggyTap" role="button" tabindex="0" aria-label="Kleiner Spar-Boost — antippen">
-      <div class="coin" aria-hidden="true">F</div>
-      <div class="coin" aria-hidden="true">F</div>
-      <div class="coin" aria-hidden="true">F</div>
-      <svg class="piggy-svg" viewBox="0 0 120 120" fill="none" aria-hidden="true">
-        <ellipse cx="58" cy="68" rx="38" ry="32" fill="#ABBCF2"/>
-        <ellipse cx="58" cy="68" rx="38" ry="32" fill="url(#pg)" opacity="0.5"/>
-        <ellipse cx="52" cy="75" rx="18" ry="12" fill="#c5d4f7" opacity="0.5"/>
-        <ellipse cx="90" cy="72" rx="12" ry="9" fill="#8aa8e8"/>
-        <circle cx="87" cy="70" r="2.5" fill="#6b8fd4"/>
-        <circle cx="93" cy="70" r="2.5" fill="#6b8fd4"/>
-        <circle cx="76" cy="56" r="5" fill="#2C2400"/>
-        <circle cx="77.5" cy="54.5" r="2" fill="white"/>
-        <ellipse cx="42" cy="42" rx="10" ry="14" fill="#8aa8e8" transform="rotate(-15 42 42)"/>
-        <ellipse cx="42" cy="42" rx="6" ry="9" fill="#b8cbf4" transform="rotate(-15 42 42)"/>
-        <ellipse cx="68" cy="38" rx="10" ry="14" fill="#8aa8e8" transform="rotate(15 68 38)"/>
-        <ellipse cx="68" cy="38" rx="6" ry="9" fill="#b8cbf4" transform="rotate(15 68 38)"/>
-        <rect x="48" y="36" width="16" height="4" rx="2" fill="#6b8fd4"/>
-        <rect x="32" y="94" width="10" height="14" rx="5" fill="#8aa8e8"/>
-        <rect x="72" y="94" width="10" height="14" rx="5" fill="#8aa8e8"/>
-        <path d="M20 62 Q10 55 14 48 Q18 42 22 50" stroke="#8aa8e8" stroke-width="3.5" fill="none" stroke-linecap="round"/>
-        <circle cx="82" cy="76" r="6" fill="#95b0e8" opacity="0.35"/>
-        <defs>
-          <linearGradient id="pg" x1="20" y1="40" x2="96" y2="100">
-            <stop offset="0%" stop-color="#c5d4f7"/>
-            <stop offset="100%" stop-color="#7b9ee0"/>
-          </linearGradient>
-        </defs>
-      </svg>
+    <div class="hero-badge">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      Vorsorge-Check 2026
     </div>
-    <h1>Vorsorge <span>ohne Excel-Trauma</span></h1>
-    <div class="tagline">Dein Check in Minuten: Lücken sehen, Spar-Hebel klicken, Haus-Traum grob einplanen — ohne Kleingedrucktes-Gefühl.</div>
-    <div class="hero-hint">Tipp: Sparschwein antippen für Mini-XP · Viele Karten sind klickbar</div>
+    <h1>Vorsorge <em>ohne Excel-Trauma</em></h1>
+    <p class="hero-sub">Lücken sehen, Spar-Hebel klicken, Haus-Traum grob einplanen — in Minuten, ohne Kleingedrucktes-Gefühl.</p>
+    <p class="hero-hint">Viele Karten sind klickbar · Quests erledigen = XP · Alles Demo</p>
   </div>
 
+  <!-- ═══════════════════════════════════════
+       LEVEL BAR
+  ════════════════════════════════════════ -->
   <div class="level-bar">
-    <button type="button" class="level-badge" id="levelBadgeBtn" aria-haspopup="dialog">LVL <span id="lvlNum">1</span> — <span id="lvlTitle">Starter</span></button>
+    <button type="button" class="lvl-badge" id="lvlBtn">
+      LVL <span id="lvlNum">1</span> — <span id="lvlTitle">Starter</span>
+    </button>
     <div class="xp-wrap">
-      <div class="xp-label"><span>Vorsorge-XP</span><span><span id="xpCur">150</span> / <span id="xpMax">1000</span></span></div>
+      <div class="xp-label">
+        <span>Vorsorge-XP</span>
+        <span><span id="xpCur">150</span> / <span id="xpMax">1000</span></span>
+      </div>
       <div class="xp-track"><div class="xp-fill" id="xpFill"></div></div>
     </div>
-    <div class="pills" id="profilePills" role="group" aria-label="Profil-Szenario">
+    <div class="pills" id="profilePills" role="group" aria-label="Profil">
       <button type="button" class="pill on" data-profile="student">22 J. · Studium</button>
       <button type="button" class="pill" data-profile="youngpro">26 J. · Berufseinstieg</button>
       <button type="button" class="pill" data-profile="nest">32 J. · Familie</button>
     </div>
   </div>
 
+  <!-- ═══════════════════════════════════════
+       GRID
+  ════════════════════════════════════════ -->
   <div class="grid">
 
-    <div class="card interactive" style="animation-delay:0.15s">
-      <div class="section-label"><span class="icon">📊</span> Spar-Meter · Klick = Details</div>
+    <!-- ── Spar-Meter ── -->
+    <div class="card" style="animation-delay:.1s">
+      <div class="slabel">
+        <div class="slabel-icon" aria-hidden="true">
+          <!-- pie-chart icon -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
+        </div>
+        <span class="slabel-text">Spar-Meter</span>
+      </div>
       <div class="donut-row">
-        <div class="donut-box" id="donutBox" title="Segment antippen">
-          <svg viewBox="0 0 200 200" id="donutSvg" aria-hidden="true">
-            <circle cx="100" cy="100" r="80" fill="none" stroke="var(--bg-tan)" stroke-width="22"/>
-            <circle class="donut-seg active" data-idx="0" cx="100" cy="100" r="80" fill="none" stroke="var(--zurich-blue)" stroke-width="22"
-              stroke-dasharray="240 503" stroke-linecap="round" transform="rotate(-90 100 100)"/>
-            <circle class="donut-seg" data-idx="1" cx="100" cy="100" r="80" fill="none" stroke="var(--accent-purple)" stroke-width="22"
-              stroke-dasharray="163 503" stroke-dashoffset="-240" stroke-linecap="round" transform="rotate(-90 100 100)"/>
-            <circle class="donut-seg" data-idx="2" cx="100" cy="100" r="80" fill="none" stroke="var(--accent-coral)" stroke-width="22"
-              stroke-dasharray="100 503" stroke-dashoffset="-403" stroke-linecap="round" transform="rotate(-90 100 100)"/>
+        <div class="donut-box" id="donutBox">
+          <svg viewBox="0 0 200 200" aria-hidden="true">
+            <circle cx="100" cy="100" r="80" fill="none" stroke="var(--bg-subtle)" stroke-width="22"/>
+            <circle class="donut-seg hi" data-i="0" cx="100" cy="100" r="80" fill="none"
+              stroke="var(--zc-blue-zurich)" stroke-width="22"
+              stroke-dasharray="240 503" stroke-linecap="round" transform="rotate(-90 100 100)">
+              <animate attributeName="stroke-dasharray" from="0 503" to="240 503" dur=".9s" fill="freeze"/>
+            </circle>
+            <circle class="donut-seg" data-i="1" cx="100" cy="100" r="80" fill="none"
+              stroke="var(--zc-lilac-100)" stroke-width="22"
+              stroke-dasharray="163 503" stroke-dashoffset="-240" stroke-linecap="round" transform="rotate(-90 100 100)">
+              <animate attributeName="stroke-dasharray" from="0 503" to="163 503" dur=".9s" begin=".25s" fill="freeze"/>
+            </circle>
+            <circle class="donut-seg" data-i="2" cx="100" cy="100" r="80" fill="none"
+              stroke="var(--zc-peach-100)" stroke-width="22"
+              stroke-dasharray="100 503" stroke-dashoffset="-403" stroke-linecap="round" transform="rotate(-90 100 100)">
+              <animate attributeName="stroke-dasharray" from="0 503" to="100 503" dur=".9s" begin=".5s" fill="freeze"/>
+            </circle>
           </svg>
           <div class="donut-mid">
-            <div class="pig">🐖</div>
-            <div class="val" id="donutCenterVal">CHF 951</div>
-            <div class="sub" id="donutCenterSub">Lücke / Mt</div>
+            <div class="donut-mid-icon">
+              <!-- pension icon -->
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>
+            </div>
+            <div class="donut-mid-val" id="donutVal">CHF 951</div>
+            <div class="donut-mid-sub" id="donutSub">Lücke / Mt</div>
           </div>
         </div>
         <div class="legend">
-          <button type="button" class="lrow" data-detail="ahv">
-            <span class="lbl"><span class="dot" style="background:var(--zurich-blue)"></span> AHV (1. Säule)</span>
+          <button type="button" class="lrow" data-det="ahv">
+            <span class="lbl"><span class="dot" style="background:var(--zc-blue-zurich)"></span>AHV (1. Säule)</span>
             <span class="v">CHF 2'200</span>
           </button>
-          <div class="lrow-detail" id="det-ahv">Staatliche Rente ab 65 (Frauen gestaffelt). Dein Anteil fliesst automatisch — hier nur zur Einordnung im Gesamtbild.</div>
-          <button type="button" class="lrow" data-detail="pk">
-            <span class="lbl"><span class="dot" style="background:var(--accent-purple)"></span> Pensionskasse</span>
+          <div class="lrow-detail" id="det-ahv">Staatliche Rente ab 65. Fliesst automatisch — hier nur zur Einordnung im Gesamtbild.</div>
+          <button type="button" class="lrow" data-det="pk">
+            <span class="lbl"><span class="dot" style="background:var(--zc-lilac-100)"></span>Pensionskasse</span>
             <span class="v">CHF 1'515</span>
           </button>
-          <div class="lrow-detail" id="det-pk">2. Säule über Arbeitgeber. Höhe hängt von Lohn und Plan ab — wichtigster Hebel neben 3a, sobald du arbeitest.</div>
-          <button type="button" class="lrow" data-detail="luecke">
-            <span class="lbl"><span class="dot" style="background:var(--accent-coral)"></span> Vorsorgelücke</span>
-            <span class="v" id="legendGap" style="color:var(--accent-coral)">CHF 951</span>
+          <div class="lrow-detail" id="det-pk">2. Säule via Arbeitgeber. Wichtigster Hebel neben 3a, sobald du arbeitest.</div>
+          <button type="button" class="lrow" data-det="luecke">
+            <span class="lbl"><span class="dot" style="background:var(--zc-peach-100)"></span>Vorsorgelücke</span>
+            <span class="v" style="color:var(--danger)" id="legendGap">CHF 951</span>
           </button>
-          <div class="lrow-detail" id="det-luecke">Differenz bis zu einer groben Zielrente (hier 80% eines Beispiellohns). Das ist keine Prognose — nur Orientierung.</div>
+          <div class="lrow-detail" id="det-luecke">Differenz bis zur Zielrente (80% Lohn). Keine Prognose — nur Orientierung.</div>
           <div class="lrow lrow-total">
             <span class="lbl">Ziel (80% Lohn)</span>
             <span class="v">CHF 4'667</span>
           </div>
+          <!-- Relatable chips -->
           <div class="rel-row" role="group" aria-label="Lücke in Alltagseinheiten">
-            <button type="button" class="rel-chip" data-price="6.5" data-label="Cappuccino to go">☕ Kaffee ~6.50</button>
-            <button type="button" class="rel-chip" data-price="7.8" data-label="Matcha Latte">🍵 Matcha ~7.80</button>
-            <button type="button" class="rel-chip" data-price="15.9" data-label="Streaming">📺 Netflix ~15.90</button>
-            <button type="button" class="rel-chip" data-price="28" data-label="Lieferando-Session">🍔 Food ~28</button>
+            <button type="button" class="rel-chip" data-price="6.5" data-label="Cappuccino">
+              <!-- coffee icon -->
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+              Cappuccino ~6.50
+            </button>
+            <button type="button" class="rel-chip" data-price="7.8" data-label="Matcha Latte">
+              <!-- leaf icon -->
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+              Matcha ~7.80
+            </button>
+            <button type="button" class="rel-chip" data-price="15.9" data-label="Streaming">
+              <!-- tv icon -->
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="15" rx="2" ry="2"/><polyline points="17 2 12 7 7 2"/></svg>
+              Streaming ~15.90
+            </button>
+            <button type="button" class="rel-chip" data-price="28" data-label="Food-Delivery">
+              <!-- hamburger icon -->
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><path d="M3 6h18c0 3-4 6-9 6S3 9 3 6z"/><path d="M3 18h18"/></svg>
+              Food ~28
+            </button>
           </div>
-          <div class="rel-result" id="relResult">Tippe eine Einheit — wir rechnen die Lücke in „echtes Leben“ um.</div>
+          <div class="rel-result" id="relResult">Tippe eine Einheit — wir rechnen die Lücke in Alltagssprache um.</div>
         </div>
       </div>
     </div>
 
-    <div class="card house-card interactive" style="animation-delay:0.2s">
-      <div class="section-label"><span class="icon">🏠</span> Wann „Haus herhalten“? (Spielrechner)</div>
-      <p style="font-size:13px;color:var(--text-muted);line-height:1.5;margin-bottom:12px">Wie lange du ungefähr sparen müsstest, bis du ein Ziel-Eigenkapital hast — bei fester Rate und einfacher Rendite. Zum Herumklicken, keine Finanzberatung.</p>
+    <!-- ── Haus-Rechner ── -->
+    <div class="card" style="animation-delay:.15s">
+      <div class="slabel">
+        <div class="slabel-icon" aria-hidden="true">
+          <!-- home icon -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        <span class="slabel-text">Wann Haus herhalten?</span>
+      </div>
+      <p style="font-size:13px;color:var(--text-muted);line-height:1.5;margin-bottom:12px">Wie lange bis zum Eigenkapital-Ziel — vereinfacht, zum Herumklicken.</p>
       <div class="preset-row" role="group" aria-label="Immobilien-Preset">
-        <button type="button" class="preset on" data-price="620000" data-label="klein">Studio / Klein</button>
-        <button type="button" class="preset" data-price="950000" data-label="mittel">3.5-Zi</button>
-        <button type="button" class="preset" data-price="1400000" data-label="gross">EFH / Traum</button>
+        <button type="button" class="preset on" data-price="620000">Studio</button>
+        <button type="button" class="preset" data-price="950000">3.5-Zi</button>
+        <button type="button" class="preset" data-price="1400000">EFH / Traum</button>
       </div>
       <div class="field">
         <label>Kaufpreis <output id="outPrice">CHF 620'000</output></label>
-        <input type="range" id="rangePrice" min="400000" max="2000000" step="10000" value="620000" aria-valuetext="620000 Franken">
+        <input type="range" id="rPrice" min="400000" max="2000000" step="10000" value="620000">
       </div>
       <div class="field">
-        <label>Eigenkapital-Ziel <output id="outEqPct">20%</output> <span style="font-weight:500">(z. B. für Hypothek)</span></label>
-        <input type="range" id="rangeEq" min="10" max="35" step="1" value="20" aria-valuetext="20 Prozent">
+        <label>Eigenkapital-Ziel <output id="outEq">20%</output></label>
+        <input type="range" id="rEq" min="10" max="35" step="1" value="20">
       </div>
       <div class="field">
-        <label>Monatlich zurücklegen <output id="outSave">CHF 400</output></label>
-        <input type="range" id="rangeSave" min="50" max="2000" step="50" value="400" aria-valuetext="400 Franken">
+        <label>Monatlich sparen <output id="outSave">CHF 400</output></label>
+        <input type="range" id="rSave" min="50" max="2000" step="50" value="400">
       </div>
       <div class="field">
-        <label>Jährliche Rendite (Annahme) <output id="outYield">5.0%</output></label>
-        <input type="range" id="rangeYield" min="0" max="10" step="0.5" value="5" aria-valuetext="5 Prozent">
+        <label>Rendite (Annahme) <output id="outYield">5.0%</output></label>
+        <input type="range" id="rYield" min="0" max="10" step="0.5" value="5">
       </div>
       <div class="house-result" id="houseResult" role="status"></div>
-      <p style="font-size:11px;color:var(--text-muted);margin-top:10px;line-height:1.45">3a kann für Wohneigentum vorgezogen werden — Fristen &amp; Steuern beachten. Hier nur vereinfachte Mathe.</p>
+      <p style="font-size:11px;color:var(--text-muted);margin-top:10px;line-height:1.45">3a kann für Wohneigentum vorgezogen werden. Hier nur vereinfachte Mathe.</p>
     </div>
 
-    <div class="card full interactive" style="animation-delay:0.25s">
-      <div class="section-label"><span class="icon">🎯</span> Deine Träume · antippen</div>
+    <!-- ── Notgroschen-Meter ── -->
+    <div class="card" style="animation-delay:.2s">
+      <div class="slabel">
+        <div class="slabel-icon" aria-hidden="true">
+          <!-- shield icon -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <span class="slabel-text">Notgroschen-Meter</span>
+      </div>
+      <p style="font-size:13px;color:var(--text-muted);line-height:1.5;margin-bottom:14px">Faustregel: 3–6 Monatsausgaben liquid halten, bevor du in 3a investierst.</p>
+      <div class="notg-input-row">
+        <div class="notg-field">
+          <label>Monatliche Ausgaben (CHF)</label>
+          <input type="number" id="notgExp" value="2800" min="500" max="20000" step="100">
+        </div>
+        <div class="notg-field">
+          <label>Aktuell gespart (CHF)</label>
+          <input type="number" id="notgSaved" value="4200" min="0" max="200000" step="100">
+        </div>
+      </div>
+      <div class="meter-wrap" style="margin-top:16px">
+        <div class="meter-track"><div class="meter-fill" id="notgFill" style="width:25%"></div></div>
+        <div class="meter-labels">
+          <span>0</span><span>1 Mt</span><span>3 Mt ✓</span><span>6 Mt ✓✓</span>
+        </div>
+      </div>
+      <div class="meter-status" id="notgStatus">
+        <div class="meter-status-dot" id="notgDot" style="background:var(--danger)"></div>
+        <span id="notgText">Berechne…</span>
+      </div>
+    </div>
+
+    <!-- ── Steuer-Sparrechner ── -->
+    <div class="card" style="animation-delay:.25s">
+      <div class="slabel">
+        <div class="slabel-icon" aria-hidden="true">
+          <!-- currency-swissfrancs / bank-note icon -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2"/><path d="M6 12h.01M18 12h.01"/></svg>
+        </div>
+        <span class="slabel-text">Steuer-Sparrechner 3a</span>
+      </div>
+      <div class="tax-row">
+        <div class="tax-col">
+          <label>Bruttolohn (CHF / Jahr)</label>
+          <input type="number" id="taxIncome" value="70000" min="20000" max="500000" step="1000">
+        </div>
+        <div class="tax-col">
+          <label>Kanton</label>
+          <select id="taxKanton">
+            <option value="0.28">Zürich (~28%)</option>
+            <option value="0.22">Zug (~22%)</option>
+            <option value="0.25">Bern (~25%)</option>
+            <option value="0.26">Basel (~26%)</option>
+            <option value="0.24">Aargau (~24%)</option>
+            <option value="0.30">Genf (~30%)</option>
+          </select>
+        </div>
+        <div class="tax-col">
+          <label>3a-Einzahlung (CHF)</label>
+          <input type="number" id="taxContrib" value="7258" min="0" max="7258" step="100">
+        </div>
+      </div>
+      <div class="tax-result" id="taxResult">
+        <div class="tax-stat"><div class="ts-val" id="taxSave">–</div><div class="ts-lbl">Steuer-Ersparnis</div></div>
+        <div class="tax-stat"><div class="ts-val" id="taxRoi">–</div><div class="ts-lbl">Sofort-Rendite</div></div>
+        <div class="tax-stat"><div class="ts-val" id="taxNet">–</div><div class="ts-lbl">Netto-Kosten</div></div>
+      </div>
+    </div>
+
+    <!-- ── Träume ── -->
+    <div class="card full" style="animation-delay:.3s">
+      <div class="slabel">
+        <div class="slabel-icon" aria-hidden="true">
+          <!-- goal icon -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+        </div>
+        <span class="slabel-text">Deine Träume</span>
+      </div>
       <div class="dream-grid" id="dreamGrid">
         <button type="button" class="dream on" data-dream="haus">
-          <span class="emo">🏡</span>
+          <div class="dream-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          </div>
           <span class="t">Eigenheim</span>
           <span class="s">Eigenkapital + 3a-Hack</span>
         </button>
         <button type="button" class="dream" data-dream="frei">
-          <span class="emo">✈️</span>
+          <div class="dream-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v3"/><rect x="9" y="11" width="14" height="10" rx="2"/><line x1="13" y1="16" x2="17" y2="16"/></svg>
+          </div>
           <span class="t">Früher locker</span>
           <span class="s">Weniger arbeiten, mehr Optionen</span>
         </button>
         <button type="button" class="dream" data-dream="safe">
-          <span class="emo">🛡️</span>
+          <div class="dream-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+          </div>
           <span class="t">Safety First</span>
           <span class="s">Notgroschen + PK maxen</span>
         </button>
@@ -1179,91 +1254,181 @@
       <div class="dream-panel open" id="dreamPanel"></div>
     </div>
 
-    <div class="card full interactive" style="animation-delay:0.28s">
-      <div class="section-label"><span class="icon">🗺️</span> Deine Vorsorge-Zeitleiste</div>
-      <p style="font-size:13px;color:var(--text-muted);margin-bottom:8px">Klick auf eine Station — kurz, was da typischerweise ansteht.</p>
+    <!-- ── Zeitleiste ── -->
+    <div class="card full" style="animation-delay:.32s">
+      <div class="slabel">
+        <div class="slabel-icon" aria-hidden="true">
+          <!-- map icon -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
+        </div>
+        <span class="slabel-text">Deine Vorsorge-Zeitleiste</span>
+      </div>
       <div class="timeline" id="timeline">
-        <button type="button" class="timeline-item active" data-tl="now">
-          <span class="age">Jetzt</span>
-          <span class="ttl">Basis checken</span>
-          <span class="tx">Lücke kennen, 3a-Optionen sichten, kein Overthink.</span>
-        </button>
-        <button type="button" class="timeline-item" data-tl="five">
-          <span class="age">+5 J.</span>
-          <span class="ttl">Hebel ziehen</span>
-          <span class="tx">PK-Extrabeträge, 3a maxen, Lohn steigt → Sparquote hochhalten.</span>
-        </button>
-        <button type="button" class="timeline-item" data-tl="house">
-          <span class="age">Haus-Turbo</span>
-          <span class="ttl">Eigenkapital</span>
-          <span class="tx">3a für WEF, Tranche planen, Nebenkosten einrechnen.</span>
-        </button>
-        <button type="button" class="timeline-item" data-tl="50">
-          <span class="age">50+</span>
-          <span class="ttl">Feintuning</span>
-          <span class="tx">Anpassen vor Rente, Eintritt PK, ggf. Einmalzahlungen.</span>
-        </button>
+        <div class="tl-item on" data-tl="now">
+          <div class="tl-dot"></div>
+          <div class="tl-card">
+            <div class="tl-age">Jetzt</div>
+            <div class="tl-title">Basis checken</div>
+            <div class="tl-text">Lücke kennen, 3a-Optionen sichten, kein Overthink.</div>
+          </div>
+        </div>
+        <div class="tl-item" data-tl="five">
+          <div class="tl-dot"></div>
+          <div class="tl-card">
+            <div class="tl-age">+5 Jahre</div>
+            <div class="tl-title">Hebel ziehen</div>
+            <div class="tl-text">PK-Extras, 3a maxen, Lohn steigt → Sparquote halten.</div>
+          </div>
+        </div>
+        <div class="tl-item" data-tl="house">
+          <div class="tl-dot"></div>
+          <div class="tl-card">
+            <div class="tl-age">Haus-Turbo</div>
+            <div class="tl-title">Eigenkapital</div>
+            <div class="tl-text">3a für WEF, Tranche planen, Nebenkosten einrechnen.</div>
+          </div>
+        </div>
+        <div class="tl-item" data-tl="50">
+          <div class="tl-dot"></div>
+          <div class="tl-card">
+            <div class="tl-age">50+</div>
+            <div class="tl-title">Feintuning</div>
+            <div class="tl-text">Anpassen vor Rente, PK-Eintritt, Einmalzahlungen.</div>
+          </div>
+        </div>
       </div>
     </div>
 
-    <div class="card booking-card" style="animation-delay:0.3s">
-      <div class="section-label"><span class="icon">📅</span> Gratis Videoberatung buchen</div>
+    <!-- ── 3a Anbieter-Vergleich ── -->
+    <div class="card full" style="animation-delay:.34s">
+      <div class="slabel">
+        <div class="slabel-icon" aria-hidden="true">
+          <!-- compare icon -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/></svg>
+        </div>
+        <span class="slabel-text">3a Anbieter — Demo-Vergleich</span>
+      </div>
+      <div class="compare-grid" id="compareGrid">
+        <button type="button" class="compare-card on" data-cc="zurich">
+          <div class="cc-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+          </div>
+          <div class="cc-name">Zurich 3a</div>
+          <div class="cc-fee">Versicherung + Investment</div>
+          <span class="cc-badge">Beratung inklusive</span>
+        </button>
+        <button type="button" class="compare-card" data-cc="finpension">
+          <div class="cc-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          </div>
+          <div class="cc-name">finpension</div>
+          <div class="cc-fee">~0.39% TER</div>
+          <span class="cc-badge">Günstigste Gebühren</span>
+        </button>
+        <button type="button" class="compare-card" data-cc="viac">
+          <div class="cc-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <div class="cc-name">VIAC</div>
+          <div class="cc-fee">~0.52% TER</div>
+          <span class="cc-badge">Sehr beliebt</span>
+        </button>
+      </div>
+      <div class="compare-detail open" id="compareDetail"></div>
+    </div>
+
+    <!-- ── Buchungs-Kalender ── -->
+    <div class="card" style="animation-delay:.36s">
+      <div class="slabel">
+        <div class="slabel-icon" aria-hidden="true">
+          <!-- calendar icon -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </div>
+        <span class="slabel-text">Gratis Videoberatung</span>
+      </div>
       <div class="cal-month">
         <button type="button" class="cal-nav" onclick="changeMonth(-1)" aria-label="Vorheriger Monat">‹</button>
         <span id="calTitle"></span>
         <button type="button" class="cal-nav" onclick="changeMonth(1)" aria-label="Nächster Monat">›</button>
       </div>
-      <div class="cal-weekdays">
-        <span>Mo</span><span>Di</span><span>Mi</span><span>Do</span><span>Fr</span><span>Sa</span><span>So</span>
-      </div>
+      <div class="cal-weekdays"><span>Mo</span><span>Di</span><span>Mi</span><span>Do</span><span>Fr</span><span>Sa</span><span>So</span></div>
       <div class="cal-days" id="calDays"></div>
       <div class="time-slots" id="timeSlots"></div>
-      <button type="button" class="book-btn" id="bookBtn" onclick="bookNow()">Zum Buchungsfenster — Slot sichern</button>
-      <div class="booking-hint">Kostenlos &amp; unverbindlich mit einem Zurich Vorsorge-Experten</div>
+      <button type="button" class="book-btn" id="bookBtn" onclick="bookNow()">Slot sichern — Buchungsfenster öffnen</button>
+      <p class="booking-hint">Kostenlos &amp; unverbindlich mit einem Zurich Vorsorge-Experten</p>
     </div>
 
-    <div class="card full" style="animation-delay:0.35s">
-      <div class="section-label"><span class="icon">📈</span> Zinseszins-Booster — 40 Jahre</div>
+    <!-- ── Zinseszins-Chart ── -->
+    <div class="card" style="animation-delay:.38s">
+      <div class="slabel">
+        <div class="slabel-icon" aria-hidden="true">
+          <!-- line-chart icon -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <span class="slabel-text">Zinseszins-Booster · 40 Jahre</span>
+      </div>
       <div class="toggle-row">
         <button type="button" class="tog on" onclick="setScenario('opt')">Optimistisch (6%)</button>
-        <button type="button" class="tog" onclick="setScenario('con')">Konservativ (4%)</button>
         <button type="button" class="tog" onclick="setScenario('mid')">Mitte (5%)</button>
+        <button type="button" class="tog" onclick="setScenario('con')">Konservativ (4%)</button>
       </div>
       <div class="chart-area"><canvas id="chart"></canvas></div>
     </div>
 
-    <div class="card full" style="animation-delay:0.4s">
-      <div class="section-label"><span class="icon">🏆</span> Steuer-Achievements · tippen für Fact</div>
+    <!-- ── Achievements ── -->
+    <div class="card full" style="animation-delay:.4s">
+      <div class="slabel">
+        <div class="slabel-icon" aria-hidden="true">
+          <!-- award icon -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+        </div>
+        <span class="slabel-text">Steuer-Achievements · Tippen für Fact</span>
+      </div>
       <div class="achiev-row">
         <button type="button" class="achiev" data-ach="3a">
-          <div class="emoji">💎</div>
+          <div class="achiev-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
+          </div>
           <div class="num">CHF 7'258</div>
           <div class="desc">Max 3a 2026</div>
-          <div class="flip-hint">Tap für Fact ↓</div>
+          <div class="tap">Tap für Fact</div>
         </button>
         <button type="button" class="achiev" data-ach="tax">
-          <div class="emoji">💰</div>
+          <div class="achiev-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          </div>
           <div class="num">~CHF 1'450</div>
           <div class="desc">Steuer-Cashback / Jahr</div>
-          <div class="flip-hint">Tap für Fact ↓</div>
+          <div class="tap">Tap für Fact</div>
         </button>
         <button type="button" class="achiev" data-ach="40">
-          <div class="emoji">🚀</div>
+          <div class="achiev-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+          </div>
           <div class="num">~CHF 58k</div>
-          <div class="desc">Nur Steuern in 40 J.</div>
-          <div class="flip-hint">Tap für Fact ↓</div>
+          <div class="desc">Steuern gespart in 40 J.</div>
+          <div class="tap">Tap für Fact</div>
         </button>
       </div>
       <div class="power-box" id="achievFact">
-        Tipp auf eine Karte — hier erscheint ein kurzer Fact.
+        Tipp auf eine Karte — hier erscheint ein kurzer Fact dazu.
       </div>
     </div>
 
-    <div class="card full" style="animation-delay:0.45s">
-      <div class="section-label"><span class="icon">🧭</span> Quests — antippen = erledigt (+XP)</div>
+    <!-- ── Quests ── -->
+    <div class="card full" style="animation-delay:.42s">
+      <div class="slabel">
+        <div class="slabel-icon" aria-hidden="true">
+          <!-- list-tick icon -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+        </div>
+        <span class="slabel-text">Quests — Tippen = erledigt (+XP)</span>
+      </div>
       <div class="quests">
         <button type="button" class="quest" data-xp="200" data-quest="q1">
-          <div class="quest-icon">🧠</div>
+          <div class="quest-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          </div>
           <div class="quest-text">
             <h3>3-Säulen in 60 Sekunden</h3>
             <p>AHV + PK + 3a — wenn du nur eine Säule maxen willst, ist es oft die 3a.</p>
@@ -1271,7 +1436,9 @@
           <div class="quest-xp">+200 XP</div>
         </button>
         <button type="button" class="quest" data-xp="350" data-quest="q2">
-          <div class="quest-icon">📱</div>
+          <div class="quest-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+          </div>
           <div class="quest-text">
             <h3>3a-Konto vergleichen</h3>
             <p>Low Fees, passende Strategie — Demo: 15 Min, dann entspannt einzahlen.</p>
@@ -1279,469 +1446,459 @@
           <div class="quest-xp">+350 XP</div>
         </button>
         <button type="button" class="quest" data-xp="450" data-quest="q3">
-          <div class="quest-icon">🏠</div>
+          <div class="quest-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          </div>
           <div class="quest-text">
             <h3>Haus-Checkliste öffnen</h3>
             <p>Nebenkosten, Tranchen, 3a-Vorbezug — nicht alles am gleichen Tag klären.</p>
           </div>
           <div class="quest-xp">+450 XP</div>
         </button>
+        <button type="button" class="quest" data-xp="300" data-quest="q4">
+          <div class="quest-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <div class="quest-text">
+            <h3>Notgroschen-Ziel setzen</h3>
+            <p>3 Monatsausgaben liquid — erst dann aggressiv in 3a investieren.</p>
+          </div>
+          <div class="quest-xp">+300 XP</div>
+        </button>
       </div>
     </div>
 
-  </div>
+  </div><!-- /grid -->
 
   <div class="footer">
-    Grobe Schätzung, keine Finanzberatung. Annahme Beispiel: Berufseinstieg mit 25, Lohn CHF 70'000 — du kannst Profile oben wechseln (rein demo).<br>
-    Haus-Rechner: vereinfachte Annuität ohne Steuern/Nebenkosten. Tatsächliche Beträge: Karriere, Kanton, PK. Stand 2026.
+    Grobe Schätzung, keine Finanzberatung. Demo-Daten: Berufseinstieg 25, Lohn CHF 70'000.<br>
+    Haus-Rechner: vereinfacht, ohne Steuern/Nebenkosten. Steuer-Rechner: Grenzsteuersatz-Näherung. Stand 2026.
   </div>
+</div><!-- /container -->
+
+<!-- Modal -->
+<div class="backdrop" id="backdrop"></div>
+<div class="modal" id="lvlModal" role="dialog" aria-modal="true" aria-labelledby="lvlModalTitle">
+  <h2 id="lvlModalTitle">Level &amp; Profil</h2>
+  <p>Level sind hier Motivation — echte Planung macht ihr mit Beratung und echten Zahlen.</p>
+  <p>Profile oben ändern die Demo-Lücke. Später könntest du echte Daten anbinden.</p>
+  <button type="button" class="modal-close" id="lvlModalClose">Alles klar</button>
 </div>
 
-<div class="modal-backdrop" id="modalBackdrop" aria-hidden="true"></div>
-<div class="modal" id="levelModal" role="dialog" aria-labelledby="levelModalTitle" aria-modal="true">
-  <h2 id="levelModalTitle">Level &amp; Profil</h2>
-  <p>Level sind hier nur Spaß &amp; Motivation. Echte Planung macht ihr mit Beratung und echten Zahlen.</p>
-  <p>Profile oben ändern die Demo-Stimmung — später könntest du echte Daten anbinden.</p>
-  <button type="button" class="modal-close" id="modalClose">Alles klar</button>
-</div>
-
+<!-- Toast -->
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <script>
-(function(){
+(function () {
   'use strict';
 
   const BOOKING_URL = 'https://outlook.office.com/book/VideoberatungmitExperten@zurichinsurance.onmicrosoft.com/?ismsaljsauthenabled';
+  const fmtN = n => Math.round(n).toLocaleString('de-CH');
+  const fmt  = n => 'CHF ' + fmtN(n);
 
-  const fmt = n => "CHF " + Math.round(n).toLocaleString("de-CH");
-  let currentGap = 951;
-  const fmtCHF = n => Math.round(n).toLocaleString("de-CH");
-
-  function showToast(msg) {
-    const el = document.getElementById("toast");
+  /* ── Toast ── */
+  let toastT;
+  function toast(msg) {
+    const el = document.getElementById('toast');
     el.textContent = msg;
-    el.classList.add("show");
-    clearTimeout(showToast._t);
-    showToast._t = setTimeout(() => el.classList.remove("show"), 2600);
+    el.classList.add('show');
+    clearTimeout(toastT);
+    toastT = setTimeout(() => el.classList.remove('show'), 2600);
   }
 
-  /* Theme */
-  const themeBtn = document.getElementById("themeToggle");
-  function applyTheme(mode) {
-    if (mode === "dark") {
-      document.documentElement.setAttribute("data-theme", "dark");
-      themeBtn.textContent = "☀️ Light";
-    } else {
-      document.documentElement.removeAttribute("data-theme");
-      themeBtn.textContent = "🌙 Dark";
-    }
-    localStorage.setItem("vb-theme", mode);
+  /* ── Theme ── */
+  const themeBtn = document.getElementById('themeToggle');
+  function applyTheme(m) {
+    document.documentElement.setAttribute('data-theme', m === 'dark' ? 'dark' : '');
+    themeBtn.innerHTML = m === 'dark'
+      ? '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg> Light'
+      : '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg> Dark';
+    localStorage.setItem('vb-theme', m);
   }
-  const saved = localStorage.getItem("vb-theme");
-  if (saved === "dark" || (!saved && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
-    applyTheme("dark");
-  }
-  themeBtn.addEventListener("click", () => {
-    applyTheme(document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark");
+  const saved = localStorage.getItem('vb-theme');
+  applyTheme(saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light');
+  themeBtn.addEventListener('click', () => {
+    applyTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
   });
 
-  /* XP */
+  /* ── XP ── */
   let xp = 150;
-  const xpMax = 1000;
+  const XP_MAX = 1000;
+  const LEVELS = { 1: 'Starter', 2: 'Sparer', 3: 'Stratege', 4: 'Boss-Mode' };
   function syncXp() {
-    document.getElementById("xpCur").textContent = String(xp);
-    document.getElementById("xpMax").textContent = String(xpMax);
-    const pct = Math.min(100, (xp / xpMax) * 100);
-    document.getElementById("xpFill").style.width = pct + "%";
+    document.getElementById('xpCur').textContent = xp;
+    const pct = Math.min(100, (xp / XP_MAX) * 100);
+    document.getElementById('xpFill').style.width = pct + '%';
     const lvl = xp >= 800 ? 4 : xp >= 550 ? 3 : xp >= 300 ? 2 : 1;
-    const titles = { 1: "Starter", 2: "Sparer", 3: "Stratege", 4: "Boss-Mode" };
-    document.getElementById("lvlNum").textContent = String(lvl);
-    document.getElementById("lvlTitle").textContent = titles[lvl];
+    document.getElementById('lvlNum').textContent = lvl;
+    document.getElementById('lvlTitle').textContent = LEVELS[lvl];
   }
   syncXp();
+  function addXp(d, msg) { xp = Math.min(XP_MAX, Math.max(0, xp + d)); syncXp(); if (msg) toast(msg); }
 
-  function addXp(delta, msg) {
-    xp = Math.min(xpMax, xp + delta);
-    syncXp();
-    if (msg) showToast(msg);
-  }
+  /* ── Modal ── */
+  const backdrop = document.getElementById('backdrop');
+  const lvlModal = document.getElementById('lvlModal');
+  document.getElementById('lvlBtn').addEventListener('click', () => { backdrop.classList.add('open'); lvlModal.classList.add('open'); });
+  function closeModal() { backdrop.classList.remove('open'); lvlModal.classList.remove('open'); }
+  document.getElementById('lvlModalClose').addEventListener('click', closeModal);
+  backdrop.addEventListener('click', closeModal);
 
-  document.getElementById("piggyTap").addEventListener("click", () => addXp(5, "+5 XP — kleiner Spar-Kick"));
-  document.getElementById("piggyTap").addEventListener("keydown", e => {
-    if (e.key === "Enter" || e.key === " ") { e.preventDefault(); addXp(5, "+5 XP — kleiner Spar-Kick"); }
+  /* ── Profiles ── */
+  let currentGap = 951;
+  const profiles = {
+    student:  { tag: '22 J. · Studium',        gap: 951  },
+    youngpro: { tag: '26 J. · Berufseinstieg',  gap: 720  },
+    nest:     { tag: '32 J. · Familie',          gap: 1100 }
+  };
+  document.getElementById('profilePills').addEventListener('click', e => {
+    const btn = e.target.closest('.pill');
+    if (!btn) return;
+    document.querySelectorAll('.pill').forEach(p => p.classList.remove('on'));
+    btn.classList.add('on');
+    const p = profiles[btn.dataset.profile];
+    if (!p) return;
+    currentGap = p.gap;
+    centerLabels[2].val = fmt(p.gap);
+    document.getElementById('donutVal').textContent = fmt(p.gap);
+    document.getElementById('legendGap').textContent = fmt(p.gap);
+    toast('Profil: ' + p.tag + ' (Demo)');
   });
 
-  /* Level modal */
-  const backdrop = document.getElementById("modalBackdrop");
-  const levelModal = document.getElementById("levelModal");
-  document.getElementById("levelBadgeBtn").addEventListener("click", () => {
-    backdrop.classList.add("open");
-    levelModal.classList.add("open");
-    backdrop.setAttribute("aria-hidden", "false");
-  });
-  function closeModal() {
-    backdrop.classList.remove("open");
-    levelModal.classList.remove("open");
-    backdrop.setAttribute("aria-hidden", "true");
-  }
-  document.getElementById("modalClose").addEventListener("click", closeModal);
-  backdrop.addEventListener("click", closeModal);
-
-  /* Donut segment focus */
-  const donutBox = document.getElementById("donutBox");
-  const segs = donutBox.querySelectorAll(".donut-seg");
+  /* ── Donut ── */
+  const donutBox = document.getElementById('donutBox');
+  const segs = donutBox.querySelectorAll('.donut-seg');
   const centerLabels = [
-    { val: "CHF 2'200", sub: "AHV-Anteil (Demo)" },
-    { val: "CHF 1'515", sub: "PK (Demo)" },
-    { val: fmt(currentGap), sub: "Lücke / Mt" }
+    { val: 'CHF 2\'200', sub: 'AHV-Anteil' },
+    { val: 'CHF 1\'515', sub: 'PK (Demo)' },
+    { val: fmt(currentGap), sub: 'Lücke / Mt' }
   ];
   segs.forEach((c, i) => {
-    c.addEventListener("click", () => {
-      donutBox.classList.add("dim");
-      segs.forEach(s => s.classList.remove("active"));
-      c.classList.add("active");
-      document.getElementById("donutCenterVal").textContent = centerLabels[i].val;
-      document.getElementById("donutCenterSub").textContent = centerLabels[i].sub;
-    });
-  });
-  donutBox.addEventListener("keydown", e => {
-    if (e.key !== "Enter" && e.key !== " ") return;
-    const i = Math.floor(Math.random() * 3);
-    segs[i].click();
-  });
-
-  /* Profile pills (demo copy) — after donutBox / centerLabels */
-  const profiles = {
-    student: { tag: "22 J. · Studium", gap: 951 },
-    youngpro: { tag: "26 J. · Berufseinstieg", gap: 720 },
-    nest: { tag: "32 J. · Familie", gap: 1100 }
-  };
-  document.getElementById("profilePills").addEventListener("click", e => {
-    const btn = e.target.closest(".pill");
-    if (!btn) return;
-    document.querySelectorAll(".pill").forEach(p => p.classList.remove("on"));
-    btn.classList.add("on");
-    const key = btn.getAttribute("data-profile");
-    const p = profiles[key];
-    if (p) {
-      currentGap = p.gap;
-      centerLabels[2].val = fmt(p.gap);
-      const leg = document.getElementById("legendGap");
-      if (leg) leg.textContent = fmt(p.gap);
-      const activeSeg = donutBox.querySelector(".donut-seg.active");
-      if (activeSeg && activeSeg.getAttribute("data-idx") === "2") {
-        document.getElementById("donutCenterVal").textContent = centerLabels[2].val;
-        document.getElementById("donutCenterSub").textContent = centerLabels[2].sub;
-      }
-      showToast("Profil: " + p.tag + " (Demo)");
-    }
-  });
-
-  /* Legend expandable */
-  document.querySelectorAll(".lrow[data-detail]").forEach(row => {
-    row.addEventListener("click", () => {
-      const id = row.getAttribute("data-detail");
-      const det = document.getElementById("det-" + id);
-      const open = det.classList.contains("open");
-      document.querySelectorAll(".lrow-detail").forEach(d => d.classList.remove("open"));
-      document.querySelectorAll(".lrow[data-detail]").forEach(r => r.classList.remove("expanded"));
-      if (!open) {
-        det.classList.add("open");
-        row.classList.add("expanded");
-      }
+    c.addEventListener('click', () => {
+      donutBox.classList.add('dim');
+      segs.forEach(s => s.classList.remove('hi'));
+      c.classList.add('hi');
+      document.getElementById('donutVal').textContent = centerLabels[i].val;
+      document.getElementById('donutSub').textContent = centerLabels[i].sub;
     });
   });
 
-  /* Relatable chips */
-  const relResult = document.getElementById("relResult");
-  document.querySelectorAll(".rel-chip").forEach(chip => {
-    chip.addEventListener("click", () => {
-      document.querySelectorAll(".rel-chip").forEach(c => c.classList.remove("active"));
-      chip.classList.add("active");
-      const price = parseFloat(chip.getAttribute("data-price"), 10);
-      const label = chip.getAttribute("data-label");
-      const gap = currentGap;
-      const perMonth = gap / price;
-      relResult.textContent =
-        "Deine Demo-Lücke (" + fmt(gap) + "/Mt) ≈ " +
-        perMonth.toFixed(1) + "× " + label + " pro Monat — oder " +
-        (perMonth / 4.33).toFixed(1) + "× pro Woche (grobe Näherung).";
+  /* ── Legend ── */
+  document.querySelectorAll('.lrow[data-det]').forEach(row => {
+    row.addEventListener('click', () => {
+      const id = row.dataset.det;
+      const det = document.getElementById('det-' + id);
+      const was = det.classList.contains('open');
+      document.querySelectorAll('.lrow-detail').forEach(d => d.classList.remove('open'));
+      document.querySelectorAll('.lrow[data-det]').forEach(r => r.classList.remove('open'));
+      if (!was) { det.classList.add('open'); row.classList.add('open'); }
     });
   });
 
-  /* House calculator */
-  const rangePrice = document.getElementById("rangePrice");
-  const rangeEq = document.getElementById("rangeEq");
-  const rangeSave = document.getElementById("rangeSave");
-  const rangeYield = document.getElementById("rangeYield");
-  const outPrice = document.getElementById("outPrice");
-  const outEqPct = document.getElementById("outEqPct");
-  const outSave = document.getElementById("outSave");
-  const outYield = document.getElementById("outYield");
-  const houseResult = document.getElementById("houseResult");
+  /* ── Relatable chips ── */
+  document.querySelectorAll('.rel-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      document.querySelectorAll('.rel-chip').forEach(c => c.classList.remove('on'));
+      chip.classList.add('on');
+      const price = parseFloat(chip.dataset.price);
+      const label = chip.dataset.label;
+      const pm = currentGap / price;
+      document.getElementById('relResult').textContent =
+        'Deine Demo-Lücke (' + fmt(currentGap) + '/Mt) ≈ ' +
+        pm.toFixed(1) + '× ' + label + ' pro Monat — oder ' +
+        (pm / 4.33).toFixed(1) + '× pro Woche.';
+    });
+  });
 
-  function monthsToTarget(target, monthly, annualYield) {
-    if (monthly <= 0) return Infinity;
-    const rm = annualYield / 100 / 12;
-    if (rm <= 0) return Math.ceil(target / monthly);
-    const needed = 1 + (target * rm) / monthly;
-    if (needed <= 1) return 0;
-    return Math.ceil(Math.log(needed) / Math.log(1 + rm));
-  }
-
+  /* ── House calc ── */
   function updateHouse() {
-    const price = parseInt(rangePrice.value, 10);
-    const eqPct = parseInt(rangeEq.value, 10) / 100;
-    const monthly = parseInt(rangeSave.value, 10);
-    const yld = parseFloat(rangeYield.value, 10);
-    const target = price * eqPct;
-    outPrice.textContent = "CHF " + fmtCHF(price);
-    outEqPct.textContent = Math.round(eqPct * 100) + "%";
-    outSave.textContent = "CHF " + fmtCHF(monthly);
-    outYield.textContent = yld.toFixed(1).replace(".", ",") + "%";
-
-    const m = monthsToTarget(target, monthly, yld);
-    const years = m / 12;
-    if (!isFinite(m) || m > 1200) {
-      houseResult.innerHTML = "Mit dieser Rate dauert es sehr lange oder unendlich — Rate oder Ziel anpassen.";
-      return;
+    const price = +document.getElementById('rPrice').value;
+    const eq    = +document.getElementById('rEq').value / 100;
+    const save  = +document.getElementById('rSave').value;
+    const yld   = +document.getElementById('rYield').value;
+    document.getElementById('outPrice').textContent = fmt(price);
+    document.getElementById('outEq').textContent    = Math.round(eq * 100) + '%';
+    document.getElementById('outSave').textContent  = fmt(save);
+    document.getElementById('outYield').textContent = yld.toFixed(1).replace('.', ',') + '%';
+    const target = price * eq;
+    const rm = yld / 100 / 12;
+    let months;
+    if (save <= 0) { months = Infinity; }
+    else if (rm <= 0) { months = Math.ceil(target / save); }
+    else {
+      const n = 1 + (target * rm) / save;
+      months = n <= 1 ? 0 : Math.ceil(Math.log(n) / Math.log(1 + rm));
     }
-    const roundedY = years >= 1 ? years.toFixed(1).replace(".", ",") : (m + " Monate");
-    houseResult.innerHTML =
-      "Ziel-Eigenkapital <strong>CHF " + fmtCHF(target) + "</strong> (" +
-      Math.round(eqPct * 100) + " % von " + fmtCHF(price) + ") bei <strong>" +
-      fmtCHF(monthly) + "/Mt</strong> und <strong>" + yld.toFixed(1).replace(".", ",") + " %</strong> p.a. (linear eingezahlt):<br><br>" +
-      "≈ <strong>" + (years >= 1 ? roundedY + " Jahre" : m + " Monate") + "</strong> bis du dieses Eigenkapital erreicht hast (vereinfacht).";
+    const el = document.getElementById('houseResult');
+    if (!isFinite(months) || months > 1200) {
+      el.innerHTML = 'Mit dieser Rate dauert es sehr lange — Rate oder Ziel anpassen.';
+    } else {
+      const yrs = (months / 12).toFixed(1).replace('.', ',');
+      el.innerHTML = 'Ziel-EK <strong>' + fmt(target) + '</strong> (' + Math.round(eq*100) + '% von ' + fmtN(price) + ') bei <strong>' + fmtN(save) + '/Mt</strong> und <strong>' + yld.toFixed(1).replace('.', ',') + '%</strong> p.a.:<br><br>≈ <strong>' + yrs + ' Jahre</strong> bis zum Eigenkapital-Ziel (vereinfacht).';
+    }
   }
-
-  ["input", "change"].forEach(ev => {
-    rangePrice.addEventListener(ev, updateHouse);
-    rangeEq.addEventListener(ev, updateHouse);
-    rangeSave.addEventListener(ev, updateHouse);
-    rangeYield.addEventListener(ev, updateHouse);
+  ['rPrice','rEq','rSave','rYield'].forEach(id => {
+    document.getElementById(id).addEventListener('input', updateHouse);
   });
-
-  document.querySelectorAll(".preset").forEach(p => {
-    p.addEventListener("click", () => {
-      document.querySelectorAll(".preset").forEach(x => x.classList.remove("on"));
-      p.classList.add("on");
-      rangePrice.value = p.getAttribute("data-price");
+  document.querySelectorAll('.preset').forEach(p => {
+    p.addEventListener('click', () => {
+      document.querySelectorAll('.preset').forEach(x => x.classList.remove('on'));
+      p.classList.add('on');
+      document.getElementById('rPrice').value = p.dataset.price;
       updateHouse();
-      showToast("Preset: " + p.textContent.trim());
+      toast('Preset: ' + p.textContent.trim());
     });
   });
   updateHouse();
 
-  /* Dreams */
-  const dreamCopy = {
-    haus: "<strong>Eigenheim:</strong> Neben Eigenkapital lohnt sich der Blick auf 3a-Vorbezug und Tranchen. Nutze den Rechner links — und kläre Nebenkosten früh.",
-    frei: "<strong>Früher locker:</strong> Je höher dein investiertes 3a/PK-Kapital, desto mehr Optionen ab 50+. Viele planen bewusst weniger 100%-Pensum statt „hart auf 65“.",
-    safe: "<strong>Safety:</strong> Notgroschen (liquid) + max. sinnvolle PK/3a. Erst Sicherheit, dann Wachstum — besonders wenn Verpflichtungen dazukommen."
-  };
-  const dreamPanel = document.getElementById("dreamPanel");
-  document.getElementById("dreamGrid").addEventListener("click", e => {
-    const b = e.target.closest(".dream");
-    if (!b) return;
-    document.querySelectorAll(".dream").forEach(d => d.classList.remove("on"));
-    b.classList.add("on");
-    const k = b.getAttribute("data-dream");
-    dreamPanel.innerHTML = dreamCopy[k] || "";
-    dreamPanel.classList.add("open");
-  });
-  dreamPanel.innerHTML = dreamCopy.haus;
-
-  /* Timeline */
-  document.getElementById("timeline").addEventListener("click", e => {
-    const item = e.target.closest(".timeline-item");
-    if (!item) return;
-    document.querySelectorAll(".timeline-item").forEach(i => i.classList.remove("active"));
-    item.classList.add("active");
-    showToast(item.querySelector(".ttl").textContent + " — im Blick behalten");
-  });
-
-  /* Achievements */
-  const achievFacts = {
-    "3a": "Maximalbetrag 3a (2026 Demo) senkt steuerbares Einkommen — der Effekt hängt vom Grenzsteuersatz ab.",
-    tax: "Steuer-Cashback ist grob Marginalsteuer × Einzahlung — nicht der gleiche Satz für jeden Franken.",
-    "40": "Über Jahrzehnte summieren sich Steuervorteile + Zinseszins — deshalb zählt Startdatum mehr als perfektes Timing."
-  };
-  document.querySelectorAll(".achiev").forEach(a => {
-    a.addEventListener("click", () => {
-      document.querySelectorAll(".achiev").forEach(x => x.classList.remove("flipped"));
-      a.classList.add("flipped");
-      const k = a.getAttribute("data-ach");
-      document.getElementById("achievFact").textContent = achievFacts[k] || "";
-    });
-  });
-
-  /* Quests */
-  const doneQuests = new Set();
-  document.querySelectorAll(".quest").forEach(q => {
-    q.addEventListener("click", () => {
-      const id = q.getAttribute("data-quest");
-      const add = parseInt(q.getAttribute("data-xp"), 10);
-      if (doneQuests.has(id)) {
-        q.classList.remove("done");
-        doneQuests.delete(id);
-        addXp(-add, "Quest zurückgenommen");
-        return;
-      }
-      doneQuests.add(id);
-      q.classList.add("done");
-      addXp(add, "+" + add + " XP — nice!");
-    });
-  });
-
-  /* Calendar */
-  const months = ["Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"];
-  let calDate = new Date();
-  let selectedDate = null;
-  let selectedSlot = null;
-
-  window.renderCal = function renderCal() {
-    const y = calDate.getFullYear(), m = calDate.getMonth();
-    document.getElementById("calTitle").textContent = months[m] + " " + y;
-    const first = new Date(y, m, 1).getDay();
-    const offset = first === 0 ? 6 : first - 1;
-    const daysInMonth = new Date(y, m + 1, 0).getDate();
-    const today = new Date();
-    let html = "";
-    for (let i = 0; i < offset; i++) html += '<div class="cal-day empty"></div>';
-    for (let d = 1; d <= daysInMonth; d++) {
-      const date = new Date(y, m, d);
-      const isPast = date < new Date(today.getFullYear(), today.getMonth(), today.getDate());
-      const isToday = d === today.getDate() && m === today.getMonth() && y === today.getFullYear();
-      const isWeekend = date.getDay() === 0 || date.getDay() === 6;
-      const isSelected = selectedDate && d === selectedDate.getDate() && m === selectedDate.getMonth() && y === selectedDate.getFullYear();
-      const isAvail = !isPast && !isWeekend;
-      let cls = "cal-day";
-      if (isPast) cls += " past";
-      if (isToday) cls += " today";
-      if (isSelected) cls += " selected";
-      if (isAvail) cls += " available";
-      html += '<div class="' + cls + '"' + (isAvail ? ' onclick="pickDate(' + y + "," + m + "," + d + ')"' : "") + ">" + d + "</div>";
+  /* ── Notgroschen ── */
+  function updateNotg() {
+    const exp   = Math.max(1, +document.getElementById('notgExp').value || 2800);
+    const saved = Math.max(0, +document.getElementById('notgSaved').value || 0);
+    const months = saved / exp;
+    const pct = Math.min(100, (months / 6) * 100);
+    document.getElementById('notgFill').style.width = pct + '%';
+    const dot  = document.getElementById('notgDot');
+    const text = document.getElementById('notgText');
+    if (months < 1) {
+      dot.style.background = 'var(--danger)';
+      text.textContent = 'Kritisch — weniger als 1 Monatsausgabe liquid (' + months.toFixed(1) + ' Mt).';
+    } else if (months < 3) {
+      dot.style.background = 'var(--warn)';
+      text.textContent = 'Aufbau — ' + months.toFixed(1) + ' Monate gesichert. Ziel: 3–6 Mt.';
+    } else if (months < 6) {
+      dot.style.background = 'var(--zc-mint-100)';
+      text.textContent = 'Gut — ' + months.toFixed(1) + ' Monate liquid. Für mehr Sicherheit weiter aufbauen.';
+    } else {
+      dot.style.background = 'var(--success)';
+      text.textContent = 'Stark — ' + months.toFixed(1) + ' Monate Puffer. Jetzt 3a maxen!';
     }
-    document.getElementById("calDays").innerHTML = html;
+  }
+  ['notgExp','notgSaved'].forEach(id => {
+    document.getElementById(id).addEventListener('input', updateNotg);
+  });
+  updateNotg();
+
+  /* ── Tax calc ── */
+  function updateTax() {
+    const income  = Math.max(0, +document.getElementById('taxIncome').value || 0);
+    const rate    = +document.getElementById('taxKanton').value;
+    const contrib = Math.min(7258, Math.max(0, +document.getElementById('taxContrib').value || 0));
+    const save    = Math.round(contrib * rate);
+    const roi     = contrib > 0 ? ((save / contrib) * 100).toFixed(1) + '%' : '–';
+    const net     = contrib - save;
+    document.getElementById('taxSave').textContent = fmt(save);
+    document.getElementById('taxRoi').textContent  = roi;
+    document.getElementById('taxNet').textContent  = fmt(net);
+  }
+  ['taxIncome','taxKanton','taxContrib'].forEach(id => {
+    document.getElementById(id).addEventListener('input', updateTax);
+    document.getElementById(id).addEventListener('change', updateTax);
+  });
+  updateTax();
+
+  /* ── Dreams ── */
+  const dreamCopy = {
+    haus: '<strong>Eigenheim:</strong> Neben Eigenkapital lohnt sich der Blick auf 3a-Vorbezug und Tranchen. Nutze den Rechner oben — und kläre Nebenkosten früh.',
+    frei: '<strong>Früher locker:</strong> Je höher dein investiertes 3a/PK-Kapital, desto mehr Optionen ab 50+. Viele planen bewusst weniger 100%-Pensum statt „hart auf 65".',
+    safe: '<strong>Safety First:</strong> Notgroschen (liquid) + max. sinnvolle PK/3a. Erst Sicherheit, dann Wachstum — besonders wenn Verpflichtungen dazukommen.'
+  };
+  const dreamPanel = document.getElementById('dreamPanel');
+  dreamPanel.innerHTML = dreamCopy.haus;
+  document.getElementById('dreamGrid').addEventListener('click', e => {
+    const b = e.target.closest('.dream');
+    if (!b) return;
+    document.querySelectorAll('.dream').forEach(d => d.classList.remove('on'));
+    b.classList.add('on');
+    dreamPanel.innerHTML = dreamCopy[b.dataset.dream] || '';
+    dreamPanel.classList.add('open');
+  });
+
+  /* ── Timeline ── */
+  document.getElementById('timeline').addEventListener('click', e => {
+    const item = e.target.closest('.tl-item');
+    if (!item) return;
+    document.querySelectorAll('.tl-item').forEach(i => i.classList.remove('on'));
+    item.classList.add('on');
+    toast(item.querySelector('.tl-title').textContent + ' — im Blick behalten');
+  });
+
+  /* ── 3a Compare ── */
+  const ccCopy = {
+    zurich:     '<strong>Zurich 3a:</strong> Versicherungslösung mit persönlicher Beratung. Kombination aus Risikoschutz und Investment. Ideal wenn du Beratung schätzt.',
+    finpension: '<strong>finpension:</strong> Günstigste Gebühren im Markt (~0.39% TER). Rein digital, hohe Aktienquote möglich. Für selbstständige Entscheider.',
+    viac:       '<strong>VIAC:</strong> Sehr beliebt, ~0.52% TER, App-first. Gute Balance aus Gebühren und Features. Einfacher Einstieg.'
+  };
+  const compareDetail = document.getElementById('compareDetail');
+  compareDetail.innerHTML = ccCopy.zurich;
+  document.getElementById('compareGrid').addEventListener('click', e => {
+    const b = e.target.closest('.compare-card');
+    if (!b) return;
+    document.querySelectorAll('.compare-card').forEach(c => c.classList.remove('on'));
+    b.classList.add('on');
+    compareDetail.innerHTML = ccCopy[b.dataset.cc] || '';
+    compareDetail.classList.add('open');
+  });
+
+  /* ── Achievements ── */
+  const achFacts = {
+    '3a': 'Max 3a 2026: CHF 7\'258 (Angestellte). Jeder Franken senkt das steuerbare Einkommen — Effekt hängt vom Grenzsteuersatz ab.',
+    tax:  'Steuer-Cashback: grob Grenzsteuersatz × Einzahlung. Nicht jeder Franken wird gleich besteuert — Rechner oben zeigt deine Näherung.',
+    '40': 'Über 40 Jahre summieren sich Steuervorteile + Zinseszins massiv. Startdatum schlägt perfektes Timing — früh anfangen zählt mehr.'
+  };
+  document.querySelectorAll('.achiev').forEach(a => {
+    a.addEventListener('click', () => {
+      document.querySelectorAll('.achiev').forEach(x => x.classList.remove('on'));
+      a.classList.add('on');
+      document.getElementById('achievFact').textContent = achFacts[a.dataset.ach] || '';
+    });
+  });
+
+  /* ── Quests ── */
+  const done = new Set();
+  document.querySelectorAll('.quest').forEach(q => {
+    q.addEventListener('click', () => {
+      const id = q.dataset.quest;
+      const xpV = +q.dataset.xp;
+      if (done.has(id)) {
+        done.delete(id);
+        q.classList.remove('done');
+        addXp(-xpV, 'Quest zurückgenommen');
+      } else {
+        done.add(id);
+        q.classList.add('done');
+        addXp(xpV, '+' + xpV + ' XP — nice!');
+      }
+    });
+  });
+
+  /* ── Calendar ── */
+  const MONTHS = ['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'];
+  let calDate = new Date();
+  let selDate = null;
+
+  window.renderCal = function () {
+    const y = calDate.getFullYear(), m = calDate.getMonth();
+    document.getElementById('calTitle').textContent = MONTHS[m] + ' ' + y;
+    const first = new Date(y, m, 1).getDay();
+    const off = first === 0 ? 6 : first - 1;
+    const days = new Date(y, m + 1, 0).getDate();
+    const today = new Date();
+    let h = '';
+    for (let i = 0; i < off; i++) h += '<div class="cal-day empty"></div>';
+    for (let d = 1; d <= days; d++) {
+      const dt = new Date(y, m, d);
+      const past = dt < new Date(today.getFullYear(), today.getMonth(), today.getDate());
+      const isToday = d === today.getDate() && m === today.getMonth() && y === today.getFullYear();
+      const weekend = dt.getDay() === 0 || dt.getDay() === 6;
+      const sel = selDate && d === selDate.getDate() && m === selDate.getMonth() && y === selDate.getFullYear();
+      const avail = !past && !weekend;
+      let cls = 'cal-day';
+      if (past) cls += ' past';
+      if (isToday) cls += ' today';
+      if (sel) cls += ' selected';
+      if (avail) cls += ' available';
+      h += '<div class="' + cls + '"' + (avail ? ' onclick="pickDate(' + y + ',' + m + ',' + d + ')"' : '') + '>' + d + '</div>';
+    }
+    document.getElementById('calDays').innerHTML = h;
   };
 
-  window.pickDate = function pickDate(y, m, d) {
-    selectedDate = new Date(y, m, d);
-    selectedSlot = null;
+  window.pickDate = function (y, m, d) {
+    selDate = new Date(y, m, d);
     renderCal();
-    const slotsEl = document.getElementById("timeSlots");
-    const slots = ["09:00","10:00","11:00","13:00","14:00","15:00","16:00"];
-    slotsEl.innerHTML = slots.map(s => '<div class="slot" onclick="pickSlot(this,\'' + s + '\')">' + s + "</div>").join("");
-    slotsEl.classList.add("show");
-    document.getElementById("bookBtn").classList.remove("show");
+    const slotsEl = document.getElementById('timeSlots');
+    slotsEl.innerHTML = ['09:00','10:00','11:00','13:00','14:00','15:00','16:00']
+      .map(s => '<div class="slot" onclick="pickSlot(this,\'' + s + '\')">' + s + '</div>').join('');
+    slotsEl.classList.add('show');
+    document.getElementById('bookBtn').classList.remove('show');
   };
 
-  window.pickSlot = function pickSlot(el, time) {
-    selectedSlot = time;
-    document.querySelectorAll(".slot").forEach(s => s.classList.remove("picked"));
-    el.classList.add("picked");
-    document.getElementById("bookBtn").classList.add("show");
+  window.pickSlot = function (el, time) {
+    document.querySelectorAll('.slot').forEach(s => s.classList.remove('picked'));
+    el.classList.add('picked');
+    document.getElementById('bookBtn').classList.add('show');
   };
 
-  window.bookNow = function bookNow() {
-    window.open(BOOKING_URL, "_blank");
-  };
+  window.bookNow = function () { window.open(BOOKING_URL, '_blank'); };
 
-  window.changeMonth = function changeMonth(dir) {
+  window.changeMonth = function (dir) {
     calDate.setMonth(calDate.getMonth() + dir);
-    selectedDate = null;
-    selectedSlot = null;
-    document.getElementById("timeSlots").classList.remove("show");
-    document.getElementById("bookBtn").classList.remove("show");
+    selDate = null;
+    document.getElementById('timeSlots').classList.remove('show');
+    document.getElementById('bookBtn').classList.remove('show');
     renderCal();
   };
 
   renderCal();
 
-  /* Chart */
+  /* ── Chart ── */
   const Y = 40;
   const ages = Array.from({ length: Y + 1 }, (_, i) => 25 + i);
-  function grow(m, r, years) {
-    const res = [0];
-    let t = 0;
-    for (let i = 1; i <= years; i++) {
+  function grow(m, r) {
+    const res = [0]; let t = 0;
+    for (let i = 1; i <= Y; i++) {
       for (let j = 0; j < 12; j++) t = t * (1 + r / 12) + m;
       res.push(Math.round(t));
     }
     return res;
   }
-  function dep(m, y) {
-    return Array.from({ length: y + 1 }, (_, i) => m * 12 * i);
-  }
-  const S = {
-    opt: { r: 0.06 },
-    mid: { r: 0.05 },
-    con: { r: 0.04 }
+  function dep(m) { return Array.from({ length: Y + 1 }, (_, i) => m * 12 * i); }
+  const S = { opt: .06, mid: .05, con: .04 };
+  const datasets = {
+    opt: [grow(400,.06),grow(200,.06),grow(100,.06),grow(50,.06)],
+    mid: [grow(400,.05),grow(200,.05),grow(100,.05),grow(50,.05)],
+    con: [grow(400,.04),grow(200,.04),grow(100,.04),grow(50,.04)]
   };
-  Object.keys(S).forEach(k => {
-    const r = S[k].r;
-    S[k].d50 = grow(50, r, Y);
-    S[k].d100 = grow(100, r, Y);
-    S[k].d200 = grow(200, r, Y);
-    S[k].d400 = grow(400, r, Y);
-  });
-
-  const ctx = document.getElementById("chart").getContext("2d");
+  const colors = ['#E74C3C','#7B61C4','#0047BB','#00B4A0'];
+  const labels = ['CHF 400/Mt','CHF 200/Mt','CHF 100/Mt','CHF 50/Mt'];
+  const ctx = document.getElementById('chart').getContext('2d');
   const chrt = new Chart(ctx, {
-    type: "line",
+    type: 'line',
     data: {
       labels: ages,
       datasets: [
-        { label: "CHF 400/Mt", data: S.opt.d400, borderColor: "#e74c5e", backgroundColor: "#e74c5e10", fill: true, tension: 0.35, borderWidth: 2.5, pointRadius: 0, pointHoverRadius: 5 },
-        { label: "CHF 200/Mt", data: S.opt.d200, borderColor: "#7b61c4", backgroundColor: "#7b61c410", fill: true, tension: 0.35, borderWidth: 2.5, pointRadius: 0, pointHoverRadius: 5 },
-        { label: "CHF 100/Mt", data: S.opt.d100, borderColor: "#2167AE", backgroundColor: "#2167AE10", fill: true, tension: 0.35, borderWidth: 2.5, pointRadius: 0, pointHoverRadius: 5 },
-        { label: "CHF 50/Mt", data: S.opt.d50, borderColor: "#00a87e", backgroundColor: "#00a87e08", fill: true, tension: 0.35, borderWidth: 2.5, pointRadius: 0, pointHoverRadius: 5 },
-        { label: "Einbezahlt (200/Mt)", data: dep(200, Y), borderColor: "#d4cfc6", borderDash: [6, 4], borderWidth: 1.5, pointRadius: 0, fill: false, tension: 0 }
+        ...labels.map((l, i) => ({
+          label: l, data: datasets.opt[i],
+          borderColor: colors[i], backgroundColor: colors[i] + '12',
+          fill: true, tension: .35, borderWidth: 2.5, pointRadius: 0, pointHoverRadius: 5
+        })),
+        { label: 'Einbezahlt (200/Mt)', data: dep(200), borderColor: '#aaa', borderDash: [6,4], borderWidth: 1.5, pointRadius: 0, fill: false, tension: 0 }
       ]
     },
     options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      interaction: { mode: "index", intersect: false },
+      responsive: true, maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
       plugins: {
-        legend: { position: "top", labels: { color: "#6b6b6b", font: { family: "Inter", size: 12, weight: "600" }, usePointStyle: true, pointStyle: "circle", padding: 16 } },
+        legend: { position: 'top', labels: { color: '#666', font: { family: 'Inter', size: 12, weight: '600' }, usePointStyle: true, pointStyle: 'circle', padding: 14 } },
         tooltip: {
-          backgroundColor: "#fff",
-          titleColor: "#2C2400",
-          bodyColor: "#6b6b6b",
-          borderColor: "#efe9dd",
-          borderWidth: 1,
-          titleFont: { family: "Inter", weight: "700" },
-          bodyFont: { family: "Inter" },
-          padding: 14,
-          cornerRadius: 10,
+          backgroundColor: '#fff', titleColor: '#1a1a1a', bodyColor: '#666',
+          borderColor: '#e6e6e6', borderWidth: 1,
+          titleFont: { family: 'Inter', weight: '700' }, bodyFont: { family: 'Inter' },
+          padding: 12, cornerRadius: 8,
           callbacks: {
-            title: i => "Alter " + i[0].label,
-            label: i => " " + i.dataset.label + ": CHF " + i.raw.toLocaleString("de-CH")
+            title: i => 'Alter ' + i[0].label,
+            label: i => ' ' + i.dataset.label + ': CHF ' + i.raw.toLocaleString('de-CH')
           }
         }
       },
       scales: {
-        x: { grid: { color: "#f0ebe3" }, ticks: { color: "#aaa", font: { family: "Inter", size: 11 }, maxTicksLimit: 9 }, title: { display: true, text: "Alter", color: "#999", font: { family: "Inter", size: 12 } } },
-        y: { grid: { color: "#f0ebe3" }, ticks: { color: "#aaa", font: { family: "Inter", size: 11 }, callback: v => (v >= 1000 ? (v / 1000).toFixed(0) + "k" : v) }, title: { display: true, text: "Vermögen (CHF)", color: "#999", font: { family: "Inter", size: 12 } } }
+        x: { grid: { color: '#f0f0f0' }, ticks: { color: '#aaa', font: { family: 'Inter', size: 11 }, maxTicksLimit: 9 } },
+        y: { grid: { color: '#f0f0f0' }, ticks: { color: '#aaa', font: { family: 'Inter', size: 11 }, callback: v => v >= 1000 ? (v/1000).toFixed(0) + 'k' : v } }
       }
     }
   });
 
-  window.setScenario = function setScenario(s) {
-    const d = S[s];
-    chrt.data.datasets[0].data = d.d400;
-    chrt.data.datasets[1].data = d.d200;
-    chrt.data.datasets[2].data = d.d100;
-    chrt.data.datasets[3].data = d.d50;
+  window.setScenario = function (s) {
+    datasets[s].forEach((d, i) => { chrt.data.datasets[i].data = d; });
     chrt.update();
-    document.querySelectorAll(".tog").forEach(b => {
+    document.querySelectorAll('.tog').forEach(b => {
       const t = b.textContent.toLowerCase();
-      b.classList.toggle("on", (s === "opt" && t.includes("optimistisch")) || (s === "con" && t.includes("konservativ")) || (s === "mid" && t.includes("mitte")));
+      b.classList.toggle('on', (s==='opt'&&t.includes('optimistisch'))||(s==='mid'&&t.includes('mitte'))||(s==='con'&&t.includes('konservativ')));
     });
   };
+
 })();
 </script>
-
 </body>
 </html>
