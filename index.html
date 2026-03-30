@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vorsorge-Buddy — Dein Check | Zurich</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+  :root {
+    --zurich-blue: #2167AE;
+    --zurich-blue-dark: #17508a;
+    --zurich-blue-light: #e8f1fa;
+    --zurich-blue-mid: #ABBCF2;
+    --accent-green: #00a87e;
+    --accent-green-light: #e6f9f3;
+    --accent-coral: #e74c5e;
+    --accent-coral-light: #fdeef0;
+    --accent-yellow: #f5a623;
+    --accent-yellow-light: #fef6e6;
+    --accent-purple: #7b61c4;
+    --accent-purple-light: #f0ecf9;
+    --bg: #f7f5f0;
+    --bg-tan: #efe9dd;
+    --card: #ffffff;
+    --text: #2C2400;
+    --text-muted: #6b6b6b;
+    --radius: 16px;
+    --radius-sm: 10px;
+    --shadow: 0 2px 12px rgba(0,0,0,0.06);
+    --shadow-hover: 0 8px 28px rgba(33,103,174,0.12);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', 'Frutiger', -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* Top bar */
+  .topbar {
+    background: var(--zurich-blue);
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .zurich-logo {
+    width: 36px;
+    height: 36px;
+  }
+
+  .topbar-text {
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+  }
+
+  .topbar-sub {
+    color: rgba(255,255,255,0.7);
+    font-size: 12px;
+    margin-left: auto;
+    font-weight: 500;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 32px 20px 60px;
+  }
+
+  /* ====== HERO ====== */
+  .hero {
+    text-align: center;
+    margin-bottom: 28px;
+    animation: fadeUp 0.6s ease-out;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes piggyBounce {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    25% { transform: translateY(-6px) rotate(-2deg); }
+    75% { transform: translateY(-3px) rotate(1.5deg); }
+  }
+
+  @keyframes coinDrop {
+    0% { opacity: 1; top: -16px; transform: translateX(-50%) rotate(0deg) scale(1); }
+    80% { opacity: 1; }
+    100% { opacity: 0; top: 44px; transform: translateX(-50%) rotate(360deg) scale(0.6); }
+  }
+
+  .piggy-scene {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 4px;
+  }
+
+  .piggy-svg {
+    width: 100px;
+    height: 100px;
+    animation: piggyBounce 3s ease-in-out infinite;
+    filter: drop-shadow(0 6px 16px rgba(33,103,174,0.18));
+  }
+
+  .coin {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: var(--accent-yellow);
+    border-radius: 50%;
+    border: 2.5px solid #d4911a;
+    font-size: 10px;
+    font-weight: 900;
+    color: #a06c00;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: coinDrop 2.5s ease-in infinite;
+    top: -16px;
+    left: 50%;
+  }
+  .coin:nth-child(2) { animation-delay: 0.8s; left: 38%; }
+  .coin:nth-child(3) { animation-delay: 1.6s; left: 62%; }
+
+  .hero h1 {
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--text);
+    line-height: 1.2;
+  }
+
+  .hero h1 span { color: var(--zurich-blue); }
+
+  .hero .tagline {
+    font-size: 15px;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+
+  /* ====== LEVEL BAR ====== */
+  .level-bar {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 24px;
+    box-shadow: var(--shadow);
+    flex-wrap: wrap;
+    animation: fadeUp 0.5s ease-out 0.15s both;
+  }
+
+  .level-badge {
+    background: var(--zurich-blue);
+    color: #fff;
+    font-weight: 700;
+    font-size: 12px;
+    padding: 5px 14px;
+    border-radius: 100px;
+    white-space: nowrap;
+    letter-spacing: 0.3px;
+  }
+
+  .xp-wrap { flex: 1; min-width: 140px; }
+
+  .xp-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .xp-track {
+    height: 8px;
+    background: var(--bg-tan);
+    border-radius: 100px;
+    overflow: hidden;
+  }
+
+  .xp-fill {
+    height: 100%;
+    border-radius: 100px;
+    background: linear-gradient(90deg, var(--zurich-blue), var(--accent-green));
+    width: 0%;
+    animation: xpGrow 1.5s ease-out 0.8s forwards;
+  }
+
+  @keyframes xpGrow { to { width: 15%; } }
+
+  .pills { display: flex; gap: 6px; flex-wrap: wrap; }
+
+  .pill {
+    background: var(--zurich-blue-light);
+    border-radius: 100px;
+    padding: 5px 14px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--zurich-blue);
+  }
+
+  /* ====== GRID ====== */
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+
+  .card {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 24px;
+    box-shadow: var(--shadow);
+    transition: transform 0.25s, box-shadow 0.25s;
+    animation: fadeUp 0.5s ease-out both;
+  }
+
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-hover);
+  }
+
+  .full { grid-column: 1 / -1; }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--zurich-blue);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .section-label .icon { font-size: 16px; }
+
+  /* ====== DONUT ====== */
+  .donut-row {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .donut-box {
+    position: relative;
+    width: 170px;
+    height: 170px;
+    flex-shrink: 0;
+  }
+
+  .donut-box svg { width: 100%; height: 100%; }
+
+  .donut-mid {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+
+  .donut-mid .pig { font-size: 30px; line-height: 1; }
+  .donut-mid .val {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--accent-coral);
+    margin-top: -2px;
+  }
+  .donut-mid .sub {
+    font-size: 10px;
+    color: var(--text-muted);
+    font-weight: 600;
+  }
+
+  .legend { flex: 1; min-width: 180px; }
+
+  .lrow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--bg-tan);
+    font-size: 13px;
+  }
+
+  .lrow:last-child { border-bottom: none; }
+
+  .lrow .lbl {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-muted);
+  }
+
+  .lrow .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 4px;
+    flex-shrink: 0;
+  }
+
+  .lrow .v {
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--text);
+  }
+
+  .lrow-total {
+    border-top: 2px solid var(--bg-tan);
+    margin-top: 4px;
+    padding-top: 10px;
+  }
+
+  .lrow-total .lbl { color: var(--text); font-weight: 700; }
+
+  /* ====== BOOKING CALENDAR ====== */
+  .booking-card { padding: 24px; }
+
+  .cal-month {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+  }
+
+  .cal-month span {
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--text);
+  }
+
+  .cal-nav {
+    background: var(--zurich-blue-light);
+    border: none;
+    border-radius: 8px;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    font-size: 16px;
+    color: var(--zurich-blue);
+    font-weight: 700;
+    transition: background 0.2s;
+  }
+
+  .cal-nav:hover { background: var(--zurich-blue-mid); color: #fff; }
+
+  .cal-weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+    margin-bottom: 6px;
+  }
+
+  .cal-weekdays span {
+    text-align: center;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-muted);
+    padding: 4px 0;
+  }
+
+  .cal-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+  }
+
+  .cal-day {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.2s;
+    background: transparent;
+    color: var(--text);
+  }
+
+  .cal-day:hover:not(.empty):not(.past) {
+    background: var(--zurich-blue-light);
+    border-color: var(--zurich-blue);
+  }
+
+  .cal-day.selected {
+    background: var(--zurich-blue);
+    color: #fff;
+    border-color: var(--zurich-blue);
+  }
+
+  .cal-day.today {
+    border-color: var(--accent-green);
+    font-weight: 800;
+  }
+
+  .cal-day.past { color: #ccc; cursor: default; }
+  .cal-day.empty { cursor: default; }
+
+  .cal-day.available::after {
+    content: '';
+    position: absolute;
+    bottom: 3px;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--accent-green);
+  }
+
+  .cal-day { position: relative; }
+
+  .time-slots {
+    margin-top: 14px;
+    display: none;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .time-slots.show { display: flex; }
+
+  .slot {
+    padding: 8px 16px;
+    border: 2px solid var(--bg-tan);
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    background: var(--card);
+    color: var(--text);
+    transition: all 0.2s;
+  }
+
+  .slot:hover {
+    border-color: var(--zurich-blue);
+    background: var(--zurich-blue-light);
+  }
+
+  .slot.picked {
+    background: var(--zurich-blue);
+    border-color: var(--zurich-blue);
+    color: #fff;
+  }
+
+  .book-btn {
+    display: none;
+    width: 100%;
+    margin-top: 14px;
+    padding: 14px;
+    background: var(--zurich-blue);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.2s, transform 0.15s;
+  }
+
+  .book-btn.show { display: block; }
+
+  .book-btn:hover {
+    background: var(--zurich-blue-dark);
+    transform: translateY(-1px);
+  }
+
+  .booking-hint {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 10px;
+    text-align: center;
+    line-height: 1.5;
+  }
+
+  /* ====== CHART ====== */
+  .chart-area { position: relative; height: 320px; margin-top: 8px; }
+  canvas { width: 100% !important; }
+
+  .toggle-row { display: flex; gap: 8px; margin-bottom: 10px; }
+
+  .tog {
+    font-family: inherit;
+    background: var(--zurich-blue-light);
+    border: 2px solid transparent;
+    border-radius: 100px;
+    padding: 7px 18px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--zurich-blue);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .tog.on {
+    background: var(--zurich-blue);
+    color: #fff;
+  }
+
+  .tog:hover:not(.on) { border-color: var(--zurich-blue); }
+
+  /* ====== ACHIEVEMENTS ====== */
+  .achiev-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+
+  .achiev {
+    background: var(--accent-yellow-light);
+    border: 2px solid #f5dfa0;
+    border-radius: var(--radius);
+    padding: 20px 14px;
+    text-align: center;
+    transition: transform 0.2s;
+  }
+
+  .achiev:hover { transform: scale(1.03); }
+
+  .achiev .emoji { font-size: 28px; margin-bottom: 6px; }
+
+  .achiev .num {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 2px;
+  }
+
+  .achiev .desc {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .power-box {
+    margin-top: 16px;
+    background: var(--accent-green-light);
+    border: 2px solid #a3e6d2;
+    border-radius: var(--radius);
+    padding: 16px 20px;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.5;
+  }
+
+  .power-box strong { color: var(--accent-green); }
+
+  /* ====== QUESTS ====== */
+  .quests { display: flex; flex-direction: column; gap: 10px; }
+
+  .quest {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    background: var(--bg);
+    border: 2px solid var(--bg-tan);
+    border-radius: var(--radius);
+    padding: 14px 18px;
+    transition: all 0.25s;
+    cursor: default;
+  }
+
+  .quest:hover {
+    border-color: var(--zurich-blue);
+    background: var(--zurich-blue-light);
+    transform: translateX(4px);
+  }
+
+  .quest-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+    background: var(--card);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+
+  .quest-text { flex: 1; }
+
+  .quest-text h3 {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+
+  .quest-text p {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.45;
+  }
+
+  .quest-xp {
+    background: var(--zurich-blue);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 800;
+    padding: 4px 12px;
+    border-radius: 100px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  /* ====== FOOTER ====== */
+  .footer {
+    text-align: center;
+    font-size: 11px;
+    color: #aaa;
+    margin-top: 36px;
+    line-height: 1.6;
+  }
+
+  /* ====== RESPONSIVE ====== */
+  @media (max-width: 900px) {
+    .grid { grid-template-columns: 1fr; }
+    .full { grid-column: auto; }
+    .achiev-row { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 600px) {
+    .donut-row { flex-direction: column; align-items: center; }
+    .level-bar { flex-direction: column; align-items: stretch; gap: 10px; }
+    .hero h1 { font-size: 24px; }
+    .quest { flex-wrap: wrap; }
+    .quest-xp { margin-top: 6px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Zurich Top Bar -->
+<div class="topbar">
+  <svg class="zurich-logo" viewBox="0 0 48 48" fill="none">
+    <circle cx="24" cy="24" r="24" fill="white"/>
+    <path d="M12 32V30.5L28 18H13V14H35V15.5L19 28H35V32H12Z" fill="#2167AE"/>
+  </svg>
+  <span class="topbar-text">Vorsorge-Buddy</span>
+  <span class="topbar-sub">by Zurich Schweiz</span>
+</div>
+
+<div class="container">
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="piggy-scene">
+      <div class="coin">F</div>
+      <div class="coin">F</div>
+      <div class="coin">F</div>
+      <svg class="piggy-svg" viewBox="0 0 120 120" fill="none">
+        <ellipse cx="58" cy="68" rx="38" ry="32" fill="#ABBCF2"/>
+        <ellipse cx="58" cy="68" rx="38" ry="32" fill="url(#pg)" opacity="0.5"/>
+        <ellipse cx="52" cy="75" rx="18" ry="12" fill="#c5d4f7" opacity="0.5"/>
+        <ellipse cx="90" cy="72" rx="12" ry="9" fill="#8aa8e8"/>
+        <circle cx="87" cy="70" r="2.5" fill="#6b8fd4"/>
+        <circle cx="93" cy="70" r="2.5" fill="#6b8fd4"/>
+        <circle cx="76" cy="56" r="5" fill="#2C2400"/>
+        <circle cx="77.5" cy="54.5" r="2" fill="white"/>
+        <ellipse cx="42" cy="42" rx="10" ry="14" fill="#8aa8e8" transform="rotate(-15 42 42)"/>
+        <ellipse cx="42" cy="42" rx="6" ry="9" fill="#b8cbf4" transform="rotate(-15 42 42)"/>
+        <ellipse cx="68" cy="38" rx="10" ry="14" fill="#8aa8e8" transform="rotate(15 68 38)"/>
+        <ellipse cx="68" cy="38" rx="6" ry="9" fill="#b8cbf4" transform="rotate(15 68 38)"/>
+        <rect x="48" y="36" width="16" height="4" rx="2" fill="#6b8fd4"/>
+        <rect x="32" y="94" width="10" height="14" rx="5" fill="#8aa8e8"/>
+        <rect x="72" y="94" width="10" height="14" rx="5" fill="#8aa8e8"/>
+        <path d="M20 62 Q10 55 14 48 Q18 42 22 50" stroke="#8aa8e8" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+        <circle cx="82" cy="76" r="6" fill="#95b0e8" opacity="0.35"/>
+        <defs>
+          <linearGradient id="pg" x1="20" y1="40" x2="96" y2="100">
+            <stop offset="0%" stop-color="#c5d4f7"/>
+            <stop offset="100%" stop-color="#7b9ee0"/>
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+    <h1>Dein <span>Vorsorge-Check</span></h1>
+    <div class="tagline">Level up deine finanzielle Zukunft in der Schweiz</div>
+  </div>
+
+  <!-- Level Bar -->
+  <div class="level-bar">
+    <div class="level-badge">LVL 1 — Starter</div>
+    <div class="xp-wrap">
+      <div class="xp-label"><span>Vorsorge-XP</span><span>150 / 1'000</span></div>
+      <div class="xp-track"><div class="xp-fill"></div></div>
+    </div>
+    <div class="pills">
+      <span class="pill">22 J.</span>
+      <span class="pill">Studium</span>
+      <span class="pill">&lt; 20k CHF</span>
+    </div>
+  </div>
+
+  <!-- Grid -->
+  <div class="grid">
+
+    <!-- Vorsorgelücke -->
+    <div class="card" style="animation-delay:0.2s">
+      <div class="section-label"><span class="icon">&#x1f514;</span> Dein Spar-Meter</div>
+      <div class="donut-row">
+        <div class="donut-box">
+          <svg viewBox="0 0 200 200">
+            <circle cx="100" cy="100" r="80" fill="none" stroke="#efe9dd" stroke-width="22"/>
+            <circle cx="100" cy="100" r="80" fill="none" stroke="var(--zurich-blue)" stroke-width="22"
+              stroke-dasharray="240 503" stroke-linecap="round" style="transform:rotate(-90deg);transform-origin:center;">
+              <animate attributeName="stroke-dasharray" from="0 503" to="240 503" dur="1s" fill="freeze"/>
+            </circle>
+            <circle cx="100" cy="100" r="80" fill="none" stroke="var(--accent-purple)" stroke-width="22"
+              stroke-dasharray="163 503" stroke-dashoffset="-240" stroke-linecap="round" style="transform:rotate(-90deg);transform-origin:center;">
+              <animate attributeName="stroke-dasharray" from="0 503" to="163 503" dur="1s" begin="0.3s" fill="freeze"/>
+            </circle>
+            <circle cx="100" cy="100" r="80" fill="none" stroke="var(--accent-coral)" stroke-width="22"
+              stroke-dasharray="100 503" stroke-dashoffset="-403" stroke-linecap="round" style="transform:rotate(-90deg);transform-origin:center;">
+              <animate attributeName="stroke-dasharray" from="0 503" to="100 503" dur="1s" begin="0.6s" fill="freeze"/>
+            </circle>
+          </svg>
+          <div class="donut-mid">
+            <div class="pig">&#x1f416;</div>
+            <div class="val">CHF 951</div>
+            <div class="sub">Lücke / Mt</div>
+          </div>
+        </div>
+        <div class="legend">
+          <div class="lrow">
+            <span class="lbl"><span class="dot" style="background:var(--zurich-blue)"></span> AHV (1. Säule)</span>
+            <span class="v">CHF 2'200</span>
+          </div>
+          <div class="lrow">
+            <span class="lbl"><span class="dot" style="background:var(--accent-purple)"></span> Pensionskasse</span>
+            <span class="v">CHF 1'515</span>
+          </div>
+          <div class="lrow">
+            <span class="lbl"><span class="dot" style="background:var(--accent-coral)"></span> Vorsorgelücke</span>
+            <span class="v" style="color:var(--accent-coral)">CHF 951</span>
+          </div>
+          <div class="lrow lrow-total">
+            <span class="lbl">Ziel (80% Lohn)</span>
+            <span class="v">CHF 4'667</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Booking Calendar -->
+    <div class="card booking-card" style="animation-delay:0.3s">
+      <div class="section-label"><span class="icon">&#x1f4c5;</span> Gratis Videoberatung buchen</div>
+      <div class="cal-month">
+        <button class="cal-nav" onclick="changeMonth(-1)">&#8249;</button>
+        <span id="calTitle"></span>
+        <button class="cal-nav" onclick="changeMonth(1)">&#8250;</button>
+      </div>
+      <div class="cal-weekdays">
+        <span>Mo</span><span>Di</span><span>Mi</span><span>Do</span><span>Fr</span><span>Sa</span><span>So</span>
+      </div>
+      <div class="cal-days" id="calDays"></div>
+      <div class="time-slots" id="timeSlots"></div>
+      <button class="book-btn" id="bookBtn" onclick="bookNow()">Termin bestätigen</button>
+      <div class="booking-hint">Kostenlos & unverbindlich mit einem Zurich Vorsorge-Experten</div>
+    </div>
+
+    <!-- Chart -->
+    <div class="card full" style="animation-delay:0.4s">
+      <div class="section-label"><span class="icon">&#x1f4c8;</span> Zinseszins-Booster — 40 Jahre</div>
+      <div class="toggle-row">
+        <button class="tog on" onclick="setScenario('opt')">Optimistisch (6%)</button>
+        <button class="tog" onclick="setScenario('con')">Konservativ (4%)</button>
+      </div>
+      <div class="chart-area"><canvas id="chart"></canvas></div>
+    </div>
+
+    <!-- Achievements -->
+    <div class="card full" style="animation-delay:0.5s">
+      <div class="section-label"><span class="icon">&#x1f3c6;</span> Steuer-Achievements</div>
+      <div class="achiev-row">
+        <div class="achiev">
+          <div class="emoji">&#x1f48e;</div>
+          <div class="num">CHF 7'258</div>
+          <div class="desc">Max 3a-Beitrag 2026</div>
+        </div>
+        <div class="achiev">
+          <div class="emoji">&#x1f4b0;</div>
+          <div class="num">~CHF 1'450</div>
+          <div class="desc">Steuer-Cashback / Jahr</div>
+        </div>
+        <div class="achiev">
+          <div class="emoji">&#x1f680;</div>
+          <div class="num">~CHF 58k</div>
+          <div class="desc">Total gespart in 40 J.</div>
+        </div>
+      </div>
+      <div class="power-box">
+        &#x26a1; Jede 3a-Einzahlung = sofort <strong>~20% Rendite</strong> durch Steuerersparnis. Noch bevor dein Geld investiert ist.
+      </div>
+    </div>
+
+    <!-- Quests -->
+    <div class="card full" style="animation-delay:0.6s">
+      <div class="section-label"><span class="icon">&#x1f5fa;&#xfe0f;</span> Deine nächsten Quests</div>
+      <div class="quests">
+        <div class="quest">
+          <div class="quest-icon">&#x1f9e0;</div>
+          <div class="quest-text">
+            <h3>3-Säulen-System verstehen</h3>
+            <p>AHV (Staat) + PK (Arbeitgeber) + 3a (du). Die 3a ist dein grösster Hebel.</p>
+          </div>
+          <div class="quest-xp">+200 XP</div>
+        </div>
+        <div class="quest">
+          <div class="quest-icon">&#x1f4f1;</div>
+          <div class="quest-text">
+            <h3>3a-Konto eröffnen</h3>
+            <p>Digitale Anbieter kosten ~0.4% und sind in 15 Min ready. Start mit CHF 50/Mt.</p>
+          </div>
+          <div class="quest-xp">+350 XP</div>
+        </div>
+        <div class="quest">
+          <div class="quest-icon">&#x1f3e0;</div>
+          <div class="quest-text">
+            <h3>3a = auch dein Eigenheim-Hack</h3>
+            <p>3a-Guthaben kann für den Hauskauf vorbezogen werden. Alter + Eigenheim gleichzeitig.</p>
+          </div>
+          <div class="quest-xp">+450 XP</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    Grobe Schätzung, keine Finanzberatung. Annahme: Berufseinstieg mit 25, Lohn CHF 70'000.<br>
+    Tatsächliche Beträge hängen von Karriereverlauf, Kanton und PK ab. Stand 2026.
+  </div>
+</div>
+
+<!-- Chart.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script>
+/* ====== CALENDAR ====== */
+const BOOKING_URL = 'https://outlook.office.com/book/VideoberatungmitExperten@zurichinsurance.onmicrosoft.com/?ismsaljsauthenabled';
+const months = ['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'];
+let calDate = new Date();
+let selectedDate = null;
+let selectedSlot = null;
+
+function renderCal() {
+  const y = calDate.getFullYear(), m = calDate.getMonth();
+  document.getElementById('calTitle').textContent = `${months[m]} ${y}`;
+  const first = new Date(y, m, 1).getDay();
+  const offset = first === 0 ? 6 : first - 1;
+  const daysInMonth = new Date(y, m + 1, 0).getDate();
+  const today = new Date();
+  let html = '';
+  for (let i = 0; i < offset; i++) html += '<div class="cal-day empty"></div>';
+  for (let d = 1; d <= daysInMonth; d++) {
+    const date = new Date(y, m, d);
+    const isPast = date < new Date(today.getFullYear(), today.getMonth(), today.getDate());
+    const isToday = d === today.getDate() && m === today.getMonth() && y === today.getFullYear();
+    const isWeekend = date.getDay() === 0 || date.getDay() === 6;
+    const isSelected = selectedDate && d === selectedDate.getDate() && m === selectedDate.getMonth() && y === selectedDate.getFullYear();
+    const isAvail = !isPast && !isWeekend;
+    let cls = 'cal-day';
+    if (isPast) cls += ' past';
+    if (isToday) cls += ' today';
+    if (isSelected) cls += ' selected';
+    if (isAvail) cls += ' available';
+    html += `<div class="${cls}" ${isAvail ? `onclick="pickDate(${y},${m},${d})"` : ''}>${d}</div>`;
+  }
+  document.getElementById('calDays').innerHTML = html;
+}
+
+function pickDate(y, m, d) {
+  selectedDate = new Date(y, m, d);
+  selectedSlot = null;
+  renderCal();
+  const slotsEl = document.getElementById('timeSlots');
+  const slots = ['09:00','10:00','11:00','13:00','14:00','15:00','16:00'];
+  slotsEl.innerHTML = slots.map(s => `<div class="slot" onclick="pickSlot(this,'${s}')">${s}</div>`).join('');
+  slotsEl.classList.add('show');
+  document.getElementById('bookBtn').classList.remove('show');
+}
+
+function pickSlot(el, time) {
+  selectedSlot = time;
+  document.querySelectorAll('.slot').forEach(s => s.classList.remove('picked'));
+  el.classList.add('picked');
+  document.getElementById('bookBtn').classList.add('show');
+}
+
+function bookNow() {
+  window.open(BOOKING_URL, '_blank');
+}
+
+function changeMonth(dir) {
+  calDate.setMonth(calDate.getMonth() + dir);
+  selectedDate = null;
+  selectedSlot = null;
+  document.getElementById('timeSlots').classList.remove('show');
+  document.getElementById('bookBtn').classList.remove('show');
+  renderCal();
+}
+
+renderCal();
+
+/* ====== CHART ====== */
+const Y=40, ages=Array.from({length:Y+1},(_,i)=>25+i);
+function grow(m,r,y){const res=[0];let t=0;for(let i=1;i<=y;i++){for(let j=0;j<12;j++)t=t*(1+r/12)+m;res.push(Math.round(t))}return res}
+function dep(m,y){return Array.from({length:y+1},(_,i)=>m*12*i)}
+const S={opt:{r:0.06},con:{r:0.04}};
+for(const k of Object.keys(S)){const r=S[k].r;S[k].d50=grow(50,r,Y);S[k].d100=grow(100,r,Y);S[k].d200=grow(200,r,Y);S[k].d400=grow(400,r,Y)}
+
+const ctx=document.getElementById('chart').getContext('2d');
+const chrt=new Chart(ctx,{
+  type:'line',
+  data:{
+    labels:ages,
+    datasets:[
+      {label:'CHF 400/Mt',data:S.opt.d400,borderColor:'#e74c5e',backgroundColor:'#e74c5e10',fill:true,tension:.35,borderWidth:2.5,pointRadius:0,pointHoverRadius:5},
+      {label:'CHF 200/Mt',data:S.opt.d200,borderColor:'#7b61c4',backgroundColor:'#7b61c410',fill:true,tension:.35,borderWidth:2.5,pointRadius:0,pointHoverRadius:5},
+      {label:'CHF 100/Mt',data:S.opt.d100,borderColor:'#2167AE',backgroundColor:'#2167AE10',fill:true,tension:.35,borderWidth:2.5,pointRadius:0,pointHoverRadius:5},
+      {label:'CHF 50/Mt',data:S.opt.d50,borderColor:'#00a87e',backgroundColor:'#00a87e08',fill:true,tension:.35,borderWidth:2,pointRadius:0,pointHoverRadius:5},
+      {label:'Einbezahlt (200/Mt)',data:dep(200,Y),borderColor:'#d4cfc6',borderDash:[6,4],borderWidth:1.5,pointRadius:0,fill:false,tension:0}
+    ]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    interaction:{mode:'index',intersect:false},
+    plugins:{
+      legend:{position:'top',labels:{color:'#6b6b6b',font:{family:'Inter',size:12,weight:'600'},usePointStyle:true,pointStyle:'circle',padding:16}},
+      tooltip:{
+        backgroundColor:'#fff',titleColor:'#2C2400',bodyColor:'#6b6b6b',
+        borderColor:'#efe9dd',borderWidth:1,
+        titleFont:{family:'Inter',weight:'700'},bodyFont:{family:'Inter'},
+        padding:14,cornerRadius:10,
+        callbacks:{title:i=>`Alter ${i[0].label}`,label:i=>` ${i.dataset.label}: CHF ${i.raw.toLocaleString('de-CH')}`}
+      }
+    },
+    scales:{
+      x:{grid:{color:'#f0ebe3'},ticks:{color:'#aaa',font:{family:'Inter',size:11},maxTicksLimit:9},title:{display:true,text:'Alter',color:'#999',font:{family:'Inter',size:12}}},
+      y:{grid:{color:'#f0ebe3'},ticks:{color:'#aaa',font:{family:'Inter',size:11},callback:v=>v>=1000?`${(v/1000).toFixed(0)}k`:v},title:{display:true,text:'Vermögen (CHF)',color:'#999',font:{family:'Inter',size:12}}}
+    }
+  }
+});
+
+function setScenario(s){
+  const d=S[s];
+  chrt.data.datasets[0].data=d.d400;chrt.data.datasets[1].data=d.d200;
+  chrt.data.datasets[2].data=d.d100;chrt.data.datasets[3].data=d.d50;
+  chrt.update();
+  document.querySelectorAll('.tog').forEach(b=>{
+    b.classList.toggle('on',b.textContent.toLowerCase().includes(s==='opt'?'optimistisch':'konservativ'));
+  });
+}
+</script>
+
+</body>
+</html>
