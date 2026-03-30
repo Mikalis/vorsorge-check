@@ -1322,42 +1322,8 @@ canvas { width: 100% !important; }
     <p class="hero-hint">Karten sind klickbar · Quests erledigen = XP · Alles Demo-Zahlen</p>
   </div>
 
-  <!-- ── Träume — GANZ OBEN ── -->
-  <div class="card" id="dreamCard" style="animation-delay:.05s">
-    <div class="slabel">
-      <div class="slabel-icon" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
-      </div>
-      <span class="slabel-text">Was willst du erreichen?</span>
-    </div>
-    <div class="dream-grid" id="dreamGrid">
-      <button type="button" class="dream" data-dream="haus">
-        <div class="dream-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-        </div>
-        <span class="t">Eigenheim</span>
-        <span class="s">Eigenkapital + 3a-Hack</span>
-      </button>
-      <button type="button" class="dream" data-dream="frei">
-        <div class="dream-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-        </div>
-        <span class="t">Früher locker</span>
-        <span class="s">Weniger arbeiten, mehr Optionen</span>
-      </button>
-      <button type="button" class="dream" data-dream="safe">
-        <div class="dream-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
-        </div>
-        <span class="t">Safety First</span>
-        <span class="s">Puffer + Altersvorsorge</span>
-      </button>
-    </div>
-    <div class="dream-panel" id="dreamPanel"></div>
-  </div>
-
-  <!-- ── Zeitleiste — direkt nach Traum ── -->
-  <div class="card" style="animation-delay:.08s">
+  <!-- ── Zeitleiste — ganz oben ── -->
+  <div class="card" style="animation-delay:.05s">
     <div class="slabel">
       <div class="slabel-icon" aria-hidden="true">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
@@ -1398,6 +1364,40 @@ canvas { width: 100% !important; }
         </div>
       </div>
     </div>
+  </div>
+
+  <!-- ── Träume ── -->
+  <div class="card" id="dreamCard" style="animation-delay:.08s">
+    <div class="slabel">
+      <div class="slabel-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+      </div>
+      <span class="slabel-text">Was willst du erreichen?</span>
+    </div>
+    <div class="dream-grid" id="dreamGrid">
+      <button type="button" class="dream" data-dream="haus">
+        <div class="dream-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        <span class="t">Eigenheim</span>
+        <span class="s">Eigenkapital + 3a-Hack</span>
+      </button>
+      <button type="button" class="dream" data-dream="frei">
+        <div class="dream-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <span class="t">Früher locker</span>
+        <span class="s">Weniger arbeiten, mehr Optionen</span>
+      </button>
+      <button type="button" class="dream" data-dream="safe">
+        <div class="dream-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+        </div>
+        <span class="t">Safety First</span>
+        <span class="s">Puffer + Altersvorsorge</span>
+      </button>
+    </div>
+    <div class="dream-panel" id="dreamPanel"></div>
   </div>
 
   <!-- Level Bar -->
