@@ -325,7 +325,8 @@ button:focus-visible, a:focus-visible { border-radius: var(--radius-sm); }
 }
 @media (prefers-reduced-motion: reduce) {
   .hero-deco { animation: none; }
-  .piggy-float-wrap { animation: none; }
+  .piggy-scene { animation: none !important; }
+  .piggy-coin { animation: none !important; }
   .coin-pop { animation-duration: 0.01ms !important; }
 }
 
@@ -356,9 +357,10 @@ button:focus-visible, a:focus-visible { border-radius: var(--radius-sm); }
   touch-action: manipulation;
 }
 .piggy-btn:focus-visible { outline: 2px solid var(--primary); outline-offset: 4px; border-radius: var(--radius); }
-/* Klicks landen zuverlässig auf dem Button, nicht auf SVG/Span */
+/* Klicks landen zuverlässig auf dem Button */
 .piggy-stack,
-.piggy-float-wrap,
+.piggy-scene,
+.piggy-coin,
 .piggy-svg {
   pointer-events: none;
 }
@@ -368,36 +370,64 @@ button:focus-visible, a:focus-visible { border-radius: var(--radius-sm); }
   align-items: center;
   gap: 8px;
 }
-/* Idle float — wie am Anfang: leichtes Schweben + Wippen */
-.piggy-float-wrap {
+/* Original GitHub-Version: blaues Schwein + fallende Franken-Münzen */
+@keyframes piggyBounce {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(-6px) rotate(-2deg); }
+  75% { transform: translateY(-3px) rotate(1.5deg); }
+}
+@keyframes piggyCoinDrop {
+  0% { opacity: 1; top: -16px; transform: translateX(-50%) rotate(0deg) scale(1); }
+  80% { opacity: 1; }
+  100% { opacity: 0; top: 44px; transform: translateX(-50%) rotate(360deg) scale(0.6); }
+}
+.piggy-scene {
+  position: relative;
   display: inline-block;
   line-height: 0;
   transform-origin: center 85%;
-  animation: piggy-idle 2.8s ease-in-out infinite;
+  animation: piggyBounce 3s ease-in-out infinite;
 }
-@keyframes piggy-idle {
-  0%, 100% { transform: translateY(0) rotate(-2deg); }
-  50%      { transform: translateY(-9px) rotate(2deg); }
+.piggy-coin {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: var(--zc-lemon-100);
+  border-radius: 50%;
+  border: 2.5px solid var(--zc-lemon-aa);
+  font-size: 10px;
+  font-weight: 900;
+  color: #8a6a00;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  animation: piggyCoinDrop 2.5s ease-in infinite;
+  top: -16px;
+  left: 50%;
+  z-index: 1;
 }
+.piggy-coin:nth-child(2) { animation-delay: 0.8s; left: 38%; }
+.piggy-coin:nth-child(3) { animation-delay: 1.6s; left: 62%; }
 .piggy-svg {
-  width: 96px;
-  height: 96px;
-  filter: drop-shadow(0 4px 12px rgba(0,0,0,.12));
+  width: 108px;
+  height: 108px;
+  filter: drop-shadow(0 6px 16px rgba(0, 71, 187, 0.2));
   transition: transform .15s ease;
+  position: relative;
+  z-index: 0;
 }
-.piggy-btn:hover .piggy-float-wrap,
-.piggy-btn:active .piggy-float-wrap,
-.piggy-btn.jiggle .piggy-float-wrap { animation-play-state: paused; }
+.piggy-btn:hover .piggy-scene,
+.piggy-btn:active .piggy-scene { animation-play-state: paused; }
 .piggy-btn:hover .piggy-svg { transform: scale(1.07); }
 .piggy-btn:active .piggy-svg { transform: scale(.93); }
 @keyframes piggy-wiggle {
-  0%,100% { transform: rotate(0deg); }
-  20%      { transform: rotate(-8deg) scale(1.05); }
-  40%      { transform: rotate(8deg) scale(1.05); }
-  60%      { transform: rotate(-5deg); }
-  80%      { transform: rotate(4deg); }
+  0%,100% { transform: translateY(0) rotate(0deg); }
+  20%      { transform: translateY(0) rotate(-8deg) scale(1.05); }
+  40%      { transform: translateY(0) rotate(8deg) scale(1.05); }
+  60%      { transform: translateY(0) rotate(-5deg); }
+  80%      { transform: translateY(0) rotate(4deg); }
 }
-.piggy-btn.jiggle .piggy-svg { animation: piggy-wiggle .5s ease; }
+.piggy-btn.jiggle .piggy-scene { animation: piggy-wiggle .5s ease; }
 /* Münze fliegt beim Tippen nach oben in den Schlitz (Original) */
 @keyframes coin-fly-up {
   0%   { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
@@ -1601,30 +1631,35 @@ canvas { width: 100% !important; }
     <div class="piggy-wrap">
         <button type="button" class="piggy-btn" id="piggyBtn" aria-label="Sparschwein antippen — Spar-Tipp und einen XP-Punkt">
           <span class="piggy-stack">
-          <span class="piggy-float-wrap" aria-hidden="true">
-          <svg class="piggy-svg" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <ellipse cx="60" cy="68" rx="38" ry="32" fill="#F9A8C9"/>
-            <circle cx="60" cy="42" r="24" fill="#F9A8C9"/>
-            <ellipse cx="40" cy="24" rx="9" ry="11" fill="#F472B6" transform="rotate(-15 40 24)"/>
-            <ellipse cx="40" cy="24" rx="5.5" ry="7" fill="#FBCFE8" transform="rotate(-15 40 24)"/>
-            <ellipse cx="80" cy="24" rx="9" ry="11" fill="#F472B6" transform="rotate(15 80 24)"/>
-            <ellipse cx="80" cy="24" rx="5.5" ry="7" fill="#FBCFE8" transform="rotate(15 80 24)"/>
-            <ellipse cx="60" cy="52" rx="12" ry="8" fill="#F472B6"/>
-            <circle cx="55.5" cy="52.5" r="2.5" fill="#DB2777"/>
-            <circle cx="64.5" cy="52.5" r="2.5" fill="#DB2777"/>
-            <circle cx="50" cy="37" r="4" fill="white"/>
-            <circle cx="70" cy="37" r="4" fill="white"/>
-            <circle cx="51" cy="37" r="2.2" fill="#1a1a1a"/>
-            <circle cx="71" cy="37" r="2.2" fill="#1a1a1a"/>
-            <circle cx="52" cy="36" r=".9" fill="white"/>
-            <circle cx="72" cy="36" r=".9" fill="white"/>
-            <rect x="32" y="92" width="14" height="18" rx="7" fill="#F472B6"/>
-            <rect x="50" y="94" width="14" height="16" rx="7" fill="#F472B6"/>
-            <rect x="56" y="94" width="14" height="16" rx="7" fill="#F472B6"/>
-            <rect x="74" y="92" width="14" height="18" rx="7" fill="#F472B6"/>
-            <rect x="52" y="38" width="16" height="4" rx="2" fill="#DB2777" opacity=".6"/>
-            <path d="M98 70 Q108 60 104 52 Q100 44 108 40" stroke="#F472B6" stroke-width="3.5" stroke-linecap="round" fill="none"/>
-          </svg>
+          <span class="piggy-scene" aria-hidden="true">
+            <span class="piggy-coin">F</span>
+            <span class="piggy-coin">F</span>
+            <span class="piggy-coin">F</span>
+            <svg class="piggy-svg" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <ellipse cx="58" cy="68" rx="38" ry="32" fill="#ABBCF2"/>
+              <ellipse cx="58" cy="68" rx="38" ry="32" fill="url(#piggyGrad)" opacity="0.5"/>
+              <ellipse cx="52" cy="75" rx="18" ry="12" fill="#c5d4f7" opacity="0.5"/>
+              <ellipse cx="90" cy="72" rx="12" ry="9" fill="#8aa8e8"/>
+              <circle cx="87" cy="70" r="2.5" fill="#6b8fd4"/>
+              <circle cx="93" cy="70" r="2.5" fill="#6b8fd4"/>
+              <circle cx="76" cy="56" r="5" fill="#2C2400"/>
+              <circle cx="77.5" cy="54.5" r="2" fill="white"/>
+              <ellipse cx="42" cy="42" rx="10" ry="14" fill="#8aa8e8" transform="rotate(-15 42 42)"/>
+              <ellipse cx="42" cy="42" rx="6" ry="9" fill="#b8cbf4" transform="rotate(-15 42 42)"/>
+              <ellipse cx="68" cy="38" rx="10" ry="14" fill="#8aa8e8" transform="rotate(15 68 38)"/>
+              <ellipse cx="68" cy="38" rx="6" ry="9" fill="#b8cbf4" transform="rotate(15 68 38)"/>
+              <rect x="48" y="36" width="16" height="4" rx="2" fill="#6b8fd4"/>
+              <rect x="32" y="94" width="10" height="14" rx="5" fill="#8aa8e8"/>
+              <rect x="72" y="94" width="10" height="14" rx="5" fill="#8aa8e8"/>
+              <path d="M20 62 Q10 55 14 48 Q18 42 22 50" stroke="#8aa8e8" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+              <circle cx="82" cy="76" r="6" fill="#95b0e8" opacity="0.35"/>
+              <defs>
+                <linearGradient id="piggyGrad" x1="20" y1="40" x2="96" y2="100">
+                  <stop offset="0%" stop-color="#c5d4f7"/>
+                  <stop offset="100%" stop-color="#7b9ee0"/>
+                </linearGradient>
+              </defs>
+            </svg>
           </span>
           <span class="piggy-hint">Hier tippen · Tipp + XP</span>
           </span>
@@ -2178,7 +2213,7 @@ canvas { width: 100% !important; }
 
   /* ── Piggy: ein klarer Tap — rotierende Tipps (keine Fake-Aktionen) ── */
   const piggyBtn = document.getElementById('piggyBtn');
-  const piggySvg = piggyBtn.querySelector('.piggy-svg');
+  const piggyScene = piggyBtn.querySelector('.piggy-scene');
   const piggyTips = [
     'AHV läuft automatisch über den Lohn — ab 65 zahlt der Staat mit.',
     'PK: Arbeitgeber zahlt mindestens gleich viel wie du.',
@@ -2193,8 +2228,8 @@ canvas { width: 100% !important; }
     piggyBtn.classList.remove('jiggle');
     void piggyBtn.offsetWidth;
     piggyBtn.classList.add('jiggle');
-    if (piggySvg) {
-      piggySvg.addEventListener('animationend', function piggyWiggleDone(e) {
+    if (piggyScene) {
+      piggyScene.addEventListener('animationend', function piggyWiggleDone(e) {
         if (e.animationName === 'piggy-wiggle') piggyBtn.classList.remove('jiggle');
       }, { once: true });
     }
