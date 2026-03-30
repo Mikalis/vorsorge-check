@@ -239,7 +239,7 @@ button:focus-visible, a:focus-visible { border-radius: var(--radius-sm); }
 }
 
 /* ── Container ── */
-.container { max-width: 1200px; margin: 0 auto; padding: 32px 20px 72px; }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 20px 72px; }
 
 /* ── Animations ── */
 @keyframes fadeUp {
@@ -255,65 +255,21 @@ button:focus-visible, a:focus-visible { border-radius: var(--radius-sm); }
   50%      { transform: scale(1.04); }
 }
 
-/* ── Hero (gamified arena, full-bleed band) ── */
+/* ── Hero: ruhig, direkt unter der Nav, eine Fläche ── */
 .hero-shell {
   width: 100vw;
   margin-left: calc(50% - 50vw);
   margin-right: calc(50% - 50vw);
   position: relative;
-  margin-bottom: 28px;
+  margin-bottom: 24px;
   overflow: hidden;
   border-bottom: 1px solid var(--border);
-  background:
-    linear-gradient(155deg, var(--primary-lt) 0%, var(--card) 42%, var(--bg-subtle) 100%);
-  animation: fadeUp .6s ease-out;
+  background: var(--card);
+  animation: fadeUp .5s ease-out;
 }
-.hero-shell::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: radial-gradient(var(--primary) 1.2px, transparent 1.2px);
-  background-size: 22px 22px;
-  opacity: 0.11;
-  pointer-events: none;
-}
-.hero-shell::after {
-  content: "";
-  position: absolute;
-  width: 140%;
-  height: 60%;
-  top: -20%;
-  left: -20%;
-  background: radial-gradient(ellipse at 30% 20%, rgba(0, 180, 160, 0.14) 0%, transparent 55%),
-              radial-gradient(ellipse at 85% 60%, rgba(123, 97, 196, 0.12) 0%, transparent 50%);
-  pointer-events: none;
-}
-@keyframes hero-orbit {
-  0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.55; }
-  50% { transform: translate(6px, -4px) scale(1.05); opacity: 0.85; }
-}
-.hero-deco {
-  position: absolute;
-  pointer-events: none;
-  z-index: 0;
-  font-size: 18px;
-  line-height: 1;
-  opacity: 0.35;
-  animation: hero-orbit 5s ease-in-out infinite;
-}
-.hero-deco:nth-child(1) { top: 12%; left: 6%; animation-delay: 0s; }
-.hero-deco:nth-child(2) { top: 22%; right: 8%; animation-delay: -1.2s; }
-.hero-deco:nth-child(3) { bottom: 38%; left: 4%; animation-delay: -2.4s; font-size: 14px; }
-.hero-deco:nth-child(4) { bottom: 32%; right: 5%; animation-delay: -3.1s; }
-.hero-deco:nth-child(5) { top: 48%; left: 12%; animation-delay: -1.8s; font-size: 12px; opacity: 0.25; }
-.hero-deco:nth-child(6) { top: 40%; right: 14%; animation-delay: -2.7s; font-size: 12px; opacity: 0.25; }
 [data-theme="dark"] .hero-shell {
-  background: linear-gradient(155deg, #152238 0%, var(--card) 50%, var(--bg) 100%);
+  background: var(--card);
   border-bottom-color: var(--border);
-}
-[data-theme="dark"] .hero-shell::before {
-  background-image: radial-gradient(var(--primary) 1.2px, transparent 1.2px);
-  opacity: 0.08;
 }
 .hero {
   position: relative;
@@ -321,11 +277,11 @@ button:focus-visible, a:focus-visible { border-radius: var(--radius-sm); }
   text-align: center;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 36px 20px 28px;
+  padding: 14px 20px 22px;
 }
 @media (prefers-reduced-motion: reduce) {
-  .hero-deco { animation: none; }
-  .piggy-scene { animation: none !important; }
+  .piggy-scene,
+  .piggy-svg { animation: none !important; }
   .piggy-coin { animation: none !important; }
   .coin-pop { animation-duration: 0.01ms !important; }
 }
@@ -372,21 +328,28 @@ button:focus-visible, a:focus-visible { border-radius: var(--radius-sm); }
 }
 /* Original GitHub-Version: blaues Schwein + fallende Franken-Münzen */
 @keyframes piggyBounce {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  25% { transform: translateY(-6px) rotate(-2deg); }
-  75% { transform: translateY(-3px) rotate(1.5deg); }
+  0%, 100% { transform: translateY(0) rotate(-1.5deg) scale(1); }
+  20% { transform: translateY(-11px) rotate(2.5deg) scale(1.03); }
+  45% { transform: translateY(-5px) rotate(-1deg) scale(1.01); }
+  70% { transform: translateY(-13px) rotate(1.8deg) scale(1.02); }
+  90% { transform: translateY(-2px) rotate(0deg) scale(1); }
+}
+@keyframes piggySvgWiggle {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(1.2deg); }
+  75% { transform: rotate(-1.2deg); }
 }
 @keyframes piggyCoinDrop {
-  0% { opacity: 1; top: -16px; transform: translateX(-50%) rotate(0deg) scale(1); }
-  80% { opacity: 1; }
-  100% { opacity: 0; top: 44px; transform: translateX(-50%) rotate(360deg) scale(0.6); }
+  0% { opacity: 1; top: -18px; transform: translateX(-50%) rotate(0deg) scale(1); }
+  75% { opacity: 1; }
+  100% { opacity: 0; top: 48px; transform: translateX(-50%) rotate(360deg) scale(0.55); }
 }
 .piggy-scene {
   position: relative;
   display: inline-block;
   line-height: 0;
   transform-origin: center 85%;
-  animation: piggyBounce 3s ease-in-out infinite;
+  animation: piggyBounce 2.4s ease-in-out infinite;
 }
 .piggy-coin {
   position: absolute;
@@ -401,13 +364,13 @@ button:focus-visible, a:focus-visible { border-radius: var(--radius-sm); }
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  animation: piggyCoinDrop 2.5s ease-in infinite;
-  top: -16px;
+  animation: piggyCoinDrop 2.1s ease-in infinite;
+  top: -18px;
   left: 50%;
   z-index: 1;
 }
-.piggy-coin:nth-child(2) { animation-delay: 0.8s; left: 38%; }
-.piggy-coin:nth-child(3) { animation-delay: 1.6s; left: 62%; }
+.piggy-coin:nth-child(2) { animation-delay: 0.65s; left: 38%; }
+.piggy-coin:nth-child(3) { animation-delay: 1.3s; left: 62%; }
 .piggy-svg {
   width: 108px;
   height: 108px;
@@ -415,9 +378,12 @@ button:focus-visible, a:focus-visible { border-radius: var(--radius-sm); }
   transition: transform .15s ease;
   position: relative;
   z-index: 0;
+  animation: piggySvgWiggle 2.8s ease-in-out infinite;
 }
 .piggy-btn:hover .piggy-scene,
 .piggy-btn:active .piggy-scene { animation-play-state: paused; }
+.piggy-btn:hover .piggy-svg,
+.piggy-btn:active .piggy-svg { animation-play-state: paused; }
 .piggy-btn:hover .piggy-svg { transform: scale(1.07); }
 .piggy-btn:active .piggy-svg { transform: scale(.93); }
 @keyframes piggy-wiggle {
@@ -428,6 +394,7 @@ button:focus-visible, a:focus-visible { border-radius: var(--radius-sm); }
   80%      { transform: translateY(0) rotate(4deg); }
 }
 .piggy-btn.jiggle .piggy-scene { animation: piggy-wiggle .5s ease; }
+.piggy-btn.jiggle .piggy-svg { animation-play-state: paused; }
 /* Münze fliegt beim Tippen nach oben in den Schlitz (Original) */
 @keyframes coin-fly-up {
   0%   { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
@@ -494,9 +461,12 @@ button:focus-visible, a:focus-visible { border-radius: var(--radius-sm); }
   margin: 0 auto;
 }
 .hero-tray {
-  margin-top: 22px;
+  margin-top: 20px;
   width: 100%;
-  text-align: left;
+  max-width: 920px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
 }
 .hero-tray-label {
   font-size: 10px;
@@ -504,13 +474,14 @@ button:focus-visible, a:focus-visible { border-radius: var(--radius-sm); }
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--text-muted);
-  margin: 0 0 10px 2px;
+  margin: 0 auto 12px;
 }
 .hero-profile-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
   width: 100%;
+  justify-content: center;
 }
 .hero-profile-grid .pill {
   border-radius: var(--radius);
@@ -518,9 +489,9 @@ button:focus-visible, a:focus-visible { border-radius: var(--radius-sm); }
   padding: 12px 14px;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   gap: 6px;
-  text-align: left;
+  text-align: center;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
   border-width: 2px;
 }
@@ -542,6 +513,7 @@ button:focus-visible, a:focus-visible { border-radius: var(--radius-sm); }
 .hero-slot-row {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 10px;
   width: 100%;
 }
@@ -1392,26 +1364,27 @@ canvas { width: 100% !important; }
 }
 
 
-/* ── Tooltip ── */
+/* ── Tooltip: weicher Schatten, kein Rahmen ── */
 .tip {
   display: inline-flex;
   align-items: center;
-  gap: 3px;
+  gap: 4px;
   position: relative;
   cursor: help;
-  border-bottom: 1.5px dashed var(--primary);
+  border: none;
   color: inherit;
   font: inherit;
   background: none;
   padding: 0;
   white-space: nowrap;
+  vertical-align: baseline;
 }
 .tip-icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 14px;
-  height: 14px;
+  width: 15px;
+  height: 15px;
   border-radius: 50%;
   background: var(--primary);
   color: #fff;
@@ -1423,37 +1396,61 @@ canvas { width: 100% !important; }
 }
 .tip-bubble {
   position: absolute;
-  bottom: calc(100% + 8px);
+  bottom: calc(100% + 10px);
   left: 50%;
   transform: translateX(-50%);
-  background: var(--zg-1);
-  color: #fff;
+  background: var(--card);
+  color: var(--text);
   font-size: 12px;
   font-weight: 500;
   line-height: 1.5;
-  padding: 8px 12px;
-  border-radius: 8px;
-  width: 220px;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  width: min(240px, 86vw);
   white-space: normal;
-  box-shadow: var(--shadow-lg);
-  z-index: 100;
+  border: none;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.14), 0 4px 12px rgba(0, 0, 0, 0.06);
+  z-index: 200;
   pointer-events: none;
   opacity: 0;
-  transition: opacity .15s;
+  transition: opacity .18s ease;
   font-family: 'Inter', sans-serif;
+}
+[data-theme="dark"] .tip-bubble {
+  background: var(--bg-subtle);
+  color: var(--text);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45), 0 4px 12px rgba(0, 0, 0, 0.25);
 }
 .tip-bubble::after {
   content: '';
   position: absolute;
   top: 100%;
   left: 50%;
-  transform: translateX(-50%);
-  border: 5px solid transparent;
-  border-top-color: var(--zg-1);
+  margin-left: -6px;
+  width: 0;
+  height: 0;
+  border: 6px solid transparent;
+  border-top-color: var(--card);
+  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.06));
+}
+[data-theme="dark"] .tip-bubble::after {
+  border-top-color: var(--bg-subtle);
 }
 .tip:hover .tip-bubble,
-.tip:focus .tip-bubble { opacity: 1; }
-.tip:focus { outline: 2px solid var(--primary); outline-offset: 2px; border-radius: 2px; }
+.tip:focus-visible .tip-bubble { opacity: 1; }
+.tip:focus:not(:focus-visible) { outline: none; }
+.tip:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+.tip--sm { font-size: 11px; }
+.tip--upper {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+.tip--scenario { margin-left: 2px; }
 
 /* ── 3a Explainer ── */
 .explainer-grid {
@@ -1621,12 +1618,6 @@ canvas { width: 100% !important; }
 
   <!-- Hero (full-width gamified arena) -->
   <div class="hero-shell">
-    <span class="hero-deco" aria-hidden="true">✦</span>
-    <span class="hero-deco" aria-hidden="true">◇</span>
-    <span class="hero-deco" aria-hidden="true">✧</span>
-    <span class="hero-deco" aria-hidden="true">✦</span>
-    <span class="hero-deco" aria-hidden="true">+XP</span>
-    <span class="hero-deco" aria-hidden="true">🪙</span>
   <div class="hero">
     <div class="piggy-wrap">
         <button type="button" class="piggy-btn" id="piggyBtn" aria-label="Sparschwein antippen — Spar-Tipp und einen XP-Punkt">
@@ -1855,19 +1846,19 @@ canvas { width: 100% !important; }
         </div>
         <div class="legend">
           <button type="button" class="lrow" data-det="ahv">
-            <span class="lbl"><span class="dot" style="background:var(--zc-blue-zurich)"></span>Staat (AHV) <button type="button" class="tip" tabindex="0" style="font-size:11px" onclick="event.stopPropagation()"><span class="tip-icon" aria-hidden="true">i</span><span class="tip-bubble" role="tooltip">Staatliche Rente — fliesst automatisch ab 65, du zahlst monatlich über den Lohn ein.</span></button></span>
+            <span class="lbl"><span class="dot" style="background:var(--zc-blue-zurich)"></span>Staat (AHV) <button type="button" class="tip tip--sm" tabindex="0" onclick="event.stopPropagation()"><span class="tip-icon" aria-hidden="true">i</span><span class="tip-bubble" role="tooltip">Staatliche Rente — fliesst automatisch ab 65, du zahlst monatlich über den Lohn ein.</span></button></span>
             <span class="v">CHF 2'200</span>
           </button>
           <button type="button" class="lrow" data-det="pk">
-            <span class="lbl"><span class="dot" style="background:var(--zc-lilac-100)"></span>Arbeitgeber (PK) <button type="button" class="tip" tabindex="0" style="font-size:11px" onclick="event.stopPropagation()"><span class="tip-icon" aria-hidden="true">i</span><span class="tip-bubble" role="tooltip">Pensionskasse — dein Arbeitgeber zahlt mindestens gleich viel wie du. Pflicht ab CHF 22'050 Jahreslohn.</span></button></span>
+            <span class="lbl"><span class="dot" style="background:var(--zc-lilac-100)"></span>Arbeitgeber (PK) <button type="button" class="tip tip--sm" tabindex="0" onclick="event.stopPropagation()"><span class="tip-icon" aria-hidden="true">i</span><span class="tip-bubble" role="tooltip">Pensionskasse — dein Arbeitgeber zahlt mindestens gleich viel wie du. Pflicht ab CHF 22'050 Jahreslohn.</span></button></span>
             <span class="v">CHF 1'515</span>
           </button>
           <button type="button" class="lrow" data-det="luecke">
-            <span class="lbl"><span class="dot" style="background:var(--zc-peach-100)"></span>Fehlt noch <button type="button" class="tip" tabindex="0" style="font-size:11px" onclick="event.stopPropagation()"><span class="tip-icon" aria-hidden="true">i</span><span class="tip-bubble" role="tooltip">Monatliche Lücke bis zur Zielrente (80% Lohn). Schliessen z.B. mit 3a-Konto.</span></button></span>
+            <span class="lbl"><span class="dot" style="background:var(--zc-peach-100)"></span>Fehlt noch <button type="button" class="tip tip--sm" tabindex="0" onclick="event.stopPropagation()"><span class="tip-icon" aria-hidden="true">i</span><span class="tip-bubble" role="tooltip">Monatliche Lücke bis zur Zielrente (80% Lohn). Schliessen z.B. mit 3a-Konto.</span></button></span>
             <span class="v" style="color:var(--danger)" id="legendGap">CHF 951</span>
           </button>
           <div class="lrow lrow-total">
-            <span class="lbl">Zielrente <button type="button" class="tip" tabindex="0" style="font-size:11px" onclick="event.stopPropagation()"><span class="tip-icon" aria-hidden="true">i</span><span class="tip-bubble" role="tooltip">Demo-Wert: 80% des letzten Lohns — übliche Faustregel für den Lebensstandard im Alter.</span></button></span>
+            <span class="lbl">Zielrente <button type="button" class="tip tip--sm" tabindex="0" onclick="event.stopPropagation()"><span class="tip-icon" aria-hidden="true">i</span><span class="tip-bubble" role="tooltip">Demo-Wert: 80% des letzten Lohns — übliche Faustregel für den Lebensstandard im Alter.</span></button></span>
             <span class="v">CHF 4'667</span>
           </div>
           <!-- Spar-Hebel -->
@@ -2002,7 +1993,7 @@ canvas { width: 100% !important; }
       </div>
       <div class="tax-result" id="taxResult">
         <div class="tax-stat"><div class="ts-val" id="taxSave">–</div><div class="ts-lbl">Steuer-Ersparnis</div></div>
-        <div class="tax-stat"><div class="ts-val" id="taxRoi">–</div><div class="ts-lbl"><button type="button" class="tip" tabindex="0" style="font-size:11px;text-transform:uppercase;letter-spacing:.4px">Sofort-Rendite<span class="tip-icon" aria-hidden="true">i</span><span class="tip-bubble" role="tooltip">Wieviel % du sofort zurückbekommst — allein durch die Steuerersparnis, noch bevor dein Geld irgendeine Rendite macht.</span></button></div></div>
+        <div class="tax-stat"><div class="ts-val" id="taxRoi">–</div><div class="ts-lbl"><button type="button" class="tip tip--upper" tabindex="0">Sofort-Rendite<span class="tip-icon" aria-hidden="true">i</span><span class="tip-bubble" role="tooltip">Wieviel % du sofort zurückbekommst — allein durch die Steuerersparnis, noch bevor dein Geld irgendeine Rendite macht.</span></button></div></div>
         <div class="tax-stat"><div class="ts-val" id="taxNet">–</div><div class="ts-lbl">Netto-Kosten</div></div>
       </div>
     </div>
@@ -2061,15 +2052,15 @@ canvas { width: 100% !important; }
       <div class="toggle-row">
         <button type="button" class="tog on" onclick="setScenario('opt')">
           Gut (6%)
-          <button type="button" class="tip" tabindex="0" style="font-size:11px;border-bottom:none;margin-left:2px" onclick="event.stopPropagation()"><span class="tip-icon" aria-hidden="true">i</span><span class="tip-bubble" role="tooltip">Historische Rendite eines globalen Aktienportfolios — möglich, aber nicht garantiert.</span></button>
+          <button type="button" class="tip tip--sm tip--scenario" tabindex="0" onclick="event.stopPropagation()"><span class="tip-icon" aria-hidden="true">i</span><span class="tip-bubble" role="tooltip">Historische Rendite eines globalen Aktienportfolios — möglich, aber nicht garantiert.</span></button>
         </button>
         <button type="button" class="tog" onclick="setScenario('mid')">
           Mittel (5%)
-          <button type="button" class="tip" tabindex="0" style="font-size:11px;border-bottom:none;margin-left:2px" onclick="event.stopPropagation()"><span class="tip-icon" aria-hidden="true">i</span><span class="tip-bubble" role="tooltip">Gemischtes Portfolio aus Aktien und Obligationen — realistischer Mittelwert.</span></button>
+          <button type="button" class="tip tip--sm tip--scenario" tabindex="0" onclick="event.stopPropagation()"><span class="tip-icon" aria-hidden="true">i</span><span class="tip-bubble" role="tooltip">Gemischtes Portfolio aus Aktien und Obligationen — realistischer Mittelwert.</span></button>
         </button>
         <button type="button" class="tog" onclick="setScenario('con')">
           Konservativ (4%)
-          <button type="button" class="tip" tabindex="0" style="font-size:11px;border-bottom:none;margin-left:2px" onclick="event.stopPropagation()"><span class="tip-icon" aria-hidden="true">i</span><span class="tip-bubble" role="tooltip">Mehr Obligationen, weniger Schwankung — aber auch weniger Wachstum.</span></button>
+          <button type="button" class="tip tip--sm tip--scenario" tabindex="0" onclick="event.stopPropagation()"><span class="tip-icon" aria-hidden="true">i</span><span class="tip-bubble" role="tooltip">Mehr Obligationen, weniger Schwankung — aber auch weniger Wachstum.</span></button>
         </button>
       </div>
       <div class="chart-area"><canvas id="chart"></canvas></div>
