@@ -1318,8 +1318,8 @@ canvas { width: 100% !important; }
       </div>
     </div>
     <h1>Dein Vorsorge-Check</h1>
-    <p class="hero-sub">Hier siehst du, was du heute tun kannst — einfach, ohne Fachbegriffe.</p>
-    <p class="hero-hint">Karten sind klickbar · Quests erledigen = XP · Alles Demo-Zahlen</p>
+    <p class="hero-sub">Was du heute tun kannst — einfach erklärt.</p>
+    <p class="hero-hint">Karten klicken · Quests erledigen = XP · Demo-Zahlen</p>
   </div>
 
   <!-- ── Zeitleiste — ganz oben ── -->
@@ -1461,31 +1461,24 @@ canvas { width: 100% !important; }
         </div>
         <div class="legend">
           <button type="button" class="lrow" data-det="ahv">
-            <span class="lbl"><span class="dot" style="background:var(--zc-blue-zurich)"></span>Staat zahlt
-              <button type="button" class="tip" tabindex="0" style="font-size:11px" onclick="event.stopPropagation()">AHV<span class="tip-icon" aria-hidden="true">i</span><span class="tip-bubble" role="tooltip">Alters- und Hinterlassenenversicherung — die staatliche Rente, die du automatisch bekommst.</span></button>
-            </span>
+            <span class="lbl"><span class="dot" style="background:var(--zc-blue-zurich)"></span>Staat (AHV) <button type="button" class="tip" tabindex="0" style="font-size:11px" onclick="event.stopPropagation()"><span class="tip-icon" aria-hidden="true">i</span><span class="tip-bubble" role="tooltip">Staatliche Rente — fliesst automatisch ab 65, du zahlst monatlich über den Lohn ein.</span></button></span>
             <span class="v">CHF 2'200</span>
           </button>
-          <div class="lrow-detail" id="det-ahv">Die staatliche Rente — fliesst automatisch ab 65. Du zahlst jeden Monat über den Lohn ein, ohne etwas zu tun.</div>
           <button type="button" class="lrow" data-det="pk">
-            <span class="lbl"><span class="dot" style="background:var(--zc-lilac-100)"></span>Arbeitgeber zahlt mit
-              <button type="button" class="tip" tabindex="0" style="font-size:11px" onclick="event.stopPropagation()">PK<span class="tip-icon" aria-hidden="true">i</span><span class="tip-bubble" role="tooltip">Pensionskasse — dein Arbeitgeber zahlt mindestens gleich viel wie du. Pflicht ab CHF 22'050 Jahreslohn.</span></button>
-            </span>
+            <span class="lbl"><span class="dot" style="background:var(--zc-lilac-100)"></span>Arbeitgeber (PK) <button type="button" class="tip" tabindex="0" style="font-size:11px" onclick="event.stopPropagation()"><span class="tip-icon" aria-hidden="true">i</span><span class="tip-bubble" role="tooltip">Pensionskasse — dein Arbeitgeber zahlt mindestens gleich viel wie du. Pflicht ab CHF 22'050 Jahreslohn.</span></button></span>
             <span class="v">CHF 1'515</span>
           </button>
-          <div class="lrow-detail" id="det-pk">Dein Arbeitgeber zahlt mindestens gleich viel wie du — das ist dein grösster Hebel, sobald du arbeitest.</div>
           <button type="button" class="lrow" data-det="luecke">
-            <span class="lbl"><span class="dot" style="background:var(--zc-peach-100)"></span>Was noch fehlt</span>
+            <span class="lbl"><span class="dot" style="background:var(--zc-peach-100)"></span>Fehlt noch <button type="button" class="tip" tabindex="0" style="font-size:11px" onclick="event.stopPropagation()"><span class="tip-icon" aria-hidden="true">i</span><span class="tip-bubble" role="tooltip">Monatliche Lücke bis zur Zielrente (80% Lohn). Schliessen z.B. mit 3a-Konto.</span></button></span>
             <span class="v" style="color:var(--danger)" id="legendGap">CHF 951</span>
           </button>
-          <div class="lrow-detail" id="det-luecke">Das ist der Betrag, der monatlich fehlt, damit du im Alter gleich viel hast wie heute. Den kannst du selbst schliessen — zum Beispiel mit einem <button type="button" class="tip" tabindex="0" onclick="event.stopPropagation()">3a-Konto<span class="tip-icon" aria-hidden="true">i</span><span class="tip-bubble" role="tooltip">Freiwilliges Vorsorge-Sparkonto mit Steuervorteilen — du zahlst selbst ein, wann und wie viel du willst.</span></button>.</div>
           <div class="lrow lrow-total">
-            <span class="lbl">Ziel-Rente (Demo)</span>
+            <span class="lbl">Zielrente <button type="button" class="tip" tabindex="0" style="font-size:11px" onclick="event.stopPropagation()"><span class="tip-icon" aria-hidden="true">i</span><span class="tip-bubble" role="tooltip">Demo-Wert: 80% des letzten Lohns — übliche Faustregel für den Lebensstandard im Alter.</span></button></span>
             <span class="v">CHF 4'667</span>
           </div>
           <!-- Spar-Hebel -->
           <div style="margin-top:14px">
-            <div style="font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Was könntest du monatlich einzahlen?</div>
+            <div style="font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Monatlich einzahlen</div>
             <div class="rel-row" role="group" aria-label="Monatlicher Sparbetrag">
               <button type="button" class="rel-chip" data-save="50" data-label="Kaffee-Budget">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
@@ -1504,7 +1497,7 @@ canvas { width: 100% !important; }
                 CHF 400 / Mt
               </button>
             </div>
-            <div class="rel-result" id="relResult" style="padding:0;background:none;border:none;font-size:13px;color:var(--text-muted)">Wähle einen Betrag — wir zeigen dir, wie viel das bringt.</div>
+            <div class="rel-result" id="relResult" style="padding:0;background:none;border:none;font-size:13px;color:var(--text-muted)">Betrag wählen ↑</div>
             <div id="relBar" style="display:none;margin-top:10px">
               <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px">
                 <span style="font-size:12px;font-weight:700;color:var(--text)" id="relBarLabel">0% der Lücke</span>
@@ -1526,9 +1519,8 @@ canvas { width: 100% !important; }
         <div class="slabel-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
         </div>
-        <span class="slabel-text">Wann kann ich kaufen?</span>
+        <span class="slabel-text">Wann kann ich kaufen? <button type="button" class="tip" tabindex="0"><span class="tip-icon" aria-hidden="true">i</span><span class="tip-bubble" role="tooltip">Grobe Orientierung — kein Versprechen. 3a kann für Wohneigentum vorgezogen werden (WEF).</span></button></span>
       </div>
-      <p style="font-size:13px;color:var(--text-muted);line-height:1.5;margin-bottom:12px">Stell ein, was du dir vorstellst — wir rechnen grob, wie lange du sparst. Kein Versprechen, nur Orientierung.</p>
       <div class="preset-row" role="group" aria-label="Immobilien-Preset">
         <button type="button" class="preset on" data-price="620000">Studio</button>
         <button type="button" class="preset" data-price="950000">3.5-Zi</button>
@@ -1551,7 +1543,6 @@ canvas { width: 100% !important; }
         <input type="range" id="rYield" min="0" max="10" step="0.5" value="5">
       </div>
       <div class="house-result" id="houseResult" role="status"></div>
-      <p style="font-size:11px;color:var(--text-muted);margin-top:10px;line-height:1.45">3a kann für Wohneigentum vorgezogen werden. Hier nur vereinfachte Mathe.</p>
     </div>
 
     <!-- ── Notgroschen-Meter ── -->
@@ -1561,9 +1552,8 @@ canvas { width: 100% !important; }
           <!-- shield icon -->
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
         </div>
-        <span class="slabel-text">Dein Sicherheitspuffer</span>
+        <span class="slabel-text">Dein Sicherheitspuffer <button type="button" class="tip" tabindex="0"><span class="tip-icon" aria-hidden="true">i</span><span class="tip-bubble" role="tooltip">Ziel: 3–6 Monatsausgaben auf der Seite, bevor du langfristig anlegst.</span></button></span>
       </div>
-      <p style="font-size:13px;color:var(--text-muted);line-height:1.5;margin-bottom:14px">Bevor du langfristig anlegst: Hast du genug Geld auf der Seite, falls etwas schiefläuft? Ziel: 3–6 Monatsausgaben.</p>
       <div class="notg-input-row">
         <div class="notg-field">
           <label>Monatliche Ausgaben (CHF)</label>
@@ -1643,7 +1633,7 @@ canvas { width: 100% !important; }
       <div class="cal-days" id="calDays"></div>
       <div class="time-slots" id="timeSlots"></div>
       <button type="button" class="book-btn" id="bookBtn" onclick="bookNow()">Slot sichern — Buchungsfenster öffnen</button>
-      <p class="booking-hint">Kostenlos &amp; unverbindlich mit einem Zurich Vorsorge-Experten</p>
+      <p class="booking-hint">Kostenlos &amp; unverbindlich</p>
     </div>
 
     <!-- ── Zinseszins-Chart ── -->
@@ -1656,9 +1646,7 @@ canvas { width: 100% !important; }
       </div>
 
       <div class="zins-intro">
-        <p>Du zahlst <strong>CHF 200/Monat</strong> ein — und nach 40 Jahren hast du nicht einfach das Eingezahlte, sondern fast das <strong>4-fache</strong>. Warum? Weil dein Geld Rendite macht, und diese Rendite wieder Rendite macht. Das nennt sich
-          <button type="button" class="tip" tabindex="0">Zinseszins<span class="tip-icon" aria-hidden="true">i</span><span class="tip-bubble" role="tooltip">Deine Rendite wird reinvestiert — und macht selbst wieder Rendite. Je früher du anfängst, desto mehr profitierst du davon.</span></button>.
-        </p>
+        <p>CHF 200/Mt → nach 40 Jahren fast das <strong>4-fache</strong>. <button type="button" class="tip" tabindex="0">Zinseszins<span class="tip-icon" aria-hidden="true">i</span><span class="tip-bubble" role="tooltip">Deine Rendite wird reinvestiert und macht selbst wieder Rendite. Je früher du anfängst, desto mehr profitierst du.</span></button> macht's möglich.</p>
       </div>
 
       <div class="zins-stats" id="zinsStats">
@@ -1701,7 +1689,7 @@ canvas { width: 100% !important; }
           <!-- award icon -->
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
         </div>
-        <span class="slabel-text">Zahlen, die sich lohnen — tippen für mehr</span>
+        <span class="slabel-text">Zahlen, die sich lohnen</span>
       </div>
       <div class="achiev-row">
         <button type="button" class="achiev" data-ach="3a">
@@ -1730,7 +1718,7 @@ canvas { width: 100% !important; }
         </button>
       </div>
       <div class="power-box" id="achievFact">
-        Tipp auf eine Karte — hier erscheint ein kurzer Fact dazu.
+        Karte antippen für Fact.
       </div>
     </div>
 
@@ -1741,7 +1729,7 @@ canvas { width: 100% !important; }
           <!-- list-tick icon -->
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
         </div>
-        <span class="slabel-text">Deine nächsten Schritte — tippen wenn erledigt</span>
+        <span class="slabel-text">Deine nächsten Schritte</span>
       </div>
       <div class="quests">
         <button type="button" class="quest" data-xp="200" data-quest="q1">
@@ -1750,7 +1738,7 @@ canvas { width: 100% !important; }
           </div>
           <div class="quest-text">
             <h3>3-Säulen in 60 Sekunden</h3>
-            <p>AHV + PK + 3a — wenn du nur eine Säule maxen willst, ist es oft die 3a.</p>
+            <p>AHV + PK + 3a verstehen</p>
           </div>
           <div class="quest-xp">+200 XP</div>
         </button>
@@ -1759,8 +1747,8 @@ canvas { width: 100% !important; }
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
           </div>
           <div class="quest-text">
-            <h3>3a-Konto vergleichen</h3>
-            <p>Low Fees, passende Strategie — Demo: 15 Min, dann entspannt einzahlen.</p>
+            <h3>3a-Konto eröffnen</h3>
+            <p>Low Fees, passende Strategie wählen</p>
           </div>
           <div class="quest-xp">+350 XP</div>
         </button>
@@ -1770,7 +1758,7 @@ canvas { width: 100% !important; }
           </div>
           <div class="quest-text">
             <h3>Haus-Checkliste öffnen</h3>
-            <p>Nebenkosten, Tranchen, 3a-Vorbezug — nicht alles am gleichen Tag klären.</p>
+            <p>Eigenkapital, 3a-Vorbezug, Nebenkosten</p>
           </div>
           <div class="quest-xp">+450 XP</div>
         </button>
@@ -1780,7 +1768,7 @@ canvas { width: 100% !important; }
           </div>
           <div class="quest-text">
             <h3>Notgroschen-Ziel setzen</h3>
-            <p>3 Monatsausgaben liquid — erst dann aggressiv in 3a investieren.</p>
+            <p>3 Monatsausgaben liquid halten</p>
           </div>
           <div class="quest-xp">+300 XP</div>
         </button>
@@ -1790,7 +1778,7 @@ canvas { width: 100% !important; }
   </div><!-- /grid -->
 
   <div class="footer">
-    Alle Zahlen sind Demo-Werte — keine Finanzberatung. Haus-Rechner und Steuer-Rechner sind vereinfachte Näherungen. Stand 2026.
+    Demo-Werte — keine Finanzberatung. Stand 2026.
   </div>
 </div><!-- /container -->
 
@@ -1798,8 +1786,7 @@ canvas { width: 100% !important; }
 <div class="backdrop" id="backdrop"></div>
 <div class="modal" id="lvlModal" role="dialog" aria-modal="true" aria-labelledby="lvlModalTitle">
   <h2 id="lvlModalTitle">Level &amp; Profil</h2>
-  <p>Level sind hier Motivation — echte Planung macht ihr mit Beratung und echten Zahlen.</p>
-  <p>Profile oben ändern die Demo-Lücke. Später könntest du echte Daten anbinden.</p>
+  <p>Level = Motivation. Profile ändern die Demo-Lücke.</p>
   <button type="button" class="modal-close" id="lvlModalClose">Alles klar</button>
 </div>
 
@@ -1817,9 +1804,9 @@ canvas { width: 100% !important; }
 
   /* ── Dream copy ── */
   const dreamCopy = {
-    haus: '<strong>Eigenheim:</strong> Du brauchst mindestens 20% Eigenkapital — das ist dein Spar-Ziel. Dazu kannst du dein 3a-Konto später für den Kauf vorbeziehen. Nutze den Rechner weiter unten.',
-    frei: '<strong>Früher locker:</strong> Je mehr du jetzt anlegst, desto mehr Optionen hast du ab 50+. Viele wählen bewusst ein Teilpensum statt hart auf 65 zu arbeiten.',
-    safe: '<strong>Sicherheit zuerst:</strong> Erst 3–6 Monatsausgaben auf einem Sparkonto — dann erst langfristig anlegen. So bist du für Überraschungen gewappnet.'
+    haus: '🏠 <strong>Eigenheim:</strong> Min. 20% Eigenkapital nötig. 3a-Konto kann für den Kauf vorbezogen werden.',
+    frei: '⏱️ <strong>Früher locker:</strong> Mehr jetzt anlegen = mehr Optionen ab 50+.',
+    safe: '🛡️ <strong>Safety First:</strong> Erst 3–6 Monatsausgaben aufbauen, dann langfristig anlegen.'
   };
 
   // Init on load
