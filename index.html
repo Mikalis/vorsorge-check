@@ -1526,39 +1526,8 @@ canvas { width: 100% !important; }
     <p class="hero-hint">Karten sind klickbar · Quests erledigen = XP · Alles Demo-Zahlen</p>
   </div>
 
-  <!-- Goal Banner -->
-  <div class="goal-banner" id="goalBanner">
-    <div class="goal-banner-icon" id="goalBannerIcon" aria-hidden="true">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-    </div>
-    <div class="goal-banner-text">
-      <strong id="goalBannerTitle">Dein Ziel: Eigenheim</strong>
-      <span id="goalBannerSub">Wir zeigen dir nur, was dafür relevant ist.</span>
-    </div>
-    <button type="button" class="goal-banner-change" id="goalChangeBtn">Ziel ändern</button>
-  </div>
-
-  <!-- Level Bar -->
-  <div class="level-bar">
-    <button type="button" class="lvl-badge" id="lvlBtn">
-      LVL <span id="lvlNum">1</span> — <span id="lvlTitle">Starter</span>
-    </button>
-    <div class="xp-wrap">
-      <div class="xp-label">
-        <span>Vorsorge-XP</span>
-        <span><span id="xpCur">150</span> / 1000</span>
-      </div>
-      <div class="xp-track"><div class="xp-fill" id="xpFill"></div></div>
-    </div>
-    <div class="pills" id="profilePills" role="group" aria-label="Alter / Situation">
-      <button type="button" class="pill on" data-profile="student">22 J. · Studium</button>
-      <button type="button" class="pill" data-profile="youngpro">26 J. · Berufseinstieg</button>
-      <button type="button" class="pill" data-profile="nest">32 J. · Familie</button>
-    </div>
-  </div>
-
-  <!-- ── Träume (prominent, above the fold) ── -->
-  <div class="card" id="dreamCard" style="margin-bottom:0;animation-delay:.05s">
+  <!-- ── Träume — GANZ OBEN ── -->
+  <div class="card" id="dreamCard" style="animation-delay:.05s">
     <div class="slabel">
       <div class="slabel-icon" aria-hidden="true">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
@@ -1589,6 +1558,81 @@ canvas { width: 100% !important; }
       </button>
     </div>
     <div class="dream-panel" id="dreamPanel"></div>
+  </div>
+
+  <!-- ── Zeitleiste — direkt nach Traum ── -->
+  <div class="card" style="animation-delay:.08s">
+    <div class="slabel">
+      <div class="slabel-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
+      </div>
+      <span class="slabel-text">Was wann wichtig wird</span>
+    </div>
+    <div class="timeline" id="timelineTop">
+      <div class="tl-item on" data-tl="now">
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <div class="tl-age">Jetzt</div>
+          <div class="tl-title">Basis checken</div>
+          <div class="tl-text">Lücke kennen, 3a-Optionen sichten, kein Overthink.</div>
+        </div>
+      </div>
+      <div class="tl-item" data-tl="five">
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <div class="tl-age">+5 Jahre</div>
+          <div class="tl-title">Hebel ziehen</div>
+          <div class="tl-text">PK-Extras, 3a maxen, Lohn steigt → Sparquote halten.</div>
+        </div>
+      </div>
+      <div class="tl-item" data-tl="house">
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <div class="tl-age">Haus-Turbo</div>
+          <div class="tl-title">Eigenkapital</div>
+          <div class="tl-text">3a für Wohneigentum vorbeziehen, Nebenkosten einrechnen.</div>
+        </div>
+      </div>
+      <div class="tl-item" data-tl="50">
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <div class="tl-age">50+</div>
+          <div class="tl-title">Feintuning</div>
+          <div class="tl-text">Anpassen vor Rente, PK-Einkauf prüfen, Einmalzahlungen.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Goal Banner -->
+  <div class="goal-banner" id="goalBanner">
+    <div class="goal-banner-icon" id="goalBannerIcon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    </div>
+    <div class="goal-banner-text">
+      <strong id="goalBannerTitle">Dein Ziel: Eigenheim</strong>
+      <span id="goalBannerSub">Wir zeigen dir nur, was dafür relevant ist.</span>
+    </div>
+    <button type="button" class="goal-banner-change" id="goalChangeBtn">Ziel ändern</button>
+  </div>
+
+  <!-- Level Bar -->
+  <div class="level-bar">
+    <button type="button" class="lvl-badge" id="lvlBtn">
+      LVL <span id="lvlNum">1</span> — <span id="lvlTitle">Starter</span>
+    </button>
+    <div class="xp-wrap">
+      <div class="xp-label">
+        <span>Vorsorge-XP</span>
+        <span><span id="xpCur">150</span> / 1000</span>
+      </div>
+      <div class="xp-track"><div class="xp-fill" id="xpFill"></div></div>
+    </div>
+    <div class="pills" id="profilePills" role="group" aria-label="Alter / Situation">
+      <button type="button" class="pill on" data-profile="student">22 J. · Studium</button>
+      <button type="button" class="pill" data-profile="youngpro">26 J. · Berufseinstieg</button>
+      <button type="button" class="pill" data-profile="nest">32 J. · Familie</button>
+    </div>
   </div>
 
   <!-- GRID -->
@@ -1786,50 +1830,6 @@ canvas { width: 100% !important; }
       </div>
     </div>
 
-    <!-- ── Zeitleiste ── -->
-    <div class="card full" style="animation-delay:.32s">
-      <div class="slabel">
-        <div class="slabel-icon" aria-hidden="true">
-          <!-- map icon -->
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
-        </div>
-        <span class="slabel-text">Was wann wichtig wird</span>
-      </div>
-      <div class="timeline" id="timeline">
-        <div class="tl-item on" data-tl="now">
-          <div class="tl-dot"></div>
-          <div class="tl-card">
-            <div class="tl-age">Jetzt</div>
-            <div class="tl-title">Basis checken</div>
-            <div class="tl-text">Lücke kennen, 3a-Optionen sichten, kein Overthink.</div>
-          </div>
-        </div>
-        <div class="tl-item" data-tl="five">
-          <div class="tl-dot"></div>
-          <div class="tl-card">
-            <div class="tl-age">+5 Jahre</div>
-            <div class="tl-title">Hebel ziehen</div>
-            <div class="tl-text">PK-Extras, 3a maxen, Lohn steigt → Sparquote halten.</div>
-          </div>
-        </div>
-        <div class="tl-item" data-tl="house">
-          <div class="tl-dot"></div>
-          <div class="tl-card">
-            <div class="tl-age">Haus-Turbo</div>
-            <div class="tl-title">Eigenkapital</div>
-            <div class="tl-text">3a für WEF, Tranche planen, Nebenkosten einrechnen.</div>
-          </div>
-        </div>
-        <div class="tl-item" data-tl="50">
-          <div class="tl-dot"></div>
-          <div class="tl-card">
-            <div class="tl-age">50+</div>
-            <div class="tl-title">Feintuning</div>
-            <div class="tl-text">Anpassen vor Rente, PK-Eintritt, Einmalzahlungen.</div>
-          </div>
-        </div>
-      </div>
-    </div>
 
     <!-- ── 3a Erklärer ── -->
     <div class="card full" style="animation-delay:.34s">
@@ -2462,10 +2462,10 @@ canvas { width: 100% !important; }
   });
 
   /* ── Timeline ── */
-  document.getElementById('timeline').addEventListener('click', e => {
+  document.getElementById('timelineTop').addEventListener('click', e => {
     const item = e.target.closest('.tl-item');
     if (!item) return;
-    document.querySelectorAll('.tl-item').forEach(i => i.classList.remove('on'));
+    document.querySelectorAll('#timelineTop .tl-item').forEach(i => i.classList.remove('on'));
     item.classList.add('on');
     toast(item.querySelector('.tl-title').textContent + ' — im Blick behalten');
   });
