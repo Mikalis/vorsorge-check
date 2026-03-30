@@ -63,27 +63,41 @@
   --danger-lt:   var(--zc-peach-20);
   --accent:      var(--zc-lilac-100);
   --accent-lt:   var(--zc-lilac-20);
-  --radius:      12px;
-  --radius-sm:   8px;
-  --shadow:      0 1px 4px rgba(0,0,0,.07), 0 4px 16px rgba(0,0,0,.05);
-  --shadow-lg:   0 8px 32px rgba(0,71,187,.12);
-  --transition:  0.22s ease;
+  --radius:        12px;
+  --radius-sm:     8px;
+  --shadow:        0 1px 4px rgba(0,0,0,.07), 0 4px 16px rgba(0,0,0,.05);
+  --shadow-lg:     0 8px 32px rgba(0,71,187,.12);
+  --transition:    0.22s ease;
+  /* Text color when primary is used as label on --primary-lt bg.
+     Light mode: #0047BB on #E5EEF8 = 5.8:1 ✓ */
+  --primary-on-lt: var(--primary);
+  color-scheme: light;
 }
 
 [data-theme="dark"] {
-  --bg:         #0D1117;
-  --bg-subtle:  #161B22;
-  --card:       #1C2128;
-  --text:       #E6EDF3;
-  --text-muted: #8B949E;
-  --border:     #30363D;
-  --primary-lt: #1A2744;
-  --success-lt: #0D2818;
-  --warn-lt:    #2A2200;
-  --danger-lt:  #2A1010;
-  --accent-lt:  #1E1730;
-  --shadow:     0 1px 4px rgba(0,0,0,.4), 0 4px 16px rgba(0,0,0,.3);
-  --shadow-lg:  0 8px 32px rgba(0,0,0,.5);
+  color-scheme: dark;
+  --bg:          #0D1117;
+  --bg-subtle:   #161B22;
+  --card:        #1C2128;
+  --text:        #E6EDF3;
+  --text-muted:  #8B949E;
+  --border:      #30363D;
+  /* In dark mode: primary text/icon color must be light enough on dark bg.
+     #0047BB on #1C2128 = ~2.4:1 — FAIL. Use sky-blue tint instead. */
+  --primary:     #5B9BD5;   /* lightened for dark bg — ~5.2:1 on #1C2128 */
+  --primary-dk:  #7AB3E0;
+  --primary-lt:  #192336;   /* dark tinted bg for chips/badges */
+  --primary-on-lt: #7AB3E0; /* text color when sitting on --primary-lt */
+  --success:     #52B788;   /* moss-80 — readable on dark */
+  --success-lt:  #0D2818;
+  --warn:        #E6C200;   /* brighter lemon for dark bg */
+  --warn-lt:     #2A2200;
+  --danger:      #E74C3C;
+  --danger-lt:   #2A1010;
+  --accent:      #9B85D4;   /* lilac lightened */
+  --accent-lt:   #1E1730;
+  --shadow:      0 1px 4px rgba(0,0,0,.4), 0 4px 16px rgba(0,0,0,.3);
+  --shadow-lg:   0 8px 32px rgba(0,0,0,.5);
 }
 
 /* ── Reset ── */
@@ -95,10 +109,29 @@ body {
   min-height: 100vh;
   transition: background var(--transition), color var(--transition);
   -webkit-font-smoothing: antialiased;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
-h1,h2,h3,.display { font-family: 'Outfit', sans-serif; }
+h1,h2,h3,.display { font-family: 'Outfit', sans-serif; text-wrap: balance; }
 button { font-family: inherit; }
 a { color: inherit; }
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ── Global focus-visible ring ── */
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+button:focus-visible, a:focus-visible { border-radius: var(--radius-sm); }
 
 /* ── Topbar ── */
 .topbar {
@@ -183,7 +216,7 @@ a { color: inherit; }
   align-items: center;
   gap: 6px;
   background: var(--primary-lt);
-  color: var(--primary);
+  color: var(--primary-on-lt);
   border-radius: 100px;
   padding: 6px 14px;
   font-size: 12px;
@@ -200,6 +233,7 @@ a { color: inherit; }
   max-width: 600px;
   margin: 0 auto 12px;
 }
+/* em in hero sits on --bg (sand/dark), primary is fine here both modes */
 .hero h1 em { color: var(--primary); font-style: normal; }
 .hero-sub {
   font-size: 16px;
@@ -275,11 +309,11 @@ a { color: inherit; }
   padding: 8px 14px;
   font-size: 12px;
   font-weight: 600;
-  color: var(--primary);
+  color: var(--primary-on-lt);
   border: 1.5px solid transparent;
   cursor: pointer;
   min-height: 40px;
-  transition: all var(--transition);
+  transition: background var(--transition), border-color var(--transition), color var(--transition);
 }
 .pill:hover { border-color: var(--primary); }
 .pill.on { background: var(--primary); color: #fff; border-color: var(--primary); }
@@ -320,7 +354,7 @@ a { color: inherit; }
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  color: var(--primary);
+  color: var(--primary-on-lt);
 }
 .slabel-icon svg { width: 18px; height: 18px; }
 .slabel-text {
@@ -329,7 +363,7 @@ a { color: inherit; }
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 1px;
-  color: var(--primary);
+  color: var(--primary-on-lt);
 }
 
 /* ── Donut ── */
@@ -383,7 +417,9 @@ a { color: inherit; }
 }
 .lrow:last-of-type { border-bottom: none; }
 .lrow:hover { background: var(--primary-lt); }
+.lrow:hover .lbl { color: var(--primary-on-lt); }
 .lrow.open { background: var(--primary-lt); }
+.lrow.open .lbl { color: var(--primary-on-lt); }
 .lrow .lbl { display: flex; align-items: center; gap: 8px; color: var(--text-muted); }
 .lrow .dot { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
 .lrow .v { font-weight: 700; font-size: 14px; color: var(--text); }
@@ -393,9 +429,11 @@ a { color: inherit; }
 .lrow-detail {
   display: none;
   font-size: 12px;
-  color: var(--text-muted);
+  color: var(--text);  /* full contrast — sits on --primary-lt bg */
   line-height: 1.55;
   padding: 4px 10px 10px 28px;
+  background: var(--primary-lt);
+  border-radius: 0 0 var(--radius-sm) var(--radius-sm);
 }
 .lrow-detail.open { display: block; }
 
@@ -417,7 +455,7 @@ a { color: inherit; }
   gap: 6px;
 }
 .rel-chip:hover { border-color: var(--primary); }
-.rel-chip.on { border-color: var(--primary); background: var(--primary-lt); color: var(--primary); }
+.rel-chip.on { border-color: var(--primary); background: var(--primary-lt); color: var(--primary-on-lt); }
 .rel-chip svg { width: 14px; height: 14px; flex-shrink: 0; }
 .rel-result {
   margin-top: 12px;
@@ -429,6 +467,8 @@ a { color: inherit; }
   font-weight: 600;
   line-height: 1.55;
   min-height: 3.2em;
+  /* --text on --warn-lt: light #1A1A1A on #FFF8CC = 16:1 ✓
+     dark  #E6EDF3 on #2A2200 = 9.8:1 ✓ */
   color: var(--text);
 }
 
@@ -465,7 +505,7 @@ input[type="range"] {
   min-height: 40px;
   transition: all var(--transition);
 }
-.preset:hover, .preset.on { border-color: var(--primary); background: var(--primary-lt); color: var(--primary); }
+.preset:hover, .preset.on { border-color: var(--primary); background: var(--primary-lt); color: var(--primary-on-lt); }
 .house-result {
   margin-top: 16px;
   padding: 16px;
@@ -499,6 +539,7 @@ input[type="range"] {
 }
 .dream:hover { border-color: var(--primary); transform: translateY(-2px); }
 .dream.on { border-color: var(--primary); background: var(--primary-lt); box-shadow: var(--shadow-lg); }
+.dream.on .t, .dream.on .s { color: var(--primary-on-lt); }
 .dream-icon { color: var(--primary); }
 .dream-icon svg { width: 28px; height: 28px; }
 .dream .t { font-weight: 800; font-size: 14px; font-family: 'Outfit', sans-serif; }
@@ -512,6 +553,7 @@ input[type="range"] {
   line-height: 1.55;
   display: none;
   border-left: 3px solid var(--primary);
+  color: var(--text); /* always use full text color, not primary-on-lt */
 }
 .dream-panel.open { display: block; }
 
@@ -564,8 +606,12 @@ input[type="range"] {
   margin-left: 8px;
 }
 .tl-item.on .tl-card { border-color: var(--primary); background: var(--primary-lt); }
+.tl-item.on .tl-age,
+.tl-item.on .tl-title { color: var(--primary-on-lt); }
+.tl-item.on .tl-text { color: var(--text-muted); }
 .tl-card:hover { border-color: var(--primary); }
 .tl-age { font-size: 11px; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: .5px; }
+/* In dark mode tl-age sits on --bg (dark), primary (#5B9BD5) is fine */
 .tl-title { font-weight: 800; font-size: 14px; margin: 4px 0; font-family: 'Outfit', sans-serif; }
 .tl-text { font-size: 12px; color: var(--text-muted); line-height: 1.45; }
 
@@ -660,6 +706,7 @@ input[type="range"] {
   padding: 14px 12px;
   text-align: center;
 }
+/* ts-val sits on --bg (sand/dark-bg), primary is readable both modes */
 .tax-stat .ts-val { font-size: 22px; font-weight: 900; color: var(--primary); font-family: 'Outfit', sans-serif; }
 .tax-stat .ts-lbl { font-size: 11px; color: var(--text-muted); font-weight: 600; margin-top: 2px; text-transform: uppercase; letter-spacing: .4px; }
 
@@ -676,6 +723,8 @@ input[type="range"] {
 }
 .compare-card:hover { border-color: var(--primary); }
 .compare-card.on { border-color: var(--primary); background: var(--primary-lt); }
+.compare-card.on .cc-name,
+.compare-card.on .cc-fee { color: var(--primary-on-lt); }
 .cc-icon { color: var(--primary); margin-bottom: 8px; }
 .cc-icon svg { width: 24px; height: 24px; }
 .cc-name { font-weight: 800; font-size: 14px; font-family: 'Outfit', sans-serif; margin-bottom: 4px; }
@@ -688,7 +737,10 @@ input[type="range"] {
   font-size: 11px;
   font-weight: 700;
   background: var(--success-lt);
+  /* success on success-lt: light #2D6A4F on #D8F3DC = 5.1:1 ✓
+     dark  #52B788 on #0D2818 = 4.6:1 ✓ */
   color: var(--success);
+  border: 1px solid var(--success);
 }
 .compare-detail {
   margin-top: 14px;
@@ -699,6 +751,7 @@ input[type="range"] {
   line-height: 1.55;
   display: none;
   border-left: 3px solid var(--primary);
+  color: var(--text);
 }
 .compare-detail.open { display: block; }
 
@@ -791,9 +844,9 @@ canvas { width: 100% !important; }
   padding: 9px 18px;
   font-size: 12px;
   font-weight: 700;
-  color: var(--primary);
+  color: var(--primary-on-lt);
   cursor: pointer;
-  transition: all var(--transition);
+  transition: background var(--transition), border-color var(--transition), color var(--transition);
   min-height: 40px;
 }
 .tog.on { background: var(--primary); color: #fff; }
@@ -803,16 +856,16 @@ canvas { width: 100% !important; }
 .achiev-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; }
 .achiev {
   background: var(--warn-lt);
-  border: 1.5px solid var(--zc-lemon-aa);
+  border: 1.5px solid var(--warn);
   border-radius: var(--radius);
   padding: 18px 14px;
   text-align: center;
-  transition: all var(--transition);
+  transition: transform var(--transition), border-color var(--transition), background var(--transition);
   cursor: pointer;
-  color: inherit;
+  color: var(--text);
 }
 .achiev:hover { transform: scale(1.02); border-color: var(--warn); }
-.achiev.on { border-color: var(--primary); background: var(--primary-lt); }
+.achiev.on { border-color: var(--primary); background: var(--primary-lt); color: var(--text); }
 .achiev-icon { color: var(--warn); margin-bottom: 8px; }
 .achiev-icon svg { width: 28px; height: 28px; }
 .achiev .num { font-size: 22px; font-weight: 900; color: var(--text); margin-bottom: 2px; font-family: 'Outfit', sans-serif; }
@@ -847,6 +900,8 @@ canvas { width: 100% !important; }
   text-align: left;
 }
 .quest:hover { border-color: var(--primary); background: var(--primary-lt); transform: translateX(4px); }
+.quest:hover h3 { color: var(--primary-on-lt); }
+.quest:hover p  { color: var(--text-muted); }
 .quest.done { border-color: var(--success); background: var(--success-lt); opacity: .8; }
 .quest-icon {
   width: 44px;
@@ -1510,7 +1565,9 @@ canvas { width: 100% !important; }
   /* ── Theme ── */
   const themeBtn = document.getElementById('themeToggle');
   function applyTheme(m) {
-    document.documentElement.setAttribute('data-theme', m === 'dark' ? 'dark' : '');
+    const isDark = m === 'dark';
+    document.documentElement.setAttribute('data-theme', isDark ? 'dark' : '');
+    document.documentElement.style.colorScheme = isDark ? 'dark' : 'light';
     themeBtn.innerHTML = m === 'dark'
       ? '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg> Light'
       : '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg> Dark';
