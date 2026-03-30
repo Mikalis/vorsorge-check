@@ -1483,30 +1483,39 @@ canvas { width: 100% !important; }
             <span class="lbl">Ziel-Rente (Demo)</span>
             <span class="v">CHF 4'667</span>
           </div>
-          <!-- Relatable chips -->
-          <div class="rel-row" role="group" aria-label="Lücke in Alltagseinheiten">
-            <button type="button" class="rel-chip" data-price="6.5" data-label="Cappuccino">
-              <!-- coffee icon -->
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
-              Cappuccino ~6.50
-            </button>
-            <button type="button" class="rel-chip" data-price="7.8" data-label="Matcha Latte">
-              <!-- leaf icon -->
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
-              Matcha ~7.80
-            </button>
-            <button type="button" class="rel-chip" data-price="15.9" data-label="Streaming">
-              <!-- tv icon -->
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="15" rx="2" ry="2"/><polyline points="17 2 12 7 7 2"/></svg>
-              Streaming ~15.90
-            </button>
-            <button type="button" class="rel-chip" data-price="28" data-label="Food-Delivery">
-              <!-- hamburger icon -->
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><path d="M3 6h18c0 3-4 6-9 6S3 9 3 6z"/><path d="M3 18h18"/></svg>
-              Food ~28
-            </button>
+          <!-- Spar-Hebel -->
+          <div style="margin-top:14px">
+            <div style="font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Was könntest du monatlich einzahlen?</div>
+            <div class="rel-row" role="group" aria-label="Monatlicher Sparbetrag">
+              <button type="button" class="rel-chip" data-save="50" data-label="Kaffee-Budget">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+                CHF 50 / Mt
+              </button>
+              <button type="button" class="rel-chip" data-save="100" data-label="Takeaway-Budget">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><path d="M3 6h18c0 3-4 6-9 6S3 9 3 6z"/><path d="M3 18h18"/></svg>
+                CHF 100 / Mt
+              </button>
+              <button type="button" class="rel-chip" data-save="200" data-label="Spar-Ziel">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                CHF 200 / Mt
+              </button>
+              <button type="button" class="rel-chip" data-save="400" data-label="Power-Sparer">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+                CHF 400 / Mt
+              </button>
+            </div>
+            <div class="rel-result" id="relResult" style="padding:0;background:none;border:none;font-size:13px;color:var(--text-muted)">Wähle einen Betrag — wir zeigen dir, wie viel das bringt.</div>
+            <div id="relBar" style="display:none;margin-top:10px">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px">
+                <span style="font-size:12px;font-weight:700;color:var(--text)" id="relBarLabel">0% der Lücke</span>
+                <span style="font-size:11px;color:var(--text-muted)" id="relBarRest"></span>
+              </div>
+              <div style="height:10px;background:var(--bg-subtle);border-radius:100px;overflow:hidden">
+                <div id="relBarFill" style="height:100%;border-radius:100px;background:var(--primary);transition:width .4s ease;width:0%"></div>
+              </div>
+              <div id="relAction" style="margin-top:10px;padding:10px 14px;background:var(--success-lt);border-radius:var(--radius-sm);border-left:3px solid var(--success);font-size:13px;font-weight:600;color:var(--text);line-height:1.5"></div>
+            </div>
           </div>
-          <div class="rel-result" id="relResult">Tippe eine Einheit — wir zeigen dir, wie viel das im Alltag ist.</div>
         </div>
       </div>
     </div>
@@ -1985,6 +1994,9 @@ canvas { width: 100% !important; }
     document.getElementById('donutVal').textContent = fmt(p.gap);
     document.getElementById('legendGap').textContent = fmt(p.gap);
     document.getElementById('donutSub').textContent = 'fehlt noch';
+    // Refresh active chip if one is selected
+    const activeChip = document.querySelector('.rel-chip.on');
+    if (activeChip) activeChip.click();
     toast('Situation geändert: ' + p.tag);
   });
 
@@ -2018,18 +2030,31 @@ canvas { width: 100% !important; }
     });
   });
 
-  /* ── Relatable chips ── */
+  /* ── Spar-Hebel chips ── */
+  const relActions = {
+    50:  { emoji: '☕', text: 'Das entspricht etwa 8 Cappuccinos weniger pro Monat — und schliesst schon einen Teil deiner Lücke. Kleiner Start, echter Effekt.' },
+    100: { emoji: '🥡', text: 'Rund 3–4 Takeaways weniger pro Monat. Klingt wenig, macht über 40 Jahre mit Zinseszins einen riesigen Unterschied.' },
+    200: { emoji: '💪', text: 'Das ist der 3a-Einstieg, den die meisten empfehlen. Steuerersparnis on top — du bekommst einen Teil davon sofort zurück.' },
+    400: { emoji: '🚀', text: 'Power-Modus: CHF 400/Mt entspricht fast dem halben 3a-Maximum. Du schliesst die Lücke deutlich schneller als der Durchschnitt.' }
+  };
   document.querySelectorAll('.rel-chip').forEach(chip => {
     chip.addEventListener('click', () => {
       document.querySelectorAll('.rel-chip').forEach(c => c.classList.remove('on'));
       chip.classList.add('on');
-      const price = parseFloat(chip.dataset.price);
-      const label = chip.dataset.label;
-      const pm = currentGap / price;
+      const save = parseInt(chip.dataset.save, 10);
+      const pct = Math.min(100, Math.round((save / currentGap) * 100));
+      const rest = Math.max(0, currentGap - save);
+      const act = relActions[save];
+
       document.getElementById('relResult').textContent =
-        'Was noch fehlt (' + fmt(currentGap) + '/Mt) entspricht ungefähr ' +
-        pm.toFixed(0) + '× ' + label + ' pro Monat — oder ' +
-        (pm / 4.33).toFixed(1) + '× pro Woche.';
+        fmt(save) + '/Monat → schliesst ' + pct + '% deiner Lücke (' + fmt(currentGap) + '/Mt).';
+
+      document.getElementById('relBarLabel').textContent = pct + '% der Lücke geschlossen';
+      document.getElementById('relBarRest').textContent = rest > 0 ? fmt(rest) + ' bleiben offen' : 'Lücke vollständig geschlossen!';
+      document.getElementById('relBarFill').style.width = pct + '%';
+      document.getElementById('relBarFill').style.background = pct >= 100 ? 'var(--success)' : pct >= 50 ? 'var(--primary)' : 'var(--warn)';
+      document.getElementById('relAction').textContent = act.emoji + '  ' + act.text;
+      document.getElementById('relBar').style.display = 'block';
     });
   });
 
