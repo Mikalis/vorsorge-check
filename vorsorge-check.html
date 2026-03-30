@@ -1056,152 +1056,6 @@ canvas { width: 100% !important; }
   font-size: 14px;
 }
 
-/* ── Onboarding ── */
-.onboarding {
-  min-height: calc(100vh - 60px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 32px 20px;
-}
-.ob-card {
-  background: var(--card);
-  border-radius: 20px;
-  padding: 40px 36px;
-  max-width: 520px;
-  width: 100%;
-  box-shadow: var(--shadow-lg);
-  border: 1.5px solid var(--border);
-  animation: fadeUp .5s ease-out;
-}
-.ob-logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 28px;
-}
-.ob-logo-text { font-family: 'Outfit', sans-serif; font-size: 16px; font-weight: 800; color: var(--primary); }
-.ob-step { font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: .8px; margin-bottom: 8px; }
-.ob-h { font-size: 1.6rem; font-weight: 900; line-height: 1.2; margin-bottom: 8px; }
-.ob-sub { font-size: 15px; color: var(--text-muted); line-height: 1.55; margin-bottom: 28px; }
-.ob-label { font-size: 12px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 8px; display: block; }
-.ob-name-input {
-  width: 100%;
-  padding: 14px 16px;
-  border: 2px solid var(--border);
-  border-radius: var(--radius-sm);
-  background: var(--bg);
-  color: var(--text);
-  font-size: 18px;
-  font-weight: 600;
-  font-family: 'Outfit', sans-serif;
-  transition: border-color var(--transition);
-  margin-bottom: 28px;
-}
-.ob-name-input:focus { outline: none; border-color: var(--primary); }
-.ob-name-input::placeholder { color: var(--text-muted); font-weight: 400; font-size: 16px; }
-.ob-goals { display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
-.ob-goal {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 16px 18px;
-  border: 2px solid var(--border);
-  border-radius: var(--radius);
-  background: var(--bg);
-  cursor: pointer;
-  text-align: left;
-  transition: border-color var(--transition), background var(--transition);
-  width: 100%;
-  color: inherit;
-}
-.ob-goal:hover { border-color: var(--primary); background: var(--primary-lt); }
-.ob-goal.on { border-color: var(--primary); background: var(--primary-lt); }
-.ob-goal.on .ob-goal-title { color: var(--primary-on-lt); }
-.ob-goal-icon {
-  width: 44px;
-  height: 44px;
-  border-radius: 10px;
-  background: var(--card);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  color: var(--primary);
-  box-shadow: var(--shadow);
-}
-.ob-goal-icon svg { width: 22px; height: 22px; }
-.ob-goal-body { flex: 1; }
-.ob-goal-title { font-weight: 800; font-size: 15px; font-family: 'Outfit', sans-serif; margin-bottom: 2px; }
-.ob-goal-sub { font-size: 12px; color: var(--text-muted); line-height: 1.4; }
-.ob-goal-check {
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  border: 2px solid var(--border);
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all var(--transition);
-}
-.ob-goal.on .ob-goal-check { background: var(--primary); border-color: var(--primary); }
-.ob-goal.on .ob-goal-check::after { content: ''; display: block; width: 6px; height: 10px; border: 2px solid #fff; border-top: none; border-left: none; transform: rotate(45deg) translateY(-1px); }
-.ob-cta {
-  width: 100%;
-  padding: 16px;
-  background: var(--primary);
-  color: #fff;
-  border: none;
-  border-radius: var(--radius-sm);
-  font-size: 16px;
-  font-weight: 800;
-  cursor: pointer;
-  font-family: 'Outfit', sans-serif;
-  min-height: 52px;
-  transition: background var(--transition), transform .15s, opacity var(--transition);
-  opacity: .5;
-  pointer-events: none;
-}
-.ob-cta.ready { opacity: 1; pointer-events: auto; }
-.ob-cta.ready:hover { background: var(--primary-dk); transform: translateY(-1px); }
-.ob-hint { font-size: 11px; color: var(--text-muted); text-align: center; margin-top: 12px; }
-
-/* ── Goal context banner ── */
-.goal-banner {
-  background: var(--primary);
-  color: #fff;
-  border-radius: var(--radius);
-  padding: 14px 20px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 20px;
-  flex-wrap: wrap;
-  animation: fadeUp .4s ease-out;
-}
-.goal-banner-icon { flex-shrink: 0; }
-.goal-banner-icon svg { width: 22px; height: 22px; }
-.goal-banner-text { flex: 1; font-size: 14px; font-weight: 600; line-height: 1.4; }
-.goal-banner-text strong { font-size: 16px; display: block; font-family: 'Outfit', sans-serif; }
-.goal-banner-change {
-  background: rgba(255,255,255,.2);
-  border: 1px solid rgba(255,255,255,.35);
-  color: #fff;
-  border-radius: 100px;
-  padding: 6px 14px;
-  font-size: 12px;
-  font-weight: 700;
-  cursor: pointer;
-  white-space: nowrap;
-  min-height: 36px;
-}
-.goal-banner-change:hover { background: rgba(255,255,255,.32); }
-
-/* ── Hidden by goal ── */
-.goal-only { display: none; }
-.goal-only.show { display: block; }
-.full.goal-only.show { display: contents; }
 
 /* ── Tooltip ── */
 .tip {
@@ -1417,67 +1271,9 @@ canvas { width: 100% !important; }
   </button>
 </header>
 
-<!-- ═══════════════════════════════════════
-     ONBOARDING SCREEN
-════════════════════════════════════════ -->
-<div class="onboarding" id="onboarding">
-  <div class="ob-card">
-    <div class="ob-logo">
-      <svg width="28" height="28" viewBox="0 0 48 48" fill="none" aria-hidden="true">
-        <circle cx="24" cy="24" r="24" fill="white" stroke="#0047BB" stroke-width="2"/>
-        <path d="M11 33V31.2L29.6 17H12V12H37V13.8L18.4 28H37V33H11Z" fill="#0047BB"/>
-      </svg>
-      <span class="ob-logo-text">Vorsorge-Buddy</span>
-    </div>
-    <div class="ob-step">Schritt 1 von 1</div>
-    <h1 class="ob-h">Hallo! Wie heisst du?</h1>
-    <p class="ob-sub">Damit dein Check persönlich wird — kein Account, kein Passwort, alles bleibt lokal.</p>
-    <label class="ob-label" for="obName">Dein Vorname</label>
-    <input type="text" id="obName" class="ob-name-input" placeholder="z.&nbsp;B. Lena" autocomplete="given-name" maxlength="30">
-    <label class="ob-label">Was ist dein grösstes Ziel gerade?</label>
-    <div class="ob-goals" role="group" aria-label="Ziel wählen">
-      <button type="button" class="ob-goal" data-goal="haus">
-        <div class="ob-goal-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-        </div>
-        <div class="ob-goal-body">
-          <div class="ob-goal-title">Ich will ein Haus oder eine Wohnung kaufen</div>
-          <div class="ob-goal-sub">Eigenkapital aufbauen, 3a clever nutzen</div>
-        </div>
-        <div class="ob-goal-check" aria-hidden="true"></div>
-      </button>
-      <button type="button" class="ob-goal" data-goal="frei">
-        <div class="ob-goal-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-        </div>
-        <div class="ob-goal-body">
-          <div class="ob-goal-title">Ich will früher aufhören oder weniger arbeiten</div>
-          <div class="ob-goal-sub">Mehr Freiheit ab 50+, Optionen offen halten</div>
-        </div>
-        <div class="ob-goal-check" aria-hidden="true"></div>
-      </button>
-      <button type="button" class="ob-goal" data-goal="safe">
-        <div class="ob-goal-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
-        </div>
-        <div class="ob-goal-body">
-          <div class="ob-goal-title">Ich will einfach auf der sicheren Seite sein</div>
-          <div class="ob-goal-sub">Notfallpuffer, Altersvorsorge, kein Stress</div>
-        </div>
-        <div class="ob-goal-check" aria-hidden="true"></div>
-      </button>
-    </div>
-    <button type="button" class="ob-cta" id="obCta">Meinen Check starten →</button>
-    <p class="ob-hint">Keine Anmeldung · Daten bleiben in deinem Browser · Alles Demo</p>
-  </div>
-</div>
-
-<!-- ═══════════════════════════════════════
-     DASHBOARD (hidden until onboarding done)
-════════════════════════════════════════ -->
-<div id="dashboard" style="display:none">
 <div class="container">
 
+  <!-- Hero -->
   <!-- Hero -->
   <div class="hero">
     <div class="piggy-wrap">
@@ -1521,8 +1317,8 @@ canvas { width: 100% !important; }
         <p class="piggy-hint">Antippen ✦</p>
       </div>
     </div>
-    <h1 id="heroH1">Hallo <em id="heroName">…</em> — dein Vorsorge-Check</h1>
-    <p class="hero-sub" id="heroSub">Hier siehst du, was du heute tun kannst — einfach, ohne Fachbegriffe.</p>
+    <h1>Dein Vorsorge-Check</h1>
+    <p class="hero-sub">Hier siehst du, was du heute tun kannst — einfach, ohne Fachbegriffe.</p>
     <p class="hero-hint">Karten sind klickbar · Quests erledigen = XP · Alles Demo-Zahlen</p>
   </div>
 
@@ -1602,18 +1398,6 @@ canvas { width: 100% !important; }
         </div>
       </div>
     </div>
-  </div>
-
-  <!-- Goal Banner -->
-  <div class="goal-banner" id="goalBanner">
-    <div class="goal-banner-icon" id="goalBannerIcon" aria-hidden="true">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-    </div>
-    <div class="goal-banner-text">
-      <strong id="goalBannerTitle">Dein Ziel: Eigenheim</strong>
-      <span id="goalBannerSub">Wir zeigen dir nur, was dafür relevant ist.</span>
-    </div>
-    <button type="button" class="goal-banner-change" id="goalChangeBtn">Ziel ändern</button>
   </div>
 
   <!-- Level Bar -->
@@ -1727,8 +1511,8 @@ canvas { width: 100% !important; }
       </div>
     </div>
 
-    <!-- ── Haus-Rechner (nur für Ziel = haus) ── -->
-    <div class="card goal-only" data-goals="haus" style="animation-delay:.15s">
+    <!-- ── Haus-Rechner ── -->
+    <div class="card" style="animation-delay:.15s">
       <div class="slabel">
         <div class="slabel-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
@@ -2073,7 +1857,6 @@ canvas { width: 100% !important; }
     Alle Zahlen sind Demo-Werte — keine Finanzberatung. Haus-Rechner und Steuer-Rechner sind vereinfachte Näherungen. Stand 2026.
   </div>
 </div><!-- /container -->
-</div><!-- /dashboard -->
 
 <!-- Modal -->
 <div class="backdrop" id="backdrop"></div>
@@ -2096,136 +1879,20 @@ canvas { width: 100% !important; }
   const fmtN = n => Math.round(n).toLocaleString('de-CH');
   const fmt  = n => 'CHF ' + fmtN(n);
 
-  /* ── Dream copy (used in onboarding + dream grid) ── */
+  /* ── Dream copy ── */
   const dreamCopy = {
     haus: '<strong>Eigenheim:</strong> Du brauchst mindestens 20% Eigenkapital — das ist dein Spar-Ziel. Dazu kannst du dein 3a-Konto später für den Kauf vorbeziehen. Nutze den Rechner weiter unten.',
     frei: '<strong>Früher locker:</strong> Je mehr du jetzt anlegst, desto mehr Optionen hast du ab 50+. Viele wählen bewusst ein Teilpensum statt hart auf 65 zu arbeiten.',
     safe: '<strong>Sicherheit zuerst:</strong> Erst 3–6 Monatsausgaben auf einem Sparkonto — dann erst langfristig anlegen. So bist du für Überraschungen gewappnet.'
   };
 
-  /* ── Onboarding ── */
-  let userName = '';
-  let userGoal = '';
-
-  const goalMeta = {
-    haus: {
-      title: 'Dein Ziel: Eigenheim',
-      sub: 'Wir zeigen dir, wie du Eigenkapital aufbaust und 3a clever nutzt.',
-      iconSvg: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>',
-      heroSub: 'Wir zeigen dir, was du jetzt tun kannst, um dein Eigenheim-Ziel zu erreichen.'
-    },
-    frei: {
-      title: 'Dein Ziel: Früher locker',
-      sub: 'Mehr Freiheit ab 50+ — wir zeigen dir, welche Hebel jetzt zählen.',
-      iconSvg: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
-      heroSub: 'Wir zeigen dir, wie du dir mehr Optionen für später aufbaust.'
-    },
-    safe: {
-      title: 'Dein Ziel: Sicherheit',
-      sub: 'Erst Puffer, dann Wachstum — der ruhige Weg.',
-      iconSvg: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>',
-      heroSub: 'Wir zeigen dir, wie du auf der sicheren Seite bleibst — Schritt für Schritt.'
-    }
-  };
-
-  function applyGoalVisibility(goal) {
-    document.querySelectorAll('.goal-only').forEach(el => {
-      const goals = (el.dataset.goals || '').split(',').map(s => s.trim());
-      const show = goals.includes(goal);
-      if (el.classList.contains('full')) {
-        el.style.display = show ? '' : 'none';
-      } else {
-        el.classList.toggle('show', show);
-      }
-    });
-  }
-
-  function launchDashboard(name, goal) {
-    userName = name;
-    userGoal = goal;
-
-    // Personalize hero
-    document.getElementById('heroName').textContent = name;
-    const meta = goalMeta[goal];
-    document.getElementById('heroSub').textContent = meta.heroSub;
-
-    // Goal banner
-    document.getElementById('goalBannerTitle').textContent = meta.title;
-    document.getElementById('goalBannerSub').textContent = meta.sub;
-    document.getElementById('goalBannerIcon').innerHTML = meta.iconSvg;
-
-    // Show/hide goal-specific modules
-    applyGoalVisibility(goal);
-
-    // Pre-select matching dream card
-    document.querySelectorAll('.dream').forEach(d => {
-      d.classList.toggle('on', d.dataset.dream === goal);
-    });
-    const dreamPanel = document.getElementById('dreamPanel');
-    dreamPanel.innerHTML = dreamCopy[goal] || '';
-    dreamPanel.classList.add('open');
-
-    // Show dashboard, hide onboarding
-    document.getElementById('onboarding').style.display = 'none';
-    document.getElementById('dashboard').style.display = '';
-
-    // Init chart (needs DOM visible)
-    initChart();
-    renderCal();
-    updateHouse();
-    updateNotg();
-    updateTax();
-    syncXp();
-  }
-
-  // Onboarding interactions
-  const obNameInput = document.getElementById('obName');
-  const obCta = document.getElementById('obCta');
-
-  function checkObReady() {
-    const ready = obNameInput.value.trim().length > 0 && userGoal !== '';
-    obCta.classList.toggle('ready', ready);
-  }
-
-  obNameInput.addEventListener('input', checkObReady);
-
-  document.querySelectorAll('.ob-goal').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.ob-goal').forEach(b => b.classList.remove('on'));
-      btn.classList.add('on');
-      userGoal = btn.dataset.goal;
-      checkObReady();
-    });
-  });
-
-  obCta.addEventListener('click', () => {
-    const name = obNameInput.value.trim();
-    if (!name || !userGoal) return;
-    localStorage.setItem('vb-name', name);
-    localStorage.setItem('vb-goal', userGoal);
-    launchDashboard(name, userGoal);
-  });
-
-  // Goal change button
-  document.getElementById('goalChangeBtn').addEventListener('click', () => {
-    document.getElementById('dashboard').style.display = 'none';
-    document.getElementById('onboarding').style.display = '';
-    // Pre-fill name
-    obNameInput.value = userName;
-    // Re-select goal
-    document.querySelectorAll('.ob-goal').forEach(b => {
-      b.classList.toggle('on', b.dataset.goal === userGoal);
-    });
-    userGoal = userGoal; // keep
-    checkObReady();
-  });
-
-  // Resume from localStorage
-  const savedName = localStorage.getItem('vb-name');
-  const savedGoal = localStorage.getItem('vb-goal');
-  if (savedName && savedGoal && goalMeta[savedGoal]) {
-    launchDashboard(savedName, savedGoal);
-  }
+  // Init on load
+  initChart();
+  renderCal();
+  updateHouse();
+  updateNotg();
+  updateTax();
+  syncXp();
 
   /* ── Piggy ── */
   const piggyBtn = document.getElementById('piggyBtn');
